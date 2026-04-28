@@ -1,0 +1,14 @@
+# 設計検討ログは公開しない
+design/brainstorm/
+
+# COBOLサンプルは公開しない
+design/research/sample-sources/
+
+# 環境依存ファイル
+.env
+*.user
+.vs/
+bin/
+obj/
+node_modules/
+dist/
