@@ -1,0 +1,9 @@
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. ERRPROG.
+       DATA DIVISION.
+       WORKING-STORAGE SECTION.
+       01 WS-X PIC 9.
+       PROCEDURE DIVISION.
+       MAIN-PARA.
+           MOVE @@INVALID@@ TO WS-X.
+           STOP RUN.
