@@ -3,6 +3,7 @@
   <ItemGroup>
     <ProjectReference Include="..\CobolAnalyzer.Parser\CobolAnalyzer.Parser.csproj" />
     <ProjectReference Include="..\CobolAnalyzer.Core\CobolAnalyzer.Core.csproj" />
+    <ProjectReference Include="..\CobolAnalyzer.Engine\CobolAnalyzer.Engine.csproj" />
   </ItemGroup>
 
   <ItemGroup>
