@@ -1,7 +1,7 @@
 # cobol-analyzer ロードマップ
 
 作成日: 2026-05-05  
-更新日: 2026-05-05
+更新日: 2026-05-05（Phase 1・2 仕様確定を反映）
 
 ---
 
@@ -9,8 +9,8 @@
 
 | フェーズ | タイトル | 状態 | 仕様書 |
 |---------|---------|------|--------|
-| Phase 1 | 環境構築・ANTLRパーサー | 🔲 未着手 | `specs/phase1-antlr-parser.md` |
-| Phase 2 | AST設計・指標計算エンジン | 🔲 未着手 | `specs/phase2-engine.md` |
+| Phase 1 | 環境構築・ANTLRパーサー | ✅ 仕様確定 | `specs/phase1-antlr-parser.md` |
+| Phase 2 | AST設計・指標計算エンジン | ✅ 仕様確定 | `specs/phase2-engine.md` |
 | Phase 3 | ダイアグラム可視化 | 🔲 未着手 | 未作成 |
 | Phase 4 | 双方向ナビゲーション | 🔲 未着手 | 未作成 |
 | Phase 5 | コメント挿入・削除 | 🔲 未着手 | 未作成 |
@@ -133,11 +133,11 @@
 
 ## 設計フェーズ進捗
 
-| 仕様書 | バージョン | 更新日 |
-|--------|-----------|--------|
-| `specs/phase1-antlr-parser.md` | 1.1 | 2026-05-03 |
-| `specs/phase2-engine.md` | 1.0 | 2026-05-05 |
-| `specs/phase3-visualization.md` | — | 未作成 |
-| `specs/phase4-navigation.md` | — | 未作成 |
-| `specs/phase5-comment.md` | — | 未作成 |
-| `specs/phase6-export.md` | — | 未作成 |
+| 仕様書 | バージョン | 更新日 | 状態 |
+|--------|-----------|--------|------|
+| `specs/phase1-antlr-parser.md` | 1.1 | 2026-05-03 | ✅ 確定 |
+| `specs/phase2-engine.md` | 1.0 | 2026-05-05 | ✅ 確定 |
+| `specs/phase3-visualization.md` | — | 未作成 | 🔲 未着手 |
+| `specs/phase4-navigation.md` | — | 未作成 | 🔲 未着手 |
+| `specs/phase5-comment.md` | — | 未作成 | 🔲 未着手 |
+| `specs/phase6-export.md` | — | 未作成 | 🔲 未着手 |
