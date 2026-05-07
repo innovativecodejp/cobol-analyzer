@@ -1,8 +1,8 @@
 # Phase 1 仕様：環境構築・ANTLRパーサー
 
-バージョン: 1.2  
+バージョン: 1.3  
 作成日: 2026-05-03  
-更新日: 2026-05-08（整合性レビューによる修正: AstNode.Id 追加・DataItemNode.IsGroup 統一・StatementType "CALL" 追加）  
+更新日: 2026-05-08（整合性レビューによる修正: AstNode.Id 追加・DataItemNode.IsGroup 統一・StatementType "CALL" 追加・enum JSON 文字列化方針追加・旧フェーズ番号修正）  
 ステータス: 確定（implement/ への引き渡し可）
 
 ---
@@ -191,10 +191,10 @@ public record SourceLocation(int StartLine, int StartColumn, int StopLine, int S
 
 ### 6.5 Phase 2向け保存要件（情報損失禁止構文）
 
-以下のCOBOL固有構文は、Phase 2（CFG/DFG構築）・Phase 8（IR変換）で必須となる。
+以下のCOBOL固有構文は、Phase 2（CFG/DFG構築）・Phase 6（CALL依存解析）・将来のIR変換拡張で必須となる。
 AstBuilder でこれらの情報を落としてはならない。
 
-#### CFG構築（Phase 9）に必要な構文
+#### CFG構築（Phase 2）に必要な構文
 
 研究資料 §3.2「移行指向CFG設計」より：
 
@@ -209,7 +209,7 @@ AstBuilder でこれらの情報を落としてはならない。
 
 PERFORM THRU の `From` / `Thru` パラグラフ名は `StatementNode` の追加プロパティとして保持すること。
 
-#### DFG構築（Phase 10）に必要な構文
+#### DFG構築（Phase 2）に必要な構文
 
 研究資料 §3.3「移行焦点DFGモデル」より：
 
@@ -233,7 +233,7 @@ public class DataItemNode : AstNode
 }
 ```
 
-#### IR変換（Phase 8）に必要な作用分類
+#### 作用分類（将来のIR変換拡張）に必要な分類
 
 研究資料 §3.1「IR単位定義」より、StatementNode は以下のいずれかに分類できる情報を持つ：
 
@@ -284,6 +284,26 @@ POST /api/parse
 Content-Type: application/json
 ```
 
+### JSON シリアライズ設定
+
+API レスポンスは TypeScript 型定義と一致させるため、`System.Text.Json` の出力を camelCase にし、
+すべての enum を文字列でシリアライズする。
+
+```csharp
+using System.Text.Json;
+using System.Text.Json.Serialization;
+
+builder.Services.ConfigureHttpJsonOptions(options =>
+{
+    options.SerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+    options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    options.SerializerOptions.MaxDepth = 128;
+});
+```
+
+MVC Controller を使う場合は `AddJsonOptions` で同等の設定を行う。
+この方針は Phase 2 以降で追加される `CfgEdgeKind` / `DfgEdgeKind` / `MdiRisk` / `MigrationStrategy` にも適用する。
+
 ### リクエストBody
 
 ```json
@@ -297,7 +317,9 @@ Content-Type: application/json
 ```json
 {
   "ast": {
+    "id": "Program:1:0",
     "nodeType": "Program",
+    "category": "Structure",
     "location": { "startLine": 1, "startColumn": 0, "stopLine": 100, "stopColumn": 0 },
     "children": [...]
   },

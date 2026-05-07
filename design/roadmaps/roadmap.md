@@ -123,7 +123,8 @@
 - 移行優先度ランキング（MDI スコア順）
 - 注釈レポート出力（Markdown）
 - 移行設計書自動生成（Markdown テンプレート）
-- エクスポート API（`GET /api/export/report`）
+- プロジェクト分析 API（`POST /api/project/analyze`）
+- エクスポート API（`POST /api/export/annotation-report`, `POST /api/export/migration-design`）
 
 ### 依存
 - Phase 2 完了（MDI スコア）
@@ -135,9 +136,9 @@
 
 | 仕様書 | バージョン | 更新日 | 状態 |
 |--------|-----------|--------|------|
-| `specs/phase1-antlr-parser.md` | 1.2 | 2026-05-08 | ✅ 確定 |
-| `specs/phase2-engine.md` | 1.2 | 2026-05-08 | ✅ 確定 |
-| `specs/phase3-visualization.md` | 1.2 | 2026-05-08 | ✅ 確定 |
-| `specs/phase4-navigation.md` | 1.0 | 2026-05-05 | ✅ 確定 |
-| `specs/phase5-comment.md` | 1.1 | 2026-05-08 | ✅ 確定 |
-| `specs/phase6-export.md` | 1.0 | 2026-05-05 | ✅ 確定 |
+| `specs/phase1-antlr-parser.md` | 1.3 | 2026-05-08 | ✅ 確定 |
+| `specs/phase2-engine.md` | 1.3 | 2026-05-08 | ✅ 確定 |
+| `specs/phase3-visualization.md` | 1.3 | 2026-05-08 | ✅ 確定 |
+| `specs/phase4-navigation.md` | 1.1 | 2026-05-08 | ✅ 確定 |
+| `specs/phase5-comment.md` | 1.2 | 2026-05-08 | ✅ 確定 |
+| `specs/phase6-export.md` | 1.1 | 2026-05-08 | ✅ 確定 |

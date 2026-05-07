@@ -1,7 +1,8 @@
 # Phase 6 仕様：分析機能・エクスポート
 
-バージョン: 1.0  
+バージョン: 1.1  
 作成日: 2026-05-05  
+更新日: 2026-05-08（整合性レビューによる修正: CALL 解析の CallTarget 参照化・enum JSON 文字列化方針追記）  
 ステータス: 確定（implement/ への引き渡し可）
 
 前提:
@@ -120,9 +121,9 @@ public class DependencyEdge
 ### 3.3 CallGraphBuilder の構築ルール
 
 1. 各プログラムの PROCEDURE DIVISION を走査し、`StatementType = "CALL"` の StatementNode を検出する
-2. `StatementNode.Operands` に含まれる文字列リテラルを呼び出し先プログラム名とする
-3. リテラルでない場合（変数CALL）は `HasDynamicCall = true` を設定しエッジを生成しない
-4. 検出した (caller, callee) ペアで `DependencyEdge` を生成する
+2. `StatementNode.CallTarget` が非 null の場合、その値を呼び出し先プログラム名とする（Phase 2 §3.1。大文字正規化済み）
+3. `StatementNode.CallTarget` が null の場合（変数CALL）は `HasDynamicCall = true` を設定しエッジを生成しない
+4. 検出した (caller, callee) ペアで `DependencyEdge` を生成し、CALL 文の `StatementNode.Location` を `CallSites` に追加する
 5. 全ノードの `FanIn` / `FanOut` を集計する
 6. DFS/BFS でサイクル検出を行い、存在する場合は `HasCycle = true` を設定する
 7. ノード数が 50 を超える場合は処理を中断し、エラーを返す
@@ -647,15 +648,17 @@ export interface ProjectAnalyzeResult {
 
 ## 11. 実装上の注意事項
 
-1. **StatementType = "CALL" の追加**: Phase 1/2 の仕様では `CALL` 文を `StatementNode` として扱うが、`StatementType = "CALL"` が明示されていない。`CallGraphBuilder` が参照するため、`AstBuilder` が CALL 文を `"CALL"` として記録することを実装時に確認し、不足があれば `implement/docs/` にフィードバックを記録する。
+1. **CALL 情報の前提**: Phase 1/2 の仕様では `CALL` 文を `StatementType = "CALL"` の `StatementNode` として扱い、静的 CALL の呼び出し先は `StatementNode.CallTarget` に保持する。`CallGraphBuilder` は `Operands` ではなく `CallTarget` を参照する。
 
 2. **プログラム名の正規化**: COBOLのPROGRAM-IDは通常大文字。`CALL "prog-b"` と `CALL "PROG-B"` を同一プログラムとして扱うため、比較は大文字正規化した名前で行う。
 
 3. **Markdown のエスケープ**: プログラム名・コメントテキストに Markdown の特殊文字（`|`, `*`, `_` 等）が含まれる可能性がある。テーブルセルに挿入する前にエスケープ処理を行う。
 
-4. **大量データのダウンロード**: ファイルが大きい場合、`Blob` の生成はメモリを消費する。Phase 6 の対象プログラム数を最大 50 に制限することで問題を回避する。
+4. **enum の JSON 表現**: `MigrationStrategy` は Phase 1 §8 の `JsonStringEnumConverter` 設定により `BigBang` / `Incremental` / `StranglerFig` / `NeedsStudy` の文字列で返す。TypeScript 型定義は数値 enum を受け取らない。
 
-5. **循環依存の表示**: `HasCycle = true` の場合、依存グラフ上でサイクルを構成するエッジを赤破線で強調表示し、ユーザーに警告を示す。
+5. **大量データのダウンロード**: ファイルが大きい場合、`Blob` の生成はメモリを消費する。Phase 6 の対象プログラム数を最大 50 に制限することで問題を回避する。
+
+6. **循環依存の表示**: `HasCycle = true` の場合、依存グラフ上でサイクルを構成するエッジを赤破線で強調表示し、ユーザーに警告を示す。
 
 ---
 

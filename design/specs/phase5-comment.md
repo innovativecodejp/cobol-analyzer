@@ -1,8 +1,8 @@
 # Phase 5 仕様：コメント挿入・削除
 
-バージョン: 1.1  
+バージョン: 1.2  
 作成日: 2026-05-05  
-更新日: 2026-05-08（整合性レビューによる修正: 完了基準#9 再分析記述修正・SelectionStore参照修正）  
+更新日: 2026-05-08（整合性レビューによる修正: 完了基準#9 再分析記述修正・SelectionStore参照修正・targetLine 範囲外扱い統一）  
 ステータス: 確定（implement/ への引き渡し可）
 
 前提: `design/specs/phase3-visualization.md` の実装が完了し、Monaco Editor が稼働していること。  
@@ -252,7 +252,8 @@ Content-Type: application/json
 |------|-----------|
 | 正常 | 200 OK |
 | source / insertions が空 | 400 Bad Request |
-| targetLine が範囲外（0以下または行数超過） | 400 Bad Request |
+| targetLine が範囲外（0以下） | 400 Bad Request |
+| targetLine が行数超過 | 200 OK（末尾に追加） |
 | TAG / VALUE 形式不正 | 400 Bad Request |
 
 ### 7.2 コメント削除プレビュー
@@ -411,7 +412,7 @@ export async function removeComments(req: CommentRemoveRequest): Promise<Comment
 ```
 
 挿入・削除後は Monaco Editor のソース（`editor.setValue(result.source)`）を更新する。
-更新後は `POST /api/analyze` を再実行して AST / CFG / DFG / Metrics を最新化する。
+更新後は分析結果を要更新状態として表示し、`POST /api/analyze` の再実行はユーザーが Analyze ボタンを押したときだけ行う。
 
 ---
 

@@ -1,8 +1,8 @@
 # Phase 3 仕様：ダイアグラム可視化
 
-バージョン: 1.2  
+バージョン: 1.3  
 作成日: 2026-05-05  
-更新日: 2026-05-08（整合性レビューによる修正: AstNode.id追加・CfgBlock型修正・CfgEdge.isRecursive追加・MetricsResult.ccPerParagraph追加・CORS条件付き設定）  
+更新日: 2026-05-08（整合性レビューによる修正: AstNode.id追加・CfgBlock型修正・CfgEdge.isRecursive追加・MetricsResult.ccPerParagraph追加・CORS条件付き設定・D3 CFG データへの Statement 情報保持）  
 ステータス: 確定（implement/ への引き渡し可）
 
 前提: `design/specs/phase2-engine.md` の実装が完了し、`POST /api/analyze` が稼働していること。
@@ -136,6 +136,8 @@ interface D3Node {
   id: string;
   label: string;           // paragraphName ?? id
   statementCount: number;
+  statements: CfgStatement[];          // Phase 4 N3 で BasicBlock 内の遷移文クリックに使用
+  location: SourceLocation | null;     // ブロック内の最初の文の位置
   isEntry: boolean;
   isExit: boolean;
 }
@@ -143,6 +145,7 @@ interface D3Link {
   source: string;
   target: string;
   kind: CfgEdgeKind;
+  isRecursive: boolean;
 }
 interface D3CfgData { nodes: D3Node[]; links: D3Link[]; }
 ```
@@ -220,6 +223,7 @@ function toD3Hierarchy(astNode: AstNode): AstNodeWithMeta {
 | 通常 | `#2e86c1`（水色） |
 
 - ラベル: `label`（paragraphName または id）+ 文数（右下小文字）
+- `D3Node.statements` と `D3Node.location` は Phase 4 N3 の遷移先ジャンプで使用するため、`cfgAdapter` で破棄しない。Phase 3 では Statement 一覧の表示は必須としない。
 - エッジ色:
 
 | CfgEdgeKind | 色 | 線種 |
@@ -450,6 +454,8 @@ export interface AnalyzeResult {
 | `cfgAdapter_mapsEdgesToLinks` | `fromBlockId/toBlockId` が `source/target` にマップされる |
 | `cfgAdapter_entryNodeFlagged` | `entryBlockId` に対応するノードの `isEntry = true` |
 | `cfgAdapter_exitNodesFlagged` | `exitBlockIds` に対応するノードの `isExit = true` |
+| `cfgAdapter_preservesStatementsForNavigation` | `BasicBlock.statements` / `location` が `D3Node` に保持される |
+| `cfgAdapter_mapsRecursiveFlag` | `CfgEdge.isRecursive` が `D3Link.isRecursive` に保持される |
 | `dfgAdapter_mapsNodesToD3Nodes` | `DfgNode[]` が `D3DfgNode[]` に正しく変換される |
 | `dfgAdapter_redefinesEdgeSetsFlag` | Redefines エッジの起点ノードで `hasRedefines = true` |
 | `astAdapter_elementNodesInitiallyCollapsed` | Element カテゴリノードが `collapsed = true` で初期化される |

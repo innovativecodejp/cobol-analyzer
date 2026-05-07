@@ -1,7 +1,8 @@
 # Phase 4 仕様：双方向ナビゲーション
 
-バージョン: 1.0  
+バージョン: 1.1  
 作成日: 2026-05-05  
+更新日: 2026-05-08（整合性レビューによる修正: Phase 3 D3 CFG データの Statement 情報保持前提を反映）  
 ステータス: 確定（implement/ への引き渡し可）
 
 前提: `design/specs/phase3-visualization.md` の実装が完了していること。
@@ -32,14 +33,15 @@ Phase 3 のダイアグラム表示に、ソースコードとの双方向連動
 
 ## 2. Phase 2 / Phase 3 仕様の追補
 
-Phase 4 の実装に必要な変更を上流仕様に反映済み（v1.1）。
+Phase 4 の実装に必要な変更を上流仕様に反映済み。
 
 | 仕様書 | 変更内容 |
 |--------|---------|
-| `phase2-engine.md` v1.1 | `DataFlowGraph.ImpactClosure` を API レスポンスに含める |
-| `phase3-visualization.md` v1.1 | `DataFlowGraph` TypeScript 型に `impactClosure` フィールドを追加 |
+| `phase2-engine.md` v1.3 | `DataFlowGraph.ImpactClosure` を API レスポンスに含める |
+| `phase3-visualization.md` v1.3 | `DataFlowGraph` TypeScript 型に `impactClosure` フィールドを追加 |
+| `phase3-visualization.md` v1.3 | `D3Node` に `statements` / `location` を保持し、BasicBlock 内の遷移文クリックで使用可能にする |
 
-`BasicBlock.Location` は Phase 2 v1.0 時点で定義済み。
+`BasicBlock.Location` は Phase 2 で定義済み。
 値は「ブロック内の最初の `StatementNode.Location`」とする（CfgBuilder 実装時に補足）。
 
 ---
@@ -193,16 +195,17 @@ Monaco の `deltaDecorations` を内部で使用し、decoration ID を保持し
 
 ### 7.3 N3：GO TO / PERFORM 遷移先ジャンプ
 
-**トリガー**: CFG グラフ上の BasicBlock 内の Statement テキストをクリック
+**トリガー**: CFG グラフ上の BasicBlock 内に Phase 4 で描画する Statement テキストをクリック
 （StatementType が `"GOTO"` / `"PERFORM_THRU"` / `"PERFORM_LOOP"` のもの）
 
 **処理**:
 1. クリックされた StatementNode の StatementType を確認
-2. CFG の Edges から `fromBlockId = 現在ブロック.id` かつ `kind ∈ {GoTo, PerformCall, PerformThruCall}` のエッジを取得
-3. `toBlockId` で遷移先 BasicBlock を特定
-4. 遷移先ブロックを CFG グラフ上でハイライト（`.selected`）
-5. `d3.zoom().translateTo()` で遷移先ブロックを SVG 中央に移動
-6. 遷移先ブロックの `Location.startLine` で Monaco もジャンプ
+2. Phase 3 `cfgAdapter` が保持する `D3Node.statements` から対象 Statement の `location` を取得する
+3. CFG の Edges から `fromBlockId = 現在ブロック.id` かつ `kind ∈ {GoTo, PerformCall, PerformThruCall}` のエッジを取得
+4. `toBlockId` で遷移先 BasicBlock を特定
+5. 遷移先ブロックを CFG グラフ上でハイライト（`.selected`）
+6. `d3.zoom().translateTo()` で遷移先ブロックを SVG 中央に移動
+7. 遷移先ブロックの `Location.startLine` で Monaco もジャンプ
    - `MonacoHighlighter.highlight(startLine, stopLine, 'highlight-jump')`
    - `editor.revealLineInCenter(startLine)`
 
@@ -350,9 +353,10 @@ export class JumpController {
 
 | 資料 | 参照箇所 | 本仕様との対応 |
 |------|---------|--------------|
-| `design/specs/phase2-engine.md` v1.1 §5.4 | `DataFlowGraph.ImpactClosure` | §7.4 N4 影響閉包ハイライト |
+| `design/specs/phase2-engine.md` v1.3 §5.4 | `DataFlowGraph.ImpactClosure` | §7.4 N4 影響閉包ハイライト |
 | `design/specs/phase2-engine.md` §4.2 | `BasicBlock.Location` | §7.3 N3 遷移先ソース行ジャンプ |
 | `design/specs/phase2-engine.md` §4.3 | `CfgEdgeKind` 全種別 | §7.3 N3 エッジ種別フィルタリング |
-| `design/specs/phase3-visualization.md` v1.1 §9 | `AnalyzeResult` TypeScript 型 | §9 JumpController コンストラクタ引数 |
+| `design/specs/phase3-visualization.md` v1.3 §9 | `AnalyzeResult` TypeScript 型 | §9 JumpController コンストラクタ引数 |
+| `design/specs/phase3-visualization.md` v1.3 §5.1 | `D3Node.statements` / `D3Node.location` | §7.3 N3 Statement クリック |
 | `design/specs/phase3-visualization.md` §6.2 | CFG グラフ `.selected` / `.dimmed` | §8 D3 ハイライト CSS |
 | `design/brainstorm/phase4-planning.md` | 設計判断メモ | 本仕様全体 |

@@ -1,8 +1,8 @@
 # Phase 2 仕様：AST設計・指標計算エンジン
 
-バージョン: 1.2  
+バージョン: 1.3  
 作成日: 2026-05-05  
-更新日: 2026-05-08（整合性レビューによる修正: AnalyzeResult.Ast nullable化・CfgEdge.IsRecursive追加・MetricsResult.CcPerParagraph追加・StatementNode.CallTarget追加・APIレスポンス例修正）  
+更新日: 2026-05-08（整合性レビューによる修正: AnalyzeResult.Ast nullable化・CfgEdge.IsRecursive追加・MetricsResult.CcPerParagraph追加・StatementNode.CallTarget追加・APIレスポンス例修正・enum JSON 文字列化方針追記）  
 ステータス: 確定（implement/ への引き渡し可）
 
 前提: `design/specs/phase1-antlr-parser.md` の実装が完了していること。
@@ -588,6 +588,8 @@ Content-Type: application/json
 4. **ALTER 文**: ALTER は動的制御フロー変更であり、静的解析の限界を示す代表的高リスクパターン（研究資料 §5.2.1）。MDI への寄与は `AD_saturation = 1`（1件で飽和）とし、ALTER が 1 件でも存在するプログラムは AD 指標が最大になる設計とする。
 
 5. **MdiWeights の合計検証**: 重みの合計が 1.0 でない場合、起動時に警告ログを出力すること（エラーで止めない）。
+
+6. **enum の JSON 表現**: `CfgEdgeKind` / `DfgEdgeKind` / `MdiRisk` は Phase 1 §8 の `JsonStringEnumConverter` 設定により文字列で返す。TypeScript 型定義は数値 enum を受け取らない。
 
 ---
 
