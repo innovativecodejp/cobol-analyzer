@@ -13,8 +13,8 @@ public class DfgBuilderTests
         var result = facade.Parse(source);
         Assert.NotNull(result.Ast);
         var program = Assert.IsType<ProgramNode>(result.Ast);
-        var (dfg, closure) = new DfgBuilder().Build(program);
-        return (program, dfg, closure);
+        var dfg = new DfgBuilder().Build(program);
+        return (program, dfg, dfg.ImpactClosure);
     }
 
     private static string ReadTestData(string fileName)

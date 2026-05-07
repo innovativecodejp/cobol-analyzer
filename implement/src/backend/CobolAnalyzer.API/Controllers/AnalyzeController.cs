@@ -45,7 +45,7 @@ public class AnalyzeController : ControllerBase
             }
 
             var cfg = _cfgBuilder.Build(programNode);
-            var (dfg, _) = _dfgBuilder.Build(programNode);
+            var dfg = _dfgBuilder.Build(programNode);
 
             var ccPerParagraph = CyclomaticComplexityCalculator.Calculate(cfg);
             var partialMetrics = new MetricsResult

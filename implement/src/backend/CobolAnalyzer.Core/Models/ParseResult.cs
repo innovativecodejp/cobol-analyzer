@@ -4,7 +4,7 @@ namespace CobolAnalyzer.Core.Models;
 
 public class ParseResult
 {
-    public AstNode? Ast { get; init; }
+    public ProgramNode? Ast { get; init; }
     public List<ParseError> Errors { get; init; } = new();
     public bool IsSuccess => Errors.Count == 0;
 }

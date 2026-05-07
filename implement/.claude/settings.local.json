@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -n \"ImpactClosure\\\\|DataFlowGraph\\\\|CORS\\\\|CamelCase\\\\|JsonString\" \"d:/dev/projects/cobol-analyzer/design/specs/phase2-engine.md\" | head -30)",
+      "Read(//d/dev/projects/cobol-analyzer/design/specs/**)"
+    ]
+  }
+}

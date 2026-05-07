@@ -17,7 +17,7 @@ public class MetricsCalculatorTests
     }
 
     private static ControlFlowGraph BuildCfg(ProgramNode p) => new CfgBuilder().Build(p);
-    private static DataFlowGraph BuildDfg(ProgramNode p) => new DfgBuilder().Build(p).Graph;
+    private static DataFlowGraph BuildDfg(ProgramNode p) => new DfgBuilder().Build(p);
 
     private const string LinearProgram = @"       IDENTIFICATION DIVISION.
        PROGRAM-ID. MYPROG.

@@ -157,7 +157,7 @@ public class AstBuilder
             return BuildDivide(ctx.divideStatement(), loc);
 
         if (ctx.callStatement() != null)
-            return new StatementNode { StatementType = "CALL", Location = loc };
+            return BuildCall(ctx.callStatement(), loc);
 
         if (ctx.stopStatement() != null)
             return new StatementNode { StatementType = "STOP", Location = loc };
@@ -392,6 +392,20 @@ public class AstBuilder
             foreach (var t in into.divideInto())
                 operands.Add(new DataReferenceNode { DataName = t.identifier().GetText(), Kind = ReferenceKind.Define });
         return new StatementNode { StatementType = "DIVIDE", Location = loc, Operands = operands };
+    }
+
+    private static StatementNode BuildCall(CallStatementContext ctx, SourceLocation loc)
+    {
+        // Static CALL: literal (e.g. CALL "SUBPROG") → CallTarget = normalized name
+        // Dynamic CALL: identifier → CallTarget = null
+        string? callTarget = null;
+        var lit = ctx.literal();
+        if (lit != null)
+        {
+            var raw = lit.GetText().Trim('\'', '"');
+            callTarget = raw.ToUpperInvariant();
+        }
+        return new StatementNode { StatementType = "CALL", Location = loc, CallTarget = callTarget };
     }
 
     private static StatementNode BuildRead(ReadStatementContext ctx, SourceLocation loc)

@@ -4,7 +4,7 @@ namespace CobolAnalyzer.Engine.Dfg;
 
 public class DfgBuilder
 {
-    public (DataFlowGraph Graph, Dictionary<string, List<string>> ImpactClosure) Build(ProgramNode ast)
+    public DataFlowGraph Build(ProgramNode ast)
     {
         var nodes = new List<DfgNode>();
         var edges = new List<DfgEdge>();
@@ -25,9 +25,8 @@ public class DfgBuilder
         if (procDiv != null)
             CollectStatementEdges(procDiv, nodes, edges);
 
-        var graph = new DataFlowGraph { Nodes = nodes, Edges = edges };
         var closure = ComputeImpactClosure(nodes, edges);
-        return (graph, closure);
+        return new DataFlowGraph { Nodes = nodes, Edges = edges, ImpactClosure = closure };
     }
 
     private static void CollectDataNodes(DataItemNode item, string? parentId,
