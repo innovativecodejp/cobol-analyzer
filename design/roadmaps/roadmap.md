@@ -1,7 +1,7 @@
 # cobol-analyzer ロードマップ
 
 作成日: 2026-05-05  
-更新日: 2026-05-05（Phase 1〜4 仕様確定を反映）
+更新日: 2026-05-05（Phase 1〜5 仕様確定を反映）
 
 ---
 
@@ -13,7 +13,7 @@
 | Phase 2 | AST設計・指標計算エンジン | ✅ 仕様確定 | `specs/phase2-engine.md` |
 | Phase 3 | ダイアグラム可視化 | ✅ 仕様確定 | `specs/phase3-visualization.md` |
 | Phase 4 | 双方向ナビゲーション | ✅ 仕様確定 | `specs/phase4-navigation.md` |
-| Phase 5 | コメント挿入・削除 | 🔲 未着手 | 未作成 |
+| Phase 5 | コメント挿入・削除 | ✅ 仕様確定 | `specs/phase5-comment.md` |
 | Phase 6 | 分析機能・エクスポート | 🔲 未着手 | 未作成 |
 
 ---
@@ -139,5 +139,5 @@
 | `specs/phase2-engine.md` | 1.0 | 2026-05-05 | ✅ 確定 |
 | `specs/phase3-visualization.md` | 1.0 | 2026-05-05 | ✅ 確定 |
 | `specs/phase4-navigation.md` | 1.0 | 2026-05-05 | ✅ 確定 |
-| `specs/phase5-comment.md` | — | 未作成 | 🔲 未着手 |
+| `specs/phase5-comment.md` | 1.0 | 2026-05-05 | ✅ 確定 |
 | `specs/phase6-export.md` | — | 未作成 | 🔲 未着手 |
