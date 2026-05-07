@@ -1,7 +1,8 @@
 # Phase 2 仕様：AST設計・指標計算エンジン
 
-バージョン: 1.0  
+バージョン: 1.1  
 作成日: 2026-05-05  
+更新日: 2026-05-05（Phase 4 仕様策定に伴い DataFlowGraph へ ImpactClosure を追補）  
 ステータス: 確定（implement/ への引き渡し可）
 
 前提: `design/specs/phase1-antlr-parser.md` の実装が完了していること。
@@ -306,14 +307,17 @@ public class DataFlowGraph
     public string ProgramName { get; init; }
     public List<DfgNode> Nodes { get; init; } = new();
     public List<DfgEdge> Edges { get; init; } = new();
+    // Phase 4 双方向ナビゲーションで影響閉包ハイライトに使用
+    public Dictionary<string, List<string>> ImpactClosure { get; init; } = new();
 }
 ```
 
 ### 5.5 影響閉包（ImpactClosure）
 
 変数 X の影響閉包 = X の Define エッジから到達可能な Use エッジの集合。
-`DfgBuilder` は `DataFlowGraph` に加え、`Dictionary<string, List<string>> ImpactClosure`
-（キー: DataName、値: 影響を受けるDataName リスト）を計算して返す。
+`DfgBuilder` は `ImpactClosure`（キー: DataName、値: 影響を受ける DataName リスト）を
+計算し、`DataFlowGraph.ImpactClosure` に格納して返す。
+フロントエンドはこの値を使って DFG ノードクリック時の影響閉包ハイライトを実現する。
 
 ---
 

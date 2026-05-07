@@ -1,7 +1,8 @@
 # Phase 3 仕様：ダイアグラム可視化
 
-バージョン: 1.0  
+バージョン: 1.1  
 作成日: 2026-05-05  
+更新日: 2026-05-05（Phase 4 仕様策定に伴い DataFlowGraph 型へ ImpactClosure を追補）  
 ステータス: 確定（implement/ への引き渡し可）
 
 前提: `design/specs/phase2-engine.md` の実装が完了し、`POST /api/analyze` が稼働していること。
@@ -375,6 +376,8 @@ export interface DataFlowGraph {
   programName: string;
   nodes: DfgNode[];
   edges: DfgEdge[];
+  // Phase 4 双方向ナビゲーションで使用（キー: DataName、値: 影響を受ける DataName[]）
+  impactClosure: Record<string, string[]>;
 }
 
 export interface DfgNode {
