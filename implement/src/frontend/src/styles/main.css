@@ -1,0 +1,181 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body, #app {
+  height: 100%;
+  overflow: hidden;
+  font-family: system-ui, sans-serif;
+  font-size: 14px;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+}
+
+#header {
+  padding: 8px 16px;
+  background: #1a4fa8;
+  color: white;
+  flex-shrink: 0;
+}
+
+#header h1 {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+#main {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+#left-pane {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #ddd;
+}
+
+#editor-container {
+  flex: 1;
+  overflow: hidden;
+}
+
+#analyze-btn {
+  height: 40px;
+  flex-shrink: 0;
+  background: #1a4fa8;
+  color: white;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+#analyze-btn:hover {
+  background: #2e86c1;
+}
+
+#right-pane {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+}
+
+#tabs {
+  display: flex;
+  border-bottom: 1px solid #ddd;
+  flex-shrink: 0;
+  background: #f8f8f8;
+}
+
+.tab-btn {
+  padding: 8px 20px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 13px;
+  color: #555;
+  border-bottom: 2px solid transparent;
+}
+
+.tab-btn:hover {
+  color: #1a4fa8;
+}
+
+.tab-btn.active {
+  color: #1a4fa8;
+  border-bottom: 2px solid #1a4fa8;
+  font-weight: 600;
+}
+
+#diagram-area {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.tab-panel {
+  display: none;
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.tab-panel.active {
+  display: block;
+}
+
+.tab-panel svg {
+  display: block;
+}
+
+#mdi-bar {
+  min-height: 64px;
+  border-top: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+  padding: 8px 16px;
+  flex-shrink: 0;
+  background: #fafafa;
+}
+
+#mdi-panel {
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
+  width: 100%;
+}
+
+.mdi-score {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #222;
+  white-space: nowrap;
+}
+
+.mdi-badge {
+  padding: 3px 10px;
+  border-radius: 4px;
+  color: white;
+  font-weight: 600;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.mdi-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+  flex: 1;
+}
+
+.mdi-bar-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 10px;
+  color: #555;
+  gap: 2px;
+}
+
+.mdi-bar-fill {
+  width: 28px;
+  min-height: 2px;
+  background: #2e86c1;
+  border-radius: 2px 2px 0 0;
+}
+
+.error-list {
+  padding: 20px;
+  color: #e74c3c;
+}
+
+.error-item {
+  margin-bottom: 6px;
+  font-family: monospace;
+}

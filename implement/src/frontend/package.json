@@ -1,0 +1,25 @@
+{
+  "name": "cobol-analyzer-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "d3": "^7.9.0",
+    "monaco-editor": "^0.47.0"
+  },
+  "devDependencies": {
+    "@types/d3": "^7.4.3",
+    "typescript": "^5.4.5",
+    "vite": "^5.2.11",
+    "vitest": "^1.6.0",
+    "@vitest/coverage-v8": "^1.6.0",
+    "jsdom": "^24.0.0",
+    "@vitest/ui": "^1.6.0"
+  }
+}
