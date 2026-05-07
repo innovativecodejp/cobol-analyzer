@@ -1,8 +1,8 @@
 # Phase 3 仕様：ダイアグラム可視化
 
-バージョン: 1.1  
+バージョン: 1.2  
 作成日: 2026-05-05  
-更新日: 2026-05-05（Phase 4 仕様策定に伴い DataFlowGraph 型へ ImpactClosure を追補）  
+更新日: 2026-05-08（整合性レビューによる修正: AstNode.id追加・CfgBlock型修正・CfgEdge.isRecursive追加・MetricsResult.ccPerParagraph追加・CORS条件付き設定）  
 ステータス: 確定（implement/ への引き渡し可）
 
 前提: `design/specs/phase2-engine.md` の実装が完了し、`POST /api/analyze` が稼働していること。
@@ -110,16 +110,18 @@ Phase 2 API の JSON 形式を D3.js が消費できる形式に変換する責�
 **入力**: Phase 2 `ControlFlowGraph` JSON
 
 ```typescript
-// 入力型（Phase 2 API レスポンスの部分）
+// 入力型（Phase 2 API レスポンスの部分 / types/analyzeResult.ts と同一）
 interface CfgBlock {
   id: string;
   paragraphName: string | null;
-  statements: unknown[];
+  statements: CfgStatement[];
+  location: SourceLocation | null;
 }
 interface CfgEdge {
   fromBlockId: string;
   toBlockId: string;
   kind: CfgEdgeKind;
+  isRecursive: boolean;
 }
 type CfgEdgeKind =
   | 'FallThrough' | 'ConditionalTrue' | 'ConditionalFalse'
@@ -283,15 +285,21 @@ function toD3Hierarchy(astNode: AstNode): AstNodeWithMeta {
 
 ```csharp
 // 開発環境のみ全オリジン許可
-builder.Services.AddCors(options =>
+if (builder.Environment.IsDevelopment())
 {
-    options.AddPolicy("DevCors", policy =>
-        policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
-});
+    builder.Services.AddCors(options =>
+    {
+        options.AddPolicy("DevCors", policy =>
+            policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+    });
+}
 
 // ...
 
-app.UseCors("DevCors");
+if (app.Environment.IsDevelopment())
+{
+    app.UseCors("DevCors");
+}
 ```
 
 本番環境では許可オリジンを明示的に指定すること（Phase 3 スコープ外）。
@@ -330,6 +338,7 @@ Phase 2 API レスポンスに対応する型を手動定義する。
 export type NodeCategory = 'Structure' | 'Unit' | 'Element';
 
 export interface AstNode {
+  id: string;             // "{nodeType}:{startLine}:{startColumn}" 形式
   nodeType: string;
   category: NodeCategory;
   location: SourceLocation;
@@ -360,16 +369,23 @@ export interface ControlFlowGraph {
   hasRecursion: boolean;
 }
 
+export interface CfgStatement {
+  statementType: string;
+  location: SourceLocation;
+}
+
 export interface CfgBlock {
   id: string;
   paragraphName: string | null;
-  statements: unknown[];
+  statements: CfgStatement[];
+  location: SourceLocation | null;   // ブロック内の最初の文の位置（Phase 4 N3 ナビゲーションで使用）
 }
 
 export interface CfgEdge {
   fromBlockId: string;
   toBlockId: string;
   kind: CfgEdgeKind;
+  isRecursive: boolean;
 }
 
 export interface DataFlowGraph {
@@ -394,6 +410,7 @@ export interface DfgEdge {
 export interface MetricsResult {
   programName: string;
   cyclomaticComplexity: number;
+  ccPerParagraph: Record<string, number>;   // パラグラフ別 CC 内訳
   goToDensity: number;
   alterCount: number;
   maxNestingDepth: number;
@@ -474,7 +491,7 @@ export interface AnalyzeResult {
 
 4. **型定義の鮮度管理**: `types/analyzeResult.ts` は Phase 2 実装後に API の実レスポンスと照合し、齟齬があれば更新すること（`implement/docs/` にフィードバックを記録してから `design/specs/` を修正する）。
 
-5. **CORS は開発環境限定**: `AllowAnyOrigin()` は開発環境のみの設定とし、`appsettings.Development.json` の `"AllowDevCors": true` フラグで切り替える設計にすること。
+5. **CORS は開発環境限定**: `AllowAnyOrigin()` は `builder.Environment.IsDevelopment()` 条件下でのみ登録する（§7 のコード例参照）。本番環境では許可オリジンを明示的に指定すること（Phase 3 スコープ外）。
 
 ---
 

@@ -336,7 +336,7 @@ export class JumpController {
 
 1. **N2 の debounce**: Monaco `onDidChangeCursorPosition` は毎キーストロークで発火するため、`JumpController.onCursorMove` 呼び出しは 200ms の debounce を挟む。
 
-2. **AST ノードの一意 ID**: `AstNode` は現状 ID プロパティを持たない。Phase 4 実装時に `nodeType + ":" + startLine + ":" + startColumn` 形式の文字列 ID を `LineNodeIndex` 内部で生成して使用する。`AstNode` 本体への ID 追加は implement フィードバックで確認してから判断する。
+2. **AST ノードの一意 ID**: `AstNode.Id` は Phase 1 §6.3 で `"{NodeType}:{StartLine}:{StartColumn}"` 形式として定義済み。`LineNodeIndex` は `AstNode.Id` をそのまま `LineEntry.nodeId` として使用する。
 
 3. **折りたたまれた AST ノードへのナビゲーション**: N2 でカーソル行に対応するノードが折りたたまれた状態（`collapsed = true`）の場合、祖先ノードまで自動展開してから対象ノードをハイライトする。
 

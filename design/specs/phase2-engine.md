@@ -1,8 +1,8 @@
 # Phase 2 仕様：AST設計・指標計算エンジン
 
-バージョン: 1.1  
+バージョン: 1.2  
 作成日: 2026-05-05  
-更新日: 2026-05-05（Phase 4 仕様策定に伴い DataFlowGraph へ ImpactClosure を追補）  
+更新日: 2026-05-08（整合性レビューによる修正: AnalyzeResult.Ast nullable化・CfgEdge.IsRecursive追加・MetricsResult.CcPerParagraph追加・StatementNode.CallTarget追加・APIレスポンス例修正）  
 ステータス: 確定（implement/ への引き渡し可）
 
 前提: `design/specs/phase1-antlr-parser.md` の実装が完了していること。
@@ -105,6 +105,8 @@ public class StatementNode : AstNode
     public string? PerformFrom { get; init; }
     public string? PerformThru { get; init; }
     public PerformDetailsNode? PerformDetails { get; init; }
+    // CALL用（StatementType が "CALL" のとき有効）
+    public string? CallTarget { get; init; }  // 静的CALLの呼び出し先名（大文字正規化済み）。動的CALLは null
 }
 ```
 
@@ -198,6 +200,7 @@ public class CfgEdge
     public string FromBlockId { get; init; }
     public string ToBlockId { get; init; }
     public CfgEdgeKind Kind { get; init; }
+    public bool IsRecursive { get; init; }   // 相互再帰PERFORMのサイクルを構成するエッジの場合 true
 }
 
 public enum CfgEdgeKind
@@ -342,12 +345,13 @@ public class DataFlowGraph
 public class MetricsResult
 {
     public string ProgramName { get; init; }
-    public int CyclomaticComplexity { get; init; }     // CC: パラグラフ最大値
-    public double GoToDensity { get; init; }            // GD: 0.0–1.0
-    public int AlterCount { get; init; }                // AD: ALTER文数
-    public int MaxNestingDepth { get; init; }           // ND
-    public double RedefinesDensity { get; init; }       // RD: 0.0–1.0
-    public int CrossScopeDependencies { get; init; }    // CS
+    public int CyclomaticComplexity { get; init; }                    // CC: パラグラフ最大値
+    public Dictionary<string, int> CcPerParagraph { get; init; } = new();  // CC: パラグラフ別内訳
+    public double GoToDensity { get; init; }                          // GD: 0.0–1.0
+    public int AlterCount { get; init; }                              // AD: ALTER文数
+    public int MaxNestingDepth { get; init; }                         // ND
+    public double RedefinesDensity { get; init; }                     // RD: 0.0–1.0
+    public int CrossScopeDependencies { get; init; }                  // CS
     public MdiScore Mdi { get; init; }
 }
 ```
@@ -418,10 +422,10 @@ MDI = 100 × (
 // Models/AnalyzeResult.cs
 public class AnalyzeResult
 {
-    public ProgramNode Ast { get; init; }
-    public ControlFlowGraph Cfg { get; init; }
-    public DataFlowGraph Dfg { get; init; }
-    public MetricsResult Metrics { get; init; }
+    public ProgramNode? Ast { get; init; }          // 構文エラー時は null
+    public ControlFlowGraph? Cfg { get; init; }     // 構文エラー時は null
+    public DataFlowGraph? Dfg { get; init; }        // 構文エラー時は null
+    public MetricsResult? Metrics { get; init; }    // 構文エラー時は null
     public List<ParseError> Errors { get; init; } = new();
     public bool IsSuccess => Errors.Count == 0;
 }
@@ -463,7 +467,8 @@ Content-Type: application/json
   "dfg": {
     "programName": "HELLO",
     "nodes": [ { "id": "WS-MESSAGE", "name": "WS-MESSAGE", "levelNumber": 1, "picture": "X(20)" } ],
-    "edges": [ { "fromId": "WS-MESSAGE", "toId": "WS-MESSAGE", "kind": "Define" } ]
+    "edges": [ { "fromId": "WS-MESSAGE", "toId": "WS-MESSAGE", "kind": "Define" } ],
+    "impactClosure": { "WS-MESSAGE": [] }
   },
   "metrics": {
     "programName": "HELLO",
@@ -488,7 +493,7 @@ Content-Type: application/json
 | 状況 | ステータス |
 |------|-----------|
 | 正常 | 200 OK |
-| 構文エラーあり | 200 OK（errors に詳細、cfg/dfg/metrics は null） |
+| 構文エラーあり | 200 OK（errors に詳細、ast / cfg / dfg / metrics は null） |
 | source が空/null | 400 Bad Request |
 | サーバー内部エラー | 500 Internal Server Error |
 
@@ -578,7 +583,7 @@ Content-Type: application/json
 
 2. **DFG ノード ID の衝突**: COBOL では同名のデータ項目が異なる集団項目下に存在できる（QUALIFIED NAME）。`DfgNode.Id` は `PARENT.CHILD` の FQDN 形式にすること。
 
-3. **CC の粒度**: CC はパラグラフ単位で計算し、プログラム全体の CC は最大値を使用する。パラグラフ別内訳も `MetricsResult` に含めること（`Dictionary<string, int> CcPerParagraph`）。
+3. **CC の粒度**: CC はパラグラフ単位で計算し、プログラム全体の CC は最大値を `CyclomaticComplexity` に格納する。各パラグラフの CC は `CcPerParagraph`（パラグラフ名 → CC値）に格納する。
 
 4. **ALTER 文**: ALTER は動的制御フロー変更であり、静的解析の限界を示す代表的高リスクパターン（研究資料 §5.2.1）。MDI への寄与は `AD_saturation = 1`（1件で飽和）とし、ALTER が 1 件でも存在するプログラムは AD 指標が最大になる設計とする。
 

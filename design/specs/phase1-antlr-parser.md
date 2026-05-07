@@ -1,8 +1,8 @@
 # Phase 1 仕様：環境構築・ANTLRパーサー
 
-バージョン: 1.1  
+バージョン: 1.2  
 作成日: 2026-05-03  
-更新日: 2026-05-03（CobolStructureAnalysis.md との照合による追補）  
+更新日: 2026-05-08（整合性レビューによる修正: AstNode.Id 追加・DataItemNode.IsGroup 統一・StatementType "CALL" 追加）  
 ステータス: 確定（implement/ への引き渡し可）
 
 ---
@@ -169,6 +169,7 @@ public enum NodeCategory
 // AstNode.cs
 public abstract class AstNode
 {
+    public string Id { get; init; }              // "{NodeType}:{StartLine}:{StartColumn}" 形式（AstBuilder が設定）
     public string NodeType { get; init; }
     public NodeCategory Category { get; init; }
     public SourceLocation Location { get; init; }
@@ -203,6 +204,8 @@ AstBuilder でこれらの情報を落としてはならない。
 | `ALTER paragraph TO PROCEED TO paragraph` | `"ALTER"` | 動的GOTO変更。高リスクパターン |
 | `PERFORM paragraph THRU paragraph` | `"PERFORM_THRU"` | 範囲実行。境界情報（From/Thru）を保持 |
 | `PERFORM UNTIL / VARYING` | `"PERFORM_LOOP"` | ループ構造。条件式テキストを保持 |
+| `CALL "program-name"` | `"CALL"` | 静的CALL。`StatementNode.CallTarget` に大文字正規化済みのプログラム名を格納する。Phase 6 依存グラフ構築で必要 |
+| `CALL identifier` | `"CALL"` | 動的CALL。`StatementNode.CallTarget = null` とし、静的CALLと区別する |
 
 PERFORM THRU の `From` / `Thru` パラグラフ名は `StatementNode` の追加プロパティとして保持すること。
 
@@ -226,7 +229,7 @@ public class DataItemNode : AstNode
     public string Name { get; init; }
     public string? Picture { get; init; }           // PIC句
     public string? RedefinesTarget { get; init; }   // REDEFINES対象名（null = 非REDEFINES）
-    public bool IsGroup => Picture == null && Children.Count > 0;
+    public bool IsGroup => Picture == null && Children.OfType<DataItemNode>().Any();
 }
 ```
 

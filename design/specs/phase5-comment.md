@@ -1,7 +1,8 @@
 # Phase 5 仕様：コメント挿入・削除
 
-バージョン: 1.0  
+バージョン: 1.1  
 作成日: 2026-05-05  
+更新日: 2026-05-08（整合性レビューによる修正: 完了基準#9 再分析記述修正・SelectionStore参照修正）  
 ステータス: 確定（implement/ への引き渡し可）
 
 前提: `design/specs/phase3-visualization.md` の実装が完了し、Monaco Editor が稼働していること。  
@@ -348,7 +349,7 @@ Phase 3 の画面に「コメント」タブを追加する（ダイアグラム
               [ Insert ]
 ```
 
-- 「Phase 4 SelectionStore から自動設定」: 選択ノードがある場合は `selectedNode.location.startLine` を初期値にセット
+- 「Phase 4 SelectionStore から自動設定」: 選択ノードがある場合は `selectionStore.getState().highlightedLines?.start` を初期値にセット
 - SelectionStore が未使用環境（Phase 4 未実装）でも手動入力で動作すること
 
 #### 削除サブパネル
@@ -467,7 +468,7 @@ export async function removeComments(req: CommentRemoveRequest): Promise<Comment
 - [ ] フロントエンドの挿入パネルで行番号・タグ・値・メッセージを入力し Insert を押すと Monaco Editor のソースが更新される
 - [ ] Phase 4 で AST ノードを選択した状態でコメントタブを開くと行番号が自動設定される
 - [ ] 削除パネルで Preview を押すと削除対象行一覧が表示される
-- [ ] 削除パネルで Remove を押すと Monaco Editor のソースが更新され、再分析が走る
+- [ ] 削除パネルで Remove を押すと Monaco Editor のソースが更新される（再分析は Analyze ボタンで手動実行）
 - [ ] `npm test` が全テストPASS（commentApi を含む）
 
 ---
