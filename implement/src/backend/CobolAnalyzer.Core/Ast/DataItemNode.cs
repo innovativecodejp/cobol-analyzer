@@ -6,6 +6,7 @@ public class DataItemNode : AstNode
     public string Name { get; init; } = string.Empty;
     public string? Picture { get; init; }
     public string? RedefinesTarget { get; init; }
-    public bool IsGroup => Picture == null && Children.Count > 0;
+    public string? Value { get; init; }
+    public bool IsGroup => Picture == null && Children.OfType<DataItemNode>().Any();
     public DataItemNode() => Category = NodeCategory.Element;
 }

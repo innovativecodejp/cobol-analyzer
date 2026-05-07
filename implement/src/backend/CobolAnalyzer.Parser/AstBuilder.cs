@@ -85,13 +85,11 @@ public class AstBuilder
         var body = ctx.procedureDivisionBody();
         if (body == null) return node;
 
-        // Paragraphs at the top level (outside named sections)
         var paragraphs = body.paragraphs();
         if (paragraphs != null)
             foreach (var para in paragraphs.paragraph())
                 node.Children.Add(BuildParagraph(para));
 
-        // Named sections
         foreach (var section in body.procedureSection())
             node.Children.Add(BuildProcedureSection(section));
 
@@ -135,28 +133,28 @@ public class AstBuilder
             return new StatementNode { StatementType = "ALTER", Location = loc };
 
         if (ctx.ifStatement() != null)
-            return new StatementNode { StatementType = "IF", Location = loc };
+            return BuildIf(ctx.ifStatement(), loc);
 
         if (ctx.evaluateStatement() != null)
             return new StatementNode { StatementType = "EVALUATE", Location = loc };
 
         if (ctx.moveStatement() != null)
-            return new StatementNode { StatementType = "MOVE", Location = loc };
+            return BuildMove(ctx.moveStatement(), loc);
 
         if (ctx.computeStatement() != null)
-            return new StatementNode { StatementType = "COMPUTE", Location = loc };
+            return BuildCompute(ctx.computeStatement(), loc);
 
         if (ctx.addStatement() != null)
-            return new StatementNode { StatementType = "ADD", Location = loc };
+            return BuildAdd(ctx.addStatement(), loc);
 
         if (ctx.subtractStatement() != null)
-            return new StatementNode { StatementType = "SUBTRACT", Location = loc };
+            return BuildSubtract(ctx.subtractStatement(), loc);
 
         if (ctx.multiplyStatement() != null)
-            return new StatementNode { StatementType = "MULTIPLY", Location = loc };
+            return BuildMultiply(ctx.multiplyStatement(), loc);
 
         if (ctx.divideStatement() != null)
-            return new StatementNode { StatementType = "DIVIDE", Location = loc };
+            return BuildDivide(ctx.divideStatement(), loc);
 
         if (ctx.callStatement() != null)
             return new StatementNode { StatementType = "CALL", Location = loc };
@@ -201,33 +199,195 @@ public class AstBuilder
         var proc = ctx.performProcedureStatement();
         if (proc != null)
         {
-            // PERFORM THRU
             if (proc.THROUGH() != null || proc.THRU() != null)
             {
+                var details = new PerformDetailsNode { Kind = PerformKind.OOL };
                 return new StatementNode
                 {
                     StatementType = "PERFORM_THRU",
                     Location = loc,
                     PerformFrom = proc.procedureName(0)?.GetText(),
-                    PerformThru = proc.procedureName(1)?.GetText()
+                    PerformThru = proc.procedureName(1)?.GetText(),
+                    PerformDetails = details
                 };
             }
 
-            // PERFORM LOOP (UNTIL/VARYING)
             var pt = proc.performType();
-            if (pt?.performUntil() != null || pt?.performVarying() != null)
-                return new StatementNode { StatementType = "PERFORM_LOOP", Location = loc };
+            if (pt?.performUntil() != null)
+            {
+                var cond = pt.performUntil().condition();
+                var condNode = cond != null ? new ConditionNode { ConditionText = cond.GetText() } : null;
+                var details = new PerformDetailsNode { Kind = PerformKind.Until, UntilCondition = condNode };
+                return new StatementNode
+                {
+                    StatementType = "PERFORM_LOOP",
+                    Location = loc,
+                    PerformFrom = proc.procedureName(0)?.GetText(),
+                    PerformDetails = details
+                };
+            }
+            if (pt?.performVarying() != null)
+            {
+                var details = new PerformDetailsNode { Kind = PerformKind.Varying };
+                return new StatementNode
+                {
+                    StatementType = "PERFORM_LOOP",
+                    Location = loc,
+                    PerformFrom = proc.procedureName(0)?.GetText(),
+                    PerformDetails = details
+                };
+            }
+
+            var oolDetails = new PerformDetailsNode { Kind = PerformKind.OOL };
+            return new StatementNode
+            {
+                StatementType = "PERFORM",
+                Location = loc,
+                PerformFrom = proc.procedureName(0)?.GetText(),
+                PerformDetails = oolDetails
+            };
         }
 
         var inline = ctx.performInlineStatement();
         if (inline != null)
         {
             var pt = inline.performType();
-            if (pt?.performUntil() != null || pt?.performVarying() != null)
-                return new StatementNode { StatementType = "PERFORM_LOOP", Location = loc };
+            if (pt?.performUntil() != null)
+            {
+                var cond = pt.performUntil().condition();
+                var condNode = cond != null ? new ConditionNode { ConditionText = cond.GetText() } : null;
+                var details = new PerformDetailsNode { Kind = PerformKind.Until, UntilCondition = condNode };
+                return new StatementNode { StatementType = "PERFORM_LOOP", Location = loc, PerformDetails = details };
+            }
+            if (pt?.performVarying() != null)
+            {
+                var details = new PerformDetailsNode { Kind = PerformKind.Varying };
+                return new StatementNode { StatementType = "PERFORM_LOOP", Location = loc, PerformDetails = details };
+            }
+            var inlineDetails = new PerformDetailsNode { Kind = PerformKind.Inline };
+            return new StatementNode { StatementType = "PERFORM", Location = loc, PerformDetails = inlineDetails };
         }
 
         return new StatementNode { StatementType = "PERFORM", Location = loc };
+    }
+
+    private static StatementNode BuildIf(IfStatementContext ctx, SourceLocation loc)
+    {
+        var condText = ctx.condition()?.GetText() ?? "";
+        var condNode = new ConditionNode { ConditionText = condText };
+        var operands = ExtractIdentifiersFromCondition(ctx.condition());
+        return new StatementNode
+        {
+            StatementType = "IF",
+            Location = loc,
+            Operands = operands
+        };
+    }
+
+    private static StatementNode BuildMove(MoveStatementContext ctx, SourceLocation loc)
+    {
+        var operands = new List<DataReferenceNode>();
+
+        var simple = ctx.moveToStatement();
+        if (simple != null)
+        {
+            // sending area (Use)
+            var sending = simple.moveToSendingArea();
+            if (sending?.identifier() != null)
+                operands.Add(new DataReferenceNode { DataName = sending.identifier().GetText(), Kind = ReferenceKind.Use });
+
+            // receiving areas (Define)
+            foreach (var recv in simple.identifier())
+                operands.Add(new DataReferenceNode { DataName = recv.GetText(), Kind = ReferenceKind.Define });
+        }
+
+        var corr = ctx.moveCorrespondingToStatement();
+        if (corr != null)
+        {
+            if (corr.identifier(0) != null)
+                operands.Add(new DataReferenceNode { DataName = corr.identifier(0).GetText(), Kind = ReferenceKind.Use });
+            if (corr.identifier(1) != null)
+                operands.Add(new DataReferenceNode { DataName = corr.identifier(1).GetText(), Kind = ReferenceKind.Define });
+        }
+
+        return new StatementNode { StatementType = "MOVE", Location = loc, Operands = operands };
+    }
+
+    private static StatementNode BuildCompute(ComputeStatementContext ctx, SourceLocation loc)
+    {
+        var operands = new List<DataReferenceNode>();
+        // Left-hand side identifiers (Define)
+        foreach (var store in ctx.computeStore())
+            operands.Add(new DataReferenceNode { DataName = store.identifier().GetText(), Kind = ReferenceKind.Define });
+        return new StatementNode { StatementType = "COMPUTE", Location = loc, Operands = operands };
+    }
+
+    private static StatementNode BuildAdd(AddStatementContext ctx, SourceLocation loc)
+    {
+        var operands = new List<DataReferenceNode>();
+        var giving = ctx.addToGivingStatement();
+        if (giving != null)
+        {
+            foreach (var f in giving.addFrom())
+                operands.Add(new DataReferenceNode { DataName = f.GetText(), Kind = ReferenceKind.Use });
+            foreach (var g in giving.addGiving())
+                operands.Add(new DataReferenceNode { DataName = g.identifier().GetText(), Kind = ReferenceKind.Define });
+        }
+        var to = ctx.addToStatement();
+        if (to != null)
+        {
+            foreach (var f in to.addFrom())
+                operands.Add(new DataReferenceNode { DataName = f.GetText(), Kind = ReferenceKind.Use });
+            foreach (var t in to.addTo())
+                operands.Add(new DataReferenceNode { DataName = t.identifier().GetText(), Kind = ReferenceKind.Define });
+        }
+        return new StatementNode { StatementType = "ADD", Location = loc, Operands = operands };
+    }
+
+    private static StatementNode BuildSubtract(SubtractStatementContext ctx, SourceLocation loc)
+    {
+        var operands = new List<DataReferenceNode>();
+        var fromGiving = ctx.subtractFromGivingStatement();
+        if (fromGiving != null)
+            foreach (var g in fromGiving.subtractGiving())
+                operands.Add(new DataReferenceNode { DataName = g.identifier().GetText(), Kind = ReferenceKind.Define });
+        var from = ctx.subtractFromStatement();
+        if (from != null)
+        {
+            foreach (var s in from.subtractSubtrahend())
+                operands.Add(new DataReferenceNode { DataName = s.GetText(), Kind = ReferenceKind.Use });
+            foreach (var t in from.subtractMinuend())
+                operands.Add(new DataReferenceNode { DataName = t.identifier().GetText(), Kind = ReferenceKind.Define });
+        }
+        return new StatementNode { StatementType = "SUBTRACT", Location = loc, Operands = operands };
+    }
+
+    private static StatementNode BuildMultiply(MultiplyStatementContext ctx, SourceLocation loc)
+    {
+        var operands = new List<DataReferenceNode>();
+        var giving = ctx.multiplyGiving();
+        if (giving != null)
+            foreach (var g in giving.multiplyGivingResult())
+                operands.Add(new DataReferenceNode { DataName = g.identifier().GetText(), Kind = ReferenceKind.Define });
+        var reg = ctx.multiplyRegular();
+        if (reg != null)
+            foreach (var t in reg.multiplyRegularOperand())
+                operands.Add(new DataReferenceNode { DataName = t.identifier().GetText(), Kind = ReferenceKind.Define });
+        return new StatementNode { StatementType = "MULTIPLY", Location = loc, Operands = operands };
+    }
+
+    private static StatementNode BuildDivide(DivideStatementContext ctx, SourceLocation loc)
+    {
+        var operands = new List<DataReferenceNode>();
+        var intoGiving = ctx.divideIntoGivingStatement();
+        if (intoGiving?.divideGivingPhrase() != null)
+            foreach (var g in intoGiving.divideGivingPhrase().divideGiving())
+                operands.Add(new DataReferenceNode { DataName = g.identifier().GetText(), Kind = ReferenceKind.Define });
+        var into = ctx.divideIntoStatement();
+        if (into != null)
+            foreach (var t in into.divideInto())
+                operands.Add(new DataReferenceNode { DataName = t.identifier().GetText(), Kind = ReferenceKind.Define });
+        return new StatementNode { StatementType = "DIVIDE", Location = loc, Operands = operands };
     }
 
     private static StatementNode BuildRead(ReadStatementContext ctx, SourceLocation loc)
@@ -290,17 +450,35 @@ public class AstBuilder
         var redefCtx = ctx.dataRedefinesClause().FirstOrDefault();
         var redefinesTarget = redefCtx?.dataName()?.GetText();
 
+        var valueCtx = ctx.dataValueClause().FirstOrDefault();
+        var value = valueCtx?.dataValueInterval()?.FirstOrDefault()?.dataValueIntervalFrom()?.GetText();
+
         return new DataItemNode
         {
             LevelNumber = levelNumber,
             Name = name,
             Picture = picture,
             RedefinesTarget = redefinesTarget,
+            Value = value,
             Location = GetLocation(ctx)
         };
     }
 
     // --- Helpers ---
+
+    private static List<DataReferenceNode> ExtractIdentifiersFromCondition(ConditionContext? ctx)
+    {
+        var result = new List<DataReferenceNode>();
+        if (ctx == null) return result;
+        // Walk the full condition text and extract identifier references at best-effort
+        var comb = ctx.combinableCondition();
+        if (comb == null) return result;
+        var simple = comb.simpleCondition();
+        if (simple == null) return result;
+        foreach (var id in simple.identifier())
+            result.Add(new DataReferenceNode { DataName = id.GetText(), Kind = ReferenceKind.Use });
+        return result;
+    }
 
     private static SourceLocation GetLocation(ParserRuleContext ctx)
     {

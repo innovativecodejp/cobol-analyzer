@@ -9,6 +9,9 @@ namespace CobolAnalyzer.Core.Ast;
 [JsonDerivedType(typeof(ParagraphNode), "Paragraph")]
 [JsonDerivedType(typeof(StatementNode), "Statement")]
 [JsonDerivedType(typeof(DataItemNode), "DataItem")]
+[JsonDerivedType(typeof(DataReferenceNode), "DataReference")]
+[JsonDerivedType(typeof(ConditionNode), "Condition")]
+[JsonDerivedType(typeof(PerformDetailsNode), "PerformDetails")]
 public abstract class AstNode
 {
     public NodeCategory Category { get; init; }
