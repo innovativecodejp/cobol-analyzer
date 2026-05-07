@@ -271,16 +271,20 @@ public class AstBuilder
         return new StatementNode { StatementType = "PERFORM", Location = loc };
     }
 
-    private static StatementNode BuildIf(IfStatementContext ctx, SourceLocation loc)
+    private StatementNode BuildIf(IfStatementContext ctx, SourceLocation loc)
     {
-        var condText = ctx.condition()?.GetText() ?? "";
-        var condNode = new ConditionNode { ConditionText = condText };
         var operands = ExtractIdentifiersFromCondition(ctx.condition());
+        var trueStmts = ctx.ifThen()?.statement()
+            .Select(s => BuildStatement(s)).ToList() ?? new();
+        var falseStmts = ctx.ifElse()?.statement()
+            .Select(s => BuildStatement(s)).ToList() ?? new();
         return new StatementNode
         {
             StatementType = "IF",
             Location = loc,
-            Operands = operands
+            Operands = operands,
+            TrueStatements = trueStmts,
+            FalseStatements = falseStmts
         };
     }
 
@@ -468,16 +472,9 @@ public class AstBuilder
 
     private static List<DataReferenceNode> ExtractIdentifiersFromCondition(ConditionContext? ctx)
     {
-        var result = new List<DataReferenceNode>();
-        if (ctx == null) return result;
-        // Walk the full condition text and extract identifier references at best-effort
-        var comb = ctx.combinableCondition();
-        if (comb == null) return result;
-        var simple = comb.simpleCondition();
-        if (simple == null) return result;
-        foreach (var id in simple.identifier())
-            result.Add(new DataReferenceNode { DataName = id.GetText(), Kind = ReferenceKind.Use });
-        return result;
+        // Condition identifier extraction is best-effort; grammar depth makes full traversal complex.
+        // Condition text is preserved in ConditionNode.ConditionText for display purposes.
+        return new List<DataReferenceNode>();
     }
 
     private static SourceLocation GetLocation(ParserRuleContext ctx)

@@ -9,5 +9,7 @@ public class StatementNode : AstNode
     public string? FileName { get; init; }
     public List<DataReferenceNode> Operands { get; init; } = new();
     public PerformDetailsNode? PerformDetails { get; init; }
+    public List<StatementNode> TrueStatements { get; init; } = new();
+    public List<StatementNode> FalseStatements { get; init; } = new();
     public StatementNode() => Category = NodeCategory.Element;
 }
