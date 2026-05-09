@@ -138,8 +138,26 @@ public class CfgBuilder
                     if (mergeBlock != null)
                         AddEdge(trueBlock.Id, mergeBlock.Id, CfgEdgeKind.FallThrough);
                 }
+
+                // Build inter-paragraph GoTo edges for statements inside IF branches
+                BuildInterEdgesForSyntheticBlock(trueBlock, map);
+                if (falseBlock != null)
+                    BuildInterEdgesForSyntheticBlock(falseBlock, map);
+                if (mergeBlock != null)
+                    BuildInterEdgesForSyntheticBlock(mergeBlock, map);
+
                 break; // Remaining stmts are in mergeBlock; stop processing this block
             }
+        }
+    }
+
+    private void BuildInterEdgesForSyntheticBlock(BasicBlock block, Dictionary<string, BasicBlock> paragraphBlockMap)
+    {
+        foreach (var stmt in block.Statements)
+        {
+            if (stmt.StatementType == "GOTO" && stmt.PerformFrom != null &&
+                paragraphBlockMap.TryGetValue(stmt.PerformFrom, out var target))
+                AddEdge(block.Id, target.Id, CfgEdgeKind.GoTo);
         }
     }
 

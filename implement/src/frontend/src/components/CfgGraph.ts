@@ -180,24 +180,29 @@ export class CfgGraph {
       .attr('fill', 'rgba(255,255,255,0.8)')
       .text(d => String(d.statementCount));
 
-    // N3: render clickable GOTO/PERFORM statement labels below each block
-    nodeGroup.each((d, i, nodes) => {
-      const g = d3.select<SVGGElement, SimNode>(nodes[i] as SVGGElement);
-      const navStmts = d.statements.filter(s => NAVIGATE_TYPES.has(s.statementType));
-      navStmts.forEach((stmt, idx) => {
-        g.append('text')
-          .attr('text-anchor', 'middle')
-          .attr('y', 28 + idx * 12)
-          .attr('font-size', '9px')
-          .attr('fill', '#8e44ad')
-          .style('cursor', 'pointer')
-          .text(`→ ${stmt.statementType}`)
-          .on('click', event => {
-            event.stopPropagation();
-            this.onStatementClick?.(d.id, stmt.statementType);
-          });
-      });
+    // N3: nav labels rendered in a top-level layer so they are never obscured by node rects
+    type NavLabelDatum = { block: SimNode; statementType: string; idx: number };
+    const navLabelData: NavLabelDatum[] = [];
+    nodes.forEach(d => {
+      d.statements
+        .filter(s => NAVIGATE_TYPES.has(s.statementType))
+        .forEach((s, idx) => navLabelData.push({ block: d, statementType: s.statementType, idx }));
     });
+
+    const navLayer = this.g.append('g');
+    const navLabels = navLayer
+      .selectAll<SVGTextElement, NavLabelDatum>('text')
+      .data(navLabelData)
+      .join('text')
+      .attr('text-anchor', 'middle')
+      .attr('font-size', '9px')
+      .attr('fill', '#8e44ad')
+      .style('cursor', 'pointer')
+      .text(d => `→ ${d.statementType}`)
+      .on('click', (event, d) => {
+        event.stopPropagation();
+        this.onStatementClick?.(d.block.id, d.statementType);
+      });
 
     simulation.on('tick', () => {
       linkSel
@@ -211,6 +216,9 @@ export class CfgGraph {
         .attr('y', d => (((d.source as SimNode).y ?? 0) + ((d.target as SimNode).y ?? 0)) / 2);
 
       nodeGroup.attr('transform', d => `translate(${d.x ?? 0},${d.y ?? 0})`);
+
+      navLabels.attr('x', d => d.block.x ?? 0)
+        .attr('y', d => (d.block.y ?? 0) + 28 + d.idx * 12);
     });
 
     this.applySelection(selectionStore.getState());

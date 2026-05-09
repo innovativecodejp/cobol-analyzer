@@ -149,4 +149,30 @@ public class CfgBuilderTests
         // Entry should be the first block
         Assert.Equal(cfg.Blocks.First().Id, cfg.EntryBlockId);
     }
+
+    [Fact]
+    public void Build_GotoInsideIf_GoToEdgeFromSyntheticBlock()
+    {
+        var source = @"       IDENTIFICATION DIVISION.
+       PROGRAM-ID. MYPROG.
+       DATA DIVISION.
+       WORKING-STORAGE SECTION.
+       01 WS-X PIC 9.
+       PROCEDURE DIVISION.
+       MAIN-PARA.
+           IF WS-X > 0
+               GO TO END-PARA
+           END-IF.
+           STOP RUN.
+       END-PARA.
+           STOP RUN.";
+
+        var (_, cfg) = BuildFromSource(source);
+
+        // GoTo edge must exist (from the synthetic true-branch block)
+        var gotoEdge = Assert.Single(cfg.Edges, e => e.Kind == CfgEdgeKind.GoTo);
+        var sourceBlock = cfg.Blocks.First(b => b.Id == gotoEdge.FromBlockId);
+        // The source block is the synthetic true-branch block, not the paragraph block
+        Assert.Contains(sourceBlock.Statements, s => s.StatementType == "GOTO");
+    }
 }
