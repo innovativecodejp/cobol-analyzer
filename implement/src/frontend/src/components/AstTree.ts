@@ -11,6 +11,8 @@ export class AstTree {
   private readonly svg: d3.Selection<SVGSVGElement, unknown, null, undefined>;
   private readonly g: d3.Selection<SVGGElement, unknown, null, undefined>;
   private readonly container: HTMLElement;
+  private readonly zoom: d3.ZoomBehavior<SVGSVGElement, unknown>;
+  private initialized = false;
 
   constructor(container: HTMLElement) {
     this.container = container;
@@ -19,11 +21,10 @@ export class AstTree {
       .attr('height', '100%');
     this.g = this.svg.append('g');
 
-    this.svg.call(
-      d3.zoom<SVGSVGElement, unknown>().on('zoom', event => {
-        this.g.attr('transform', event.transform);
-      }),
-    );
+    this.zoom = d3.zoom<SVGSVGElement, unknown>().on('zoom', event => {
+      this.g.attr('transform', event.transform);
+    });
+    this.svg.call(this.zoom);
   }
 
   render(root: AstNodeWithMeta): void {
@@ -33,6 +34,19 @@ export class AstTree {
     const pointRoot = treeLayout(
       d3.hierarchy<AstNodeWithMeta>(root, d => (d.collapsed ? null : d.children)),
     );
+
+    if (!this.initialized) {
+      this.initialized = true;
+      const nodes = pointRoot.descendants();
+      const minX = d3.min(nodes, d => d.x) ?? 0;
+      const maxX = d3.max(nodes, d => d.x) ?? 0;
+      const h = this.container.clientHeight || 500;
+      const initTransform = d3.zoomIdentity.translate(
+        40,
+        h / 2 - (minX + maxX) / 2,
+      );
+      this.svg.call(this.zoom.transform, initTransform);
+    }
 
     const linkGen = d3.linkHorizontal<
       d3.HierarchyPointLink<AstNodeWithMeta>,

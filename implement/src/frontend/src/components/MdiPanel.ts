@@ -61,7 +61,8 @@ export class MdiPanel {
       fill.style.height = `${barHeight}px`;
 
       const label = document.createElement('span');
-      label.textContent = `${key}: ${raw}`;
+      const rawDisplay = Math.round(raw * 1000) / 1000;
+      label.textContent = `${key}: ${rawDisplay}`;
 
       item.appendChild(fill);
       item.appendChild(label);
