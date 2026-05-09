@@ -71,6 +71,14 @@ export class Editor {
     }).catch(() => undefined);
   }
 
+  private undo(): void {
+    this.inner.trigger('keyboard', 'undo', null);
+  }
+
+  private redo(): void {
+    this.inner.trigger('keyboard', 'redo', null);
+  }
+
   private showContextMenu(x: number, y: number): void {
     this.hideContextMenu();
 
@@ -83,13 +91,23 @@ export class Editor {
       `font-family:sans-serif`, `font-size:13px`,
     ].join(';');
 
-    const entries: Array<[string, string, () => void]> = [
+    const entries: Array<[string, string, () => void] | null> = [
+      ['Undo',  'Ctrl+Z', () => this.undo()],
+      ['Redo',  'Ctrl+Y', () => this.redo()],
+      null,
       ['Cut',   'Ctrl+X', () => this.cut()],
       ['Copy',  'Ctrl+C', () => this.copy()],
       ['Paste', 'Ctrl+V', () => this.paste()],
     ];
 
-    for (const [label, shortcut, action] of entries) {
+    for (const entry of entries) {
+      if (entry === null) {
+        const sep = document.createElement('div');
+        sep.style.cssText = 'height:1px;background:#e0e0e0;margin:4px 0';
+        menu.appendChild(sep);
+        continue;
+      }
+      const [label, shortcut, action] = entry;
       const row = document.createElement('div');
       row.style.cssText = 'display:flex;justify-content:space-between;align-items:center;padding:5px 16px;cursor:pointer;color:#333';
 
