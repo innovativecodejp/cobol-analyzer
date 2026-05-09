@@ -85,6 +85,12 @@ debounce は標準ライブラリなし・手実装（`let timer: ReturnType<typ
 `AstNode` 型（`types/analyzeResult.ts`）に `id: string` フィールドが定義されていることを確認し、
 なければ追加する（バックエンドは Phase 1 §6.3 で出力済み）。
 
+### 6. JumpController の寿命
+
+`JumpController` は Monaco Editor と `MonacoHighlighter` に対して一度だけ生成する。
+Analyze のたびに生成し直さず、解析成功後に `jumpController.init(ast, cfg, dfg)` を呼んで最新データへ差し替える。
+これにより Monaco のカーソルイベントリスナーを再登録しない。
+
 ---
 
 ## タスク一覧
@@ -122,10 +128,12 @@ Monaco Decorations の CSS はグローバルスタイルとして `main.css` �
 
 実装ポイント：
 - `on(handler)` の戻り値は購読解除関数（`() => void`）
-- `selectAstNode` / `selectCfgBlock` / `selectDfgNode` / `clearAll` は各自で `emit()` を呼ぶ
+- `selectedAstLineRange` は AST 選択時の行範囲だけを保持する
+- `selectAstNode(id, lineRange)` / `selectCfgBlock(id)` / `selectDfgNode(id, closureIds)` / `clearAll` は各自で `emit()` を呼ぶ
 - `selectDfgNode(id, closureIds)` で `impactClosureIds` は `new Set(closureIds)` にする
+- Monaco の実際の行ハイライトは `MonacoHighlighter` が管理し、`SelectionStore` には保持しない
 
-テスト `src/store/SelectionStore.test.ts` を作成し、仕様 §10 の 3 件を実装する。
+テスト `src/store/SelectionStore.test.ts` を作成し、仕様 §10 の 4 件を実装する。
 
 ---
 
@@ -135,8 +143,10 @@ Monaco Decorations の CSS はグローバルスタイルとして `main.css` �
 
 実装ポイント：
 - `LineEntry.nodeId` は `AstNode.id` をそのまま使用する
-- 構築アルゴリズム（§5 下部）：DFS 走査 → 各行に登録 → 同一行は `depth` 大きい方で上書き
+- `LineEntry` は `startLine` / `stopLine` / `depth` を保持する
+- 構築アルゴリズム（§5 下部）：DFS 走査 → `location.startLine` をキーに登録 → 同一開始行は `depth` 大きい方で上書き
 - `Map<number, LineEntry>` で行番号をキーに保持する
+- `lookup(line)` は該当なしの場合 `undefined` を返す
 
 テスト `src/navigation/LineNodeIndex.test.ts` を作成し、仕様 §10 の 3 件を実装する。
 
@@ -166,28 +176,45 @@ Monaco の `IModelDecorationOptions` 例：
 
 仕様 §9 の通り `src/navigation/JumpController.ts` を新規作成する。
 
-**N1: `onDiagramNodeClick(location: SourceLocation)`**
-1. `selectionStore.selectAstNode(nodeId, { start: location.startLine, end: location.stopLine })`
-2. `MonacoHighlighter.highlight(start, end, 'highlight-node')`
-3. `editor.revealLineInCenter(start)`
+**コンストラクタ / 初期化**
+- `constructor(editor, highlighter)` で Monaco Editor と `MonacoHighlighter` だけを保持する
+- `init(ast, cfg, dfg)` で `LineNodeIndex` を再構築し、最新の CFG / DFG を保持する
+- `dispose()` で SelectionStore 購読などを解除できるようにする
+
+**N1: `onAstNodeClick(nodeId: string, location: SourceLocation)`**
+1. N2 抑制期限を現在時刻 + 300ms に更新する
+2. `selectionStore.selectAstNode(nodeId, { start: location.startLine, end: location.stopLine })`
+3. `MonacoHighlighter.highlight(start, end, 'highlight-node')`
+4. `editor.revealLineInCenter(start)`
+5. `editor.setPosition({ lineNumber: start, column: 1 })`
+
+**N1: `onCfgBlockClick(blockId: string, location: SourceLocation | null)`**
+1. N2 抑制期限を現在時刻 + 300ms に更新する
+2. `selectionStore.selectCfgBlock(blockId)`
+3. `location` がある場合のみ `highlight()` / `revealLineInCenter()` / `setPosition()` を実行する
 
 **N2: `onCursorMove(line: number)`**
-1. `LineNodeIndex.lookup(line)` でエントリ検索
-2. 見つかれば `selectionStore.selectAstNode(entry.nodeId, { start, end })`
-3. 見つからなければ `selectionStore.clearAll()` + `MonacoHighlighter.clearAll()`
+1. N1/N3 によるプログラム的なカーソル移動から 300ms 以内なら処理をスキップする
+2. `LineNodeIndex.lookup(line)` でエントリ検索
+3. 見つかれば `selectionStore.selectAstNode(entry.nodeId, { start: entry.startLine, end: entry.stopLine })`
+4. N2 自体は Monaco 行ハイライトを付与しない。N1/N3 のハイライトが残っている場合は `MonacoHighlighter.clearAll()` で解除する
+5. 見つからなければ `selectionStore.clearAll()`
 
-**N3: `onGotoStatementClick(fromBlockId: string, edgeKind: CfgEdgeKind)`**
+**N3: `onGotoStatementClick(fromBlockId: string)`**
 1. CFG の `edges` から `fromBlockId` かつ `kind ∈ {GoTo, PerformCall, PerformThruCall}` のエッジを取得
-2. 最初の `toBlockId` で `selectionStore.selectCfgBlock(toBlockId, location)`
-3. 全該当エッジの toBlockId を `impactClosureIds` として `selectDfgNode` でなく Store に追記（`.impact` 適用）
+2. 最初の `toBlockId` で遷移先 BasicBlock を特定し、`selectionStore.selectCfgBlock(toBlockId)` を呼ぶ
+3. 遷移先ブロックに `location` がある場合、N2 抑制期限を現在時刻 + 300ms に更新する
 4. `MonacoHighlighter.highlight(startLine, stopLine, 'highlight-jump')`
 5. `editor.revealLineInCenter(startLine)`
+6. `editor.setPosition({ lineNumber: startLine, column: 1 })`
+7. 複数エッジの `.impact` 表示は CFG 側の選択補助として扱い、DFG 用の `impactClosureIds` を流用しない
 
-**N4: `onDfgNodeClick(dataName: string)`**
-1. `DataFlowGraph.impactClosure[dataName]` で影響閉包リストを取得
-2. `selectionStore.selectDfgNode(dataName, closureIds)`
+**N4: `onDfgNodeClick(nodeId: string)`**
+1. `DataFlowGraph.impactClosure[nodeId]` で影響閉包リストを取得
+2. `selectionStore.selectDfgNode(nodeId, closureIds)`
+3. Monaco ハイライトは付与しない。必要に応じて `MonacoHighlighter.clearAll()` で解除する
 
-テスト `src/navigation/JumpController.test.ts` を作成し、仕様 §10 の 4 件を実装する。
+テスト `src/navigation/JumpController.test.ts` を作成し、仕様 §10 の 6 件を実装する。
 テストでは `LineNodeIndex` / `MonacoHighlighter` / `editor` をモックオブジェクトで代替する。
 
 ---
@@ -196,14 +223,14 @@ Monaco の `IModelDecorationOptions` 例：
 
 **N1（ノードクリック → ソース行ジャンプ）**:
 - ノードのクリックハンドラを折りたたみトグルから「N1 + 折りたたみトグル」へ変更
-- N1 は `JumpController.onDiagramNodeClick(d.data.location)` を呼ぶ
-- 折りたたみは選択と独立して動作させる（ダブルクリックを折りたたみ、シングルクリックを N1 にするなど）
-- または単クリックで N1 のみ実行し、折りたたみは別途ダブルクリックに割り当てる（仕様に未定義のため実装者判断でよい）
+- N1 は `JumpController.onAstNodeClick(d.data.id, d.data.location)` を呼ぶ
+- 折りたたみは選択と独立させ、単クリックを N1、ダブルクリックを折りたたみ/展開に割り当てる
 
 **N2（Store → AST ハイライト）**:
 - `render()` 後に `selectionStore.on(...)` を購読
 - ハンドラ内で `g.selectAll('g.node').classed('selected', ...).classed('dimmed', ...)`
 - 対象ノードが折りたたまれている場合（`collapsed = true`）: 祖先を辿って展開し `render(root)` を再呼び出し
+- `d3.zoom().translateTo()` で対象ノードを SVG 中央へ移動する
 - 購読解除関数を `clear()` 内で呼ぶ
 
 ---
@@ -211,32 +238,34 @@ Monaco の `IModelDecorationOptions` 例：
 ### タスク 7: CfgGraph.ts の拡張（N1 / N2 / N3）
 
 **N1（ブロッククリック → ソース行ジャンプ）**:
-- ノードのクリックで `JumpController.onDiagramNodeClick(d.location)` を呼ぶ
+- ノードのクリックで `JumpController.onCfgBlockClick(d.id, d.location)` を呼ぶ
 
 **N2（Store → CFG ハイライト）**:
 - `selectionStore.on(...)` で `selectedCfgBlockId` に基づきノードの `.selected` / `.dimmed` を制御
 
 **N3（Statement テキストクリック → 遷移先ジャンプ）**:
-- 各 CFG ノード内に `d.statements` をテキストとして追加描画する
-  - 対象: `statementType ∈ ['GoTo', 'PerformThruCall', 'PerformCall']`
-  - ノード矩形（120×40px）を高さ可変に拡張、またはノード下にテキストリストを描画する
-- クリックで `JumpController.onGotoStatementClick(d.id, statement.statementType)` を呼ぶ
+- `d.statements` からクリック可能な遷移ラベルを追加描画する
+  - 対象: `statementType ∈ ['GOTO', 'PERFORM', 'PERFORM_THRU', 'PERFORM_LOOP']`
+  - ラベルは `g.node` 内部ではなく、独立した最前面 SVG レイヤー（例: `navLayer`）に描画する
+  - D3 simulation の tick ごとに `navLayer` のラベル座標を更新する
+- クリックで `JumpController.onGotoStatementClick(d.id)` を呼ぶ
+- 遷移先ブロックは `.selected`、複数遷移先がある場合の残りは `.impact` で表示する
+- `d3.zoom().translateTo()` で遷移先ブロックを SVG 中央へ移動する
 
 **背景クリックでクリア**:
-- SVG 背景（`rect.bg` や `svg` 自体）クリックで `selectionStore.clearAll()` + `MonacoHighlighter.clearAll()`
+- SVG 背景（`rect.bg` や `svg` 自体）クリックで `selectionStore.clearAll()` を呼ぶ
+- `MonacoHighlighter` の解除は `JumpController` 側の SelectionStore 購読または明示呼び出しで行う
 
 ---
 
-### タスク 8: DfgGraph.ts の拡張（N1 / N4）
+### タスク 8: DfgGraph.ts の拡張（N4）
 
-**N1（ノードクリック）**:
-- ノードクリックで `JumpController.onDiagramNodeClick(d.location)` を呼ぶ
-- DFG ノードは `DataItem` のため `location` は `DfgNode` に `location` フィールドがあれば使用
-  - なければ N1 は DFG ノードでは省略し、N4 のみ実装する（仕様 §7.4 では DFG は N4 主体）
+DFG ノードは N1 の対象外とし、クリックは N4（影響閉包ハイライト）として扱う。
 
 **N4（ノードクリック → 影響閉包）**:
-- ノードクリックで `JumpController.onDfgNodeClick(d.name)`
+- ノードクリックで `JumpController.onDfgNodeClick(d.id)`
 - Store の変化で `.selected` / `.impact` / `.dimmed` を付け替え
+- 背景クリックで `selectionStore.clearAll()` を呼ぶ
 
 ---
 
@@ -244,8 +273,9 @@ Monaco の `IModelDecorationOptions` 例：
 
 1. コンポーネント参照変数の追加（`let currentAstTree`, `let currentCfgGraph`, `let currentDfgGraph`）
 2. `renderResult()` 冒頭で旧インスタンスの `clear()` を呼ぶ
-3. 解析成功後に `JumpController` を初期化し、各コンポーネントに渡す
-4. N2 の debounce 実装：
+3. `JumpController` はアプリ起動時に一度だけ生成する
+4. 解析成功後に `jumpController.init(result.ast, result.cfg, result.dfg)` を呼び、各コンポーネントには対応するハンドラを渡す
+5. N2 の debounce 実装：
 
 ```typescript
 let cursorDebounce: ReturnType<typeof setTimeout> | null = null;
@@ -257,7 +287,7 @@ editor.getEditor().onDidChangeCursorPosition(e => {
 });
 ```
 
-5. 再解析時（Analyze ボタン）に前の `JumpController` を破棄し新規生成する
+6. 再解析時（Analyze ボタン）に `JumpController` を新規生成しない。必要なのは `init()` によるデータ差し替えのみ。
 
 ---
 
@@ -269,7 +299,7 @@ npm test
 npm run build
 ```
 
-- テスト: Phase 3 の 11 件 + Phase 4 の 10 件 = 合計 21 件 PASS を確認
+- テスト: Phase 3 の 11 件 + Phase 4 の 13 件 = 合計 24 件以上 PASS を確認
 - ビルド: エラーなし（チャンクサイズ警告は許容）
 
 ---
@@ -289,7 +319,7 @@ npm run build
 #### goto-sample.cbl — N3 動作確認
 
 6. goto-sample.cbl を Analyze する
-7. CFG タブで `MAIN-PARA` ブロック内の `GoTo` Statement テキストをクリック
+7. CFG タブで `MAIN-PARA` ブロック内の `GOTO` Statement ラベルをクリック
 8. `END-PARA` ブロックがハイライト（`.selected`）され、Monaco も `END-PARA` の行に紫ハイライトで移動する
 
 #### data-sample.cbl — N4 動作確認
@@ -319,12 +349,12 @@ npm run build
 ```
 - [ ] AST グラフのノードをクリックすると Monaco の対応行に黄ハイライトが付く
 - [ ] Monaco でカーソルを移動すると対応 AST ノードがハイライトされ、他が dim になる
-- [ ] CFG グラフの GoTo ブロックをクリックすると遷移先ブロックがハイライトされ Monaco も紫で飛ぶ
-- [ ] CFG グラフの PERFORM ブロックをクリックすると呼び出し先ブロックがハイライトされる
+- [ ] CFG グラフの GOTO ラベルをクリックすると遷移先ブロックがハイライトされ Monaco も紫で飛ぶ
+- [ ] CFG グラフの PERFORM ラベルをクリックすると呼び出し先ブロックがハイライトされる
 - [ ] DFG グラフのデータ項目ノードをクリックすると影響閉包ノードがオレンジハイライトされる
 - [ ] data-sample.cbl で WS-NUMERIC をクリックすると WS-CHAR（REDEFINES）も影響閉包としてハイライトされる
 - [ ] ノード選択解除（背景クリック）で全ハイライトがリセットされる
-- [ ] npm test が全テスト PASS（LineNodeIndex / SelectionStore / JumpController を含む 21 件以上）
+- [ ] npm test が全テスト PASS（LineNodeIndex / SelectionStore / JumpController を含む 24 件以上）
 ```
 
 ---

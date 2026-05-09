@@ -73,7 +73,8 @@ public enum NodeCategory { Structure, Unit, Element }
 ```
 
 **AstNode.cs**（仕様 §6.3 の通り）
-- `NodeType`, `Category`, `Location`, `Children` プロパティ
+- `Id`, `NodeType`, `Category`, `Location`, `Children` プロパティ
+- `Id` は AstBuilder で `"{NodeType}:{StartLine}:{StartColumn}"` 形式に設定する
 - `SourceLocation` record
 
 **ProgramNode.cs** — Category: Structure
@@ -81,8 +82,9 @@ public enum NodeCategory { Structure, Unit, Element }
 **SectionNode.cs** — Category: Unit、`Name` プロパティ
 **ParagraphNode.cs** — Category: Unit、`Name` プロパティ
 **StatementNode.cs** — Category: Element、`StatementType` プロパティ
-  - PERFORM THRU 用に `PerformFrom` / `PerformThru` プロパティを追加（nullable string）
+  - PERFORM / PERFORM THRU 用に `PerformFrom` / `PerformThru` プロパティを追加（nullable string）
   - ファイルI/O用に `IoVerb` / `FileName` プロパティを追加（nullable string）
+  - CALL 用に `CallTarget` プロパティを追加（nullable string。静的CALLは大文字正規化済み、動的CALLは null）
 **DataItemNode.cs** — Category: Element（仕様 §6.5 の通り）
   - `LevelNumber`, `Name`, `Picture?`, `RedefinesTarget?`, `IsGroup`
 
@@ -120,8 +122,11 @@ ANTLR4の ParseTree を走査し、以下のマッピングを行う：
 **CFG保存要件**（仕様 §6.5）を必ず実装：
 - GO TO → `StatementType = "GOTO"`
 - ALTER → `StatementType = "ALTER"`
+- PERFORM paragraph → `StatementType = "PERFORM"`、`PerformFrom` にパラグラフ名、`PerformThru = null`
 - PERFORM ... THRU → `StatementType = "PERFORM_THRU"`、`PerformFrom`/`PerformThru` にパラグラフ名
-- PERFORM UNTIL/VARYING → `StatementType = "PERFORM_LOOP"`
+- PERFORM UNTIL/VARYING → `StatementType = "PERFORM_LOOP"`、条件式テキストを保持
+- CALL "program-name" → `StatementType = "CALL"`、`CallTarget` に大文字正規化済みプログラム名
+- CALL identifier → `StatementType = "CALL"`、`CallTarget = null`
 
 **DFG保存要件**（仕様 §6.5）を必ず実装：
 - DataItemNode の `LevelNumber`, `Picture`, `RedefinesTarget` を正しく設定
@@ -163,10 +168,11 @@ ANTLR4の ParseTree を走査し、以下のマッピングを行う：
 - `Parse_SyntaxError_ReturnsErrors`
 - `Parse_SourceLocation_IsCorrect`
 
-**AstBuilderTests.cs** に仕様 §9 の8テストを実装：
+**AstBuilderTests.cs** に仕様 §9 の9テストを実装：
 - `Build_ProcedureDivision_ContainsParagraphs`
 - `Build_WorkingStorage_ContainsSection`
 - `Build_GoTo_StatementTypeIsGoto`
+- `Build_Perform_StatementTypeIsPerform`
 - `Build_PerformThru_PreservesFromAndThru`
 - `Build_DataItem_PreservesLevelAndPicture`
 - `Build_Redefines_PreservesTargetName`

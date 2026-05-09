@@ -92,10 +92,11 @@ dotnet sln src/backend/CobolAnalyzer.sln add tests/CobolAnalyzer.Engine.Tests/Co
 public List<DataReferenceNode> Operands { get; init; } = new();
 public string? IoVerb { get; init; }
 public string? FileName { get; init; }
+public string? CallTarget { get; init; }
 public PerformDetailsNode? PerformDetails { get; init; }
 ```
 
-（`PerformFrom` / `PerformThru` は Phase 1 で既に実装済み。重複追加しないこと）
+（`PerformFrom` / `PerformThru` / `CallTarget` は Phase 1 で既に実装済みなら重複追加しないこと）
 
 #### 2-2. 既存 DataItemNode の拡張
 
@@ -155,8 +156,10 @@ public class PerformDetailsNode : AstNode
 
 - `MOVE A TO B` → `StatementNode.Operands` に `DataReferenceNode(A, Use)` と `DataReferenceNode(B, Define)` を追加
 - `READ/WRITE/OPEN/CLOSE` → `StatementNode.IoVerb` と `StatementNode.FileName` を設定
+- `PERFORM paragraph` → `StatementType = "PERFORM"`、`PerformFrom` に呼び出し先、`PerformThru = null`
 - `PERFORM UNTIL/VARYING` → `StatementNode.PerformDetails`（PerformKind.Until / Varying）を設定
 - `IF / EVALUATE / PERFORM UNTIL` の条件式 → `ConditionNode` を生成
+- IF / EVALUATE のブランチ専用リストを持つ場合、その中の `StatementNode` は同じインスタンスを `AstNode.Children` にも追加する
 - `DataItemNode` の VALUE 句 → `DataItemNode.Value` を設定
 
 DataReferenceNode の収集対象文（最低限）：MOVE, ADD, SUBTRACT, MULTIPLY, DIVIDE, COMPUTE, IF（条件内）, EVALUATE（WHEN条件内）
@@ -204,6 +207,7 @@ public class CfgBuilder
    - GO TO → GoTo（遷移先パラグラフ先頭ブロック）
    - PERFORM（OOL）→ PerformCall（対象パラグラフ先頭）+ PerformReturn（対象パラグラフ末→呼出元次ブロック）
    - PERFORM THRU → PerformThruCall / PerformThruReturn
+   - IF / EVALUATE の synthetic ブロック内にある GO TO → その synthetic ブロックから遷移先パラグラフ先頭への GoTo
 3. **ALTER 文**：`HasAlter = true` を設定、遷移先エッジは生成しない
 4. **再帰 PERFORM 検出**：PERFORM コールグラフでサイクル検出 → `HasRecursion = true`、該当エッジに `IsRecursive = true`
 5. **STOP RUN / EXIT PROGRAM**：そのブロックの Id を `ExitBlockIds` に追加
@@ -225,7 +229,7 @@ public class CfgBuilder
 - `StatementRef?`
 
 **DataFlowGraph.cs**（仕様 §5.4 の通り）
-- `ProgramName`, `Nodes`, `Edges`
+- `ProgramName`, `Nodes`, `Edges`, `ImpactClosure`
 
 #### 4-2. DfgBuilder.cs
 
@@ -234,7 +238,7 @@ public class CfgBuilder
 ```csharp
 public class DfgBuilder
 {
-    public (DataFlowGraph Graph, Dictionary<string, List<string>> ImpactClosure) Build(ProgramNode ast) { ... }
+    public DataFlowGraph Build(ProgramNode ast) { ... }
 }
 ```
 
@@ -244,7 +248,7 @@ public class DfgBuilder
 2. **Redefines エッジ**：`DataItemNode.RedefinesTarget != null` → `DfgEdge(Kind=Redefines, FromId=当該項目, ToId=RedefinesTarget)`
 3. **GroupOf エッジ**：集団項目の子項目 → `DfgEdge(Kind=GroupOf, FromId=子, ToId=親)`
 4. **Define/Use エッジ**：`StatementNode.Operands` 内の `DataReferenceNode` を走査。`Kind=Define` → `DfgEdge(Kind=Define, ToId=DataName)`、`Kind=Use` → `DfgEdge(Kind=Use, FromId=DataName)`。`StatementRef` には `"Line:{node.Location?.StartLine}"` 形式で設定
-5. **影響閉包**：変数 X の影響閉包 = X の Define エッジから到達可能な Use エッジの集合（BFS/DFS で計算）
+5. **影響閉包**：変数 X の影響閉包 = X の Define エッジから到達可能な Use エッジの集合（BFS/DFS で計算）を `DataFlowGraph.ImpactClosure` に格納
 
 ---
 
@@ -397,7 +401,14 @@ Phase 3 で D3.js 用の `{ nodes, links }` 形式への変換が必要になる
 
 テストデータには `tests/CobolAnalyzer.Parser.Tests/TestData/` を共有参照（タスク 1 の設定による）。
 
-#### CfgBuilderTests.cs（仕様 §10 の8テスト）
+#### AstBuilderPhase2Tests.cs（仕様 §10 の2テスト）
+
+| テスト名 | 使用するテストデータ / インラインソース |
+|----------|----------------------------------------|
+| `Build_PerformSingle_StatementTypeIsPerform` | インライン（`PERFORM paragraph` 単体） |
+| `Build_IfBranchStatements_AlsoInChildren` | インライン（IF の True/False ブランチに文を含む） |
+
+#### CfgBuilderTests.cs（仕様 §10 の9テスト）
 
 各テストで `CobolParserFacade.Parse()` + `AstBuilder` でAST生成後、`CfgBuilder.Build()` を実行。
 
@@ -408,6 +419,7 @@ Phase 3 で D3.js 用の `{ nodes, links }` 形式への変換が必要になる
 | `Build_GoTo_GoToEdge` | `goto-sample.cbl` |
 | `Build_PerformOOL_CallAndReturnEdges` | `goto-sample.cbl` または インライン |
 | `Build_PerformThru_ThruEdges` | `goto-sample.cbl` |
+| `Build_IfBranchGoTo_GoToEdgeFromSyntheticBlock` | インライン（IF ブランチ内に GO TO） |
 | `Build_AlterStatement_HasAlterTrue` | インライン（ALTER文含む） |
 | `Build_RecursivePerform_HasRecursionTrue` | インライン（相互再帰PERFORM） |
 | `Build_EntryAndExit_Correct` | `hello.cbl` |
@@ -448,6 +460,7 @@ dotnet run --project src/backend/CobolAnalyzer.API
 
 - `POST /api/analyze` に `goto-sample.cbl` の内容を送信 → CFG の `edges` に `"kind": "GoTo"` が含まれる
 - `POST /api/analyze` に `data-sample.cbl` の内容を送信 → DFG の `edges` に `"kind": "Redefines"` が含まれる
+- `POST /api/analyze` に `data-sample.cbl` の内容を送信 → DFG の `impactClosure` が返る
 - `POST /api/analyze` に `goto-sample.cbl` の内容を送信 → `metrics.mdi.score` が数値で返る
 - `appsettings.json` の `MdiWeights.CyclomaticComplexity` を変更して再起動 → スコアが変わる
 - Swagger UI（`/swagger`）で `/api/analyze` エンドポイントが確認できる

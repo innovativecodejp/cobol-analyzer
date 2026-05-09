@@ -43,6 +43,20 @@ Vite + Monaco 構成では標準的な対処。削除しないこと。
 `monaco-editor/esm/vs/editor/editor.worker?worker` を返すようにしている。
 `vite-env.d.ts` に `Window.MonacoEnvironment` の独自宣言はない（Monaco 側の型を使用）。
 
+### Phase 2 / Phase 3 型定義の鮮度確認
+
+仕様 §9 の TypeScript 型定義が Phase 2 API の現行レスポンスと一致していることを確認する。
+最低限、以下を維持すること：
+
+- `AstNode.id`
+- `CfgBlock.statements` / `CfgBlock.location`
+- `CfgEdge.isRecursive`
+- `DataFlowGraph.impactClosure`
+- `MetricsResult.ccPerParagraph`
+
+`cfgAdapter.ts` は Phase 4 N3 の前提として `D3Node.statements` / `D3Node.location` を破棄しない。
+API 実レスポンスと齟齬があれば `implement/docs/` にフィードバックを記録し、仕様更新後に修正する。
+
 ---
 
 ## タスク一覧
