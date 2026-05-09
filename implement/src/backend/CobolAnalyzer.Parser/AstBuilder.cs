@@ -278,7 +278,7 @@ public class AstBuilder
             .Select(s => BuildStatement(s)).ToList() ?? new();
         var falseStmts = ctx.ifElse()?.statement()
             .Select(s => BuildStatement(s)).ToList() ?? new();
-        return new StatementNode
+        var node = new StatementNode
         {
             StatementType = "IF",
             Location = loc,
@@ -286,6 +286,11 @@ public class AstBuilder
             TrueStatements = trueStmts,
             FalseStatements = falseStmts
         };
+        // Add branch statements to Children so they are visible in the AST tree
+        // and reachable by the frontend's LineNodeIndex DFS traversal (N2 navigation)
+        foreach (var s in trueStmts.Concat(falseStmts))
+            node.Children.Add(s);
+        return node;
     }
 
     private static StatementNode BuildMove(MoveStatementContext ctx, SourceLocation loc)

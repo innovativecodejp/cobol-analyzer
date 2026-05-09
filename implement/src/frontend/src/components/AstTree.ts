@@ -17,6 +17,7 @@ export class AstTree {
   private initialized = false;
   private unsub: (() => void) | null = null;
   private onNodeClick?: (nodeId: string, location: SourceLocation) => void;
+  private root: AstNodeWithMeta | null = null;
 
   constructor(container: HTMLElement) {
     this.container = container;
@@ -37,13 +38,41 @@ export class AstTree {
     this.onNodeClick = handler;
   }
 
+  private expandToNode(nodeId: string, node: AstNodeWithMeta): boolean {
+    if (node.id === nodeId) return true;
+    for (const child of node.children) {
+      if (this.expandToNode(nodeId, child)) {
+        node.collapsed = false;
+        return true;
+      }
+    }
+    return false;
+  }
+
   private applySelection(state: SelectionState): void {
+    const nodeId = state.selectedAstNodeId;
+
+    // If the target node is not currently rendered (inside a collapsed parent),
+    // expand ancestors and re-render — render() calls applySelection at the end
+    if (nodeId && this.root) {
+      const isRendered = this.g
+        .selectAll<SVGGElement, d3.HierarchyPointNode<AstNodeWithMeta>>('g.node')
+        .data()
+        .some(d => d.data.id === nodeId);
+
+      if (!isRendered && this.expandToNode(nodeId, this.root)) {
+        this.render(this.root);
+        return;
+      }
+    }
+
     this.g.selectAll<SVGGElement, d3.HierarchyPointNode<AstNodeWithMeta>>('g.node')
-      .classed('selected', d => d.data.id === state.selectedAstNodeId)
-      .classed('dimmed', d => state.selectedAstNodeId !== null && d.data.id !== state.selectedAstNodeId);
+      .classed('selected', d => d.data.id === nodeId)
+      .classed('dimmed', d => nodeId !== null && d.data.id !== nodeId);
   }
 
   render(root: AstNodeWithMeta): void {
+    this.root = root;
     this.g.selectAll('*').remove();
 
     const treeLayout = d3.tree<AstNodeWithMeta>().nodeSize([28, 160]);
