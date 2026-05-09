@@ -8,6 +8,9 @@ import { AstTree } from './components/AstTree';
 import { CfgGraph } from './components/CfgGraph';
 import { DfgGraph } from './components/DfgGraph';
 import { MdiPanel } from './components/MdiPanel';
+import { JumpController } from './navigation/JumpController';
+import { MonacoHighlighter } from './navigation/MonacoHighlighter';
+import { selectionStore } from './store/SelectionStore';
 import type { AnalyzeResult } from './types/analyzeResult';
 import './styles/main.css';
 
@@ -23,6 +26,20 @@ const editor = new Editor(editorContainer);
 const mdiContainer = document.getElementById('mdi-panel')!;
 const mdiPanel = new MdiPanel(mdiContainer);
 
+const jumpController = new JumpController(
+  editor.getEditor(),
+  new MonacoHighlighter(editor.getEditor()),
+);
+
+// N2: Monaco cursor move → AST node highlight (200ms debounce, wired once)
+let cursorDebounce: ReturnType<typeof setTimeout> | null = null;
+editor.getEditor().onDidChangeCursorPosition(e => {
+  if (cursorDebounce !== null) clearTimeout(cursorDebounce);
+  cursorDebounce = setTimeout(() => {
+    jumpController.onCursorMove(e.position.lineNumber);
+  }, 200);
+});
+
 document.querySelectorAll('.tab-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     const tab = btn.getAttribute('data-tab');
@@ -34,6 +51,10 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
   });
 });
 
+let currentAstTree: AstTree | null = null;
+let currentCfgGraph: CfgGraph | null = null;
+let currentDfgGraph: DfgGraph | null = null;
+
 function showErrors(result: AnalyzeResult): void {
   const html = `<div class="error-list">${result.errors
     .map(e => `<p class="error-item">Line ${e.line}:${e.column} — ${e.message}</p>`)
@@ -44,6 +65,14 @@ function showErrors(result: AnalyzeResult): void {
 }
 
 function renderResult(result: AnalyzeResult): void {
+  // Tear down existing component instances (unsubscribes from SelectionStore)
+  currentAstTree?.clear();
+  currentCfgGraph?.clear();
+  currentDfgGraph?.clear();
+  currentAstTree = null;
+  currentCfgGraph = null;
+  currentDfgGraph = null;
+
   if (result.errors.length > 0) {
     showErrors(result);
     return;
@@ -52,26 +81,36 @@ function renderResult(result: AnalyzeResult): void {
   const astContainer = document.getElementById('tab-ast')!;
   astContainer.innerHTML = '';
   if (result.ast) {
-    const tree = new AstTree(astContainer);
-    tree.render(toD3Hierarchy(result.ast));
+    currentAstTree = new AstTree(astContainer);
+    currentAstTree.setOnNodeClick((nodeId, location) => jumpController.onAstNodeClick(nodeId, location));
+    currentAstTree.render(toD3Hierarchy(result.ast));
   }
 
   const cfgContainer = document.getElementById('tab-cfg')!;
   cfgContainer.innerHTML = '';
   if (result.cfg) {
-    const graph = new CfgGraph(cfgContainer);
-    graph.render(toCfgData(result.cfg));
+    currentCfgGraph = new CfgGraph(cfgContainer);
+    currentCfgGraph.setOnNodeClick((blockId, location) => jumpController.onCfgBlockClick(blockId, location));
+    currentCfgGraph.setOnStatementClick((blockId) => jumpController.onGotoStatementClick(blockId));
+    currentCfgGraph.setOnBackgroundClick(() => selectionStore.clearAll());
+    currentCfgGraph.render(toCfgData(result.cfg));
   }
 
   const dfgContainer = document.getElementById('tab-dfg')!;
   dfgContainer.innerHTML = '';
   if (result.dfg) {
-    const graph = new DfgGraph(dfgContainer);
-    graph.render(toDfgData(result.dfg));
+    currentDfgGraph = new DfgGraph(dfgContainer);
+    currentDfgGraph.setOnNodeClick(nodeId => jumpController.onDfgNodeClick(nodeId));
+    currentDfgGraph.setOnBackgroundClick(() => selectionStore.clearAll());
+    currentDfgGraph.render(toDfgData(result.dfg));
   }
 
   if (result.metrics) {
     mdiPanel.render(result.metrics);
+  }
+
+  if (result.ast && result.cfg && result.dfg) {
+    jumpController.init(result.ast, result.cfg, result.dfg);
   }
 }
 

@@ -160,4 +160,8 @@ export class Editor {
   setValue(value: string): void {
     this.inner.setValue(value);
   }
+
+  getEditor(): monaco.editor.IStandaloneCodeEditor {
+    return this.inner;
+  }
 }

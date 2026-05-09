@@ -179,3 +179,14 @@ html, body, #app {
   margin-bottom: 6px;
   font-family: monospace;
 }
+
+/* Phase 4: D3 node highlight */
+.node { transition: opacity 0.2s; }
+.node.selected rect, .node.selected circle { stroke: #f39c12; stroke-width: 3px; filter: brightness(1.3); }
+.node.impact rect, .node.impact circle { stroke: #e67e22; stroke-width: 2px; fill: #fff3e0; }
+.node.dimmed { opacity: 0.25; transition: opacity 0.2s; }
+
+/* Phase 4: Monaco decoration classes */
+.highlight-node { background-color: #fffde7; }
+.highlight-jump { background-color: #f3e5f5; }
+.highlight-impact { background-color: #fff3e0; }

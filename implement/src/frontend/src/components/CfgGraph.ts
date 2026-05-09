@@ -1,5 +1,7 @@
 import * as d3 from 'd3';
 import type { D3Node, D3Link, D3CfgData } from '../adapters/cfgAdapter';
+import type { SourceLocation } from '../types/analyzeResult';
+import { selectionStore, type SelectionState } from '../store/SelectionStore';
 
 const EDGE_COLOR: Record<string, string> = {
   FallThrough: '#808080',
@@ -23,6 +25,8 @@ const EDGE_DASH: Record<string, string> = {
   PerformThruReturn: '2,3',
 };
 
+const NAVIGATE_TYPES = new Set(['GOTO', 'PERFORM_THRU', 'PERFORM', 'PERFORM_LOOP']);
+
 const MAX_BLOCKS = 200;
 
 type SimNode = D3Node & d3.SimulationNodeDatum;
@@ -32,6 +36,10 @@ export class CfgGraph {
   private readonly svg: d3.Selection<SVGSVGElement, unknown, null, undefined>;
   private readonly g: d3.Selection<SVGGElement, unknown, null, undefined>;
   private readonly container: HTMLElement;
+  private unsub: (() => void) | null = null;
+  private onNodeClick?: (blockId: string, location: SourceLocation | null) => void;
+  private onStatementClick?: (blockId: string, statementType: string) => void;
+  private onBackgroundClick?: () => void;
 
   constructor(container: HTMLElement) {
     this.container = container;
@@ -45,6 +53,30 @@ export class CfgGraph {
         this.g.attr('transform', event.transform);
       }),
     );
+
+    this.svg.on('click', () => {
+      this.onBackgroundClick?.();
+    });
+
+    this.unsub = selectionStore.on(state => this.applySelection(state));
+  }
+
+  setOnNodeClick(handler: (blockId: string, location: SourceLocation | null) => void): void {
+    this.onNodeClick = handler;
+  }
+
+  setOnStatementClick(handler: (blockId: string, statementType: string) => void): void {
+    this.onStatementClick = handler;
+  }
+
+  setOnBackgroundClick(handler: () => void): void {
+    this.onBackgroundClick = handler;
+  }
+
+  private applySelection(state: SelectionState): void {
+    this.g.selectAll<SVGGElement, SimNode>('g.node')
+      .classed('selected', d => d.id === state.selectedCfgBlockId)
+      .classed('dimmed', d => state.selectedCfgBlockId !== null && d.id !== state.selectedCfgBlockId);
   }
 
   render(data: D3CfgData): void {
@@ -121,7 +153,11 @@ export class CfgGraph {
       .data(nodes)
       .join('g')
       .attr('class', 'node')
-      .call(nodeDrag);
+      .call(nodeDrag)
+      .on('click', (event, d) => {
+        event.stopPropagation();
+        this.onNodeClick?.(d.id, d.location);
+      });
 
     nodeGroup.append('rect')
       .attr('width', 120).attr('height', 40)
@@ -144,6 +180,25 @@ export class CfgGraph {
       .attr('fill', 'rgba(255,255,255,0.8)')
       .text(d => String(d.statementCount));
 
+    // N3: render clickable GOTO/PERFORM statement labels below each block
+    nodeGroup.each((d, i, nodes) => {
+      const g = d3.select<SVGGElement, SimNode>(nodes[i] as SVGGElement);
+      const navStmts = d.statements.filter(s => NAVIGATE_TYPES.has(s.statementType));
+      navStmts.forEach((stmt, idx) => {
+        g.append('text')
+          .attr('text-anchor', 'middle')
+          .attr('y', 28 + idx * 12)
+          .attr('font-size', '9px')
+          .attr('fill', '#8e44ad')
+          .style('cursor', 'pointer')
+          .text(`→ ${stmt.statementType}`)
+          .on('click', event => {
+            event.stopPropagation();
+            this.onStatementClick?.(d.id, stmt.statementType);
+          });
+      });
+    });
+
     simulation.on('tick', () => {
       linkSel
         .attr('x1', d => (d.source as SimNode).x ?? 0)
@@ -157,9 +212,13 @@ export class CfgGraph {
 
       nodeGroup.attr('transform', d => `translate(${d.x ?? 0},${d.y ?? 0})`);
     });
+
+    this.applySelection(selectionStore.getState());
   }
 
   clear(): void {
+    this.unsub?.();
+    this.unsub = null;
     this.g.selectAll('*').remove();
   }
 }

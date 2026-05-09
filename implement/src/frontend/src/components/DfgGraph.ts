@@ -1,5 +1,6 @@
 import * as d3 from 'd3';
 import type { D3DfgNode, D3DfgLink, D3DfgData } from '../adapters/dfgAdapter';
+import { selectionStore, type SelectionState } from '../store/SelectionStore';
 
 const EDGE_COLOR: Record<string, string> = {
   Define: '#e74c3c',
@@ -24,6 +25,9 @@ export class DfgGraph {
   private readonly svg: d3.Selection<SVGSVGElement, unknown, null, undefined>;
   private readonly g: d3.Selection<SVGGElement, unknown, null, undefined>;
   private readonly container: HTMLElement;
+  private unsub: (() => void) | null = null;
+  private onNodeClick?: (nodeId: string) => void;
+  private onBackgroundClick?: () => void;
 
   constructor(container: HTMLElement) {
     this.container = container;
@@ -37,6 +41,30 @@ export class DfgGraph {
         this.g.attr('transform', event.transform);
       }),
     );
+
+    this.svg.on('click', () => {
+      this.onBackgroundClick?.();
+    });
+
+    this.unsub = selectionStore.on(state => this.applySelection(state));
+  }
+
+  setOnNodeClick(handler: (nodeId: string) => void): void {
+    this.onNodeClick = handler;
+  }
+
+  setOnBackgroundClick(handler: () => void): void {
+    this.onBackgroundClick = handler;
+  }
+
+  private applySelection(state: SelectionState): void {
+    const hasSelection = state.selectedDfgNodeId !== null;
+    this.g.selectAll<SVGGElement, SimNode>('g.node')
+      .classed('selected', d => d.id === state.selectedDfgNodeId)
+      .classed('impact', d => state.impactClosureIds.has(d.id))
+      .classed('dimmed', d =>
+        hasSelection && d.id !== state.selectedDfgNodeId && !state.impactClosureIds.has(d.id),
+      );
   }
 
   render(data: D3DfgData): void {
@@ -102,7 +130,11 @@ export class DfgGraph {
       .data(nodes)
       .join('g')
       .attr('class', 'node')
-      .call(nodeDrag);
+      .call(nodeDrag)
+      .on('click', (event, d) => {
+        event.stopPropagation();
+        this.onNodeClick?.(d.id);
+      });
 
     nodeGroup.append('circle')
       .attr('r', d => d.isGroup ? 14 : 8)
@@ -126,9 +158,13 @@ export class DfgGraph {
 
       nodeGroup.attr('transform', d => `translate(${d.x ?? 0},${d.y ?? 0})`);
     });
+
+    this.applySelection(selectionStore.getState());
   }
 
   clear(): void {
+    this.unsub?.();
+    this.unsub = null;
     this.g.selectAll('*').remove();
   }
 }

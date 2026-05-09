@@ -1,5 +1,7 @@
 import * as d3 from 'd3';
 import type { AstNodeWithMeta } from '../adapters/astAdapter';
+import type { SourceLocation } from '../types/analyzeResult';
+import { selectionStore, type SelectionState } from '../store/SelectionStore';
 
 const NODE_COLORS: Record<string, string> = {
   Structure: '#1a4fa8',
@@ -13,6 +15,8 @@ export class AstTree {
   private readonly container: HTMLElement;
   private readonly zoom: d3.ZoomBehavior<SVGSVGElement, unknown>;
   private initialized = false;
+  private unsub: (() => void) | null = null;
+  private onNodeClick?: (nodeId: string, location: SourceLocation) => void;
 
   constructor(container: HTMLElement) {
     this.container = container;
@@ -25,6 +29,18 @@ export class AstTree {
       this.g.attr('transform', event.transform);
     });
     this.svg.call(this.zoom);
+
+    this.unsub = selectionStore.on(state => this.applySelection(state));
+  }
+
+  setOnNodeClick(handler: (nodeId: string, location: SourceLocation) => void): void {
+    this.onNodeClick = handler;
+  }
+
+  private applySelection(state: SelectionState): void {
+    this.g.selectAll<SVGGElement, d3.HierarchyPointNode<AstNodeWithMeta>>('g.node')
+      .classed('selected', d => d.data.id === state.selectedAstNodeId)
+      .classed('dimmed', d => state.selectedAstNodeId !== null && d.data.id !== state.selectedAstNodeId);
   }
 
   render(root: AstNodeWithMeta): void {
@@ -71,6 +87,9 @@ export class AstTree {
       .attr('transform', d => `translate(${d.y},${d.x})`)
       .style('cursor', 'pointer')
       .on('click', (_event, d) => {
+        this.onNodeClick?.(d.data.id, d.data.location);
+      })
+      .on('dblclick', (_event, d) => {
         d.data.collapsed = !d.data.collapsed;
         this.render(root);
       });
@@ -85,9 +104,13 @@ export class AstTree {
       .attr('font-size', '11px')
       .attr('fill', '#333')
       .text(d => d.data.nodeType);
+
+    this.applySelection(selectionStore.getState());
   }
 
   clear(): void {
+    this.unsub?.();
+    this.unsub = null;
     this.g.selectAll('*').remove();
   }
 
