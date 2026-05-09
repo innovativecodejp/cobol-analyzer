@@ -1,8 +1,8 @@
 # Phase 2 仕様：AST設計・指標計算エンジン
 
-バージョン: 1.3  
+バージョン: 1.4  
 作成日: 2026-05-05  
-更新日: 2026-05-08（整合性レビューによる修正: AnalyzeResult.Ast nullable化・CfgEdge.IsRecursive追加・MetricsResult.CcPerParagraph追加・StatementNode.CallTarget追加・APIレスポンス例修正・enum JSON 文字列化方針追記）  
+更新日: 2026-05-10（整合性レビュー反映済み。Phase 4 実装フィードバック対応: PERFORM単体・IFブランチChildren・syntheticブロック内GOTO追記）  
 ステータス: 確定（implement/ への引き渡し可）
 
 前提: `design/specs/phase1-antlr-parser.md` の実装が完了していること。
@@ -101,7 +101,7 @@ public class StatementNode : AstNode
     public List<DataReferenceNode> Operands { get; init; } = new();  // 参照データ項目リスト
     public string? IoVerb { get; init; }      // READ / WRITE / OPEN / CLOSE（I/O文のみ）
     public string? FileName { get; init; }    // I/O文の対象ファイル名
-    // PERFORM用（StatementType が PERFORM_THRU / PERFORM_LOOP のとき有効）
+    // PERFORM用（StatementType が PERFORM / PERFORM_THRU / PERFORM_LOOP のとき有効）
     public string? PerformFrom { get; init; }
     public string? PerformThru { get; init; }
     public PerformDetailsNode? PerformDetails { get; init; }
@@ -109,6 +109,14 @@ public class StatementNode : AstNode
     public string? CallTarget { get; init; }  // 静的CALLの呼び出し先名（大文字正規化済み）。動的CALLは null
 }
 ```
+
+`StatementType = "PERFORM"` は `PERFORM paragraph` の OOL 単体実行を表す。
+`PerformFrom` に呼び出し先パラグラフ名を保持し、`PerformThru = null` とする。
+`CfgBuilder` は `"PERFORM"` から `PerformCall` / `PerformReturn` エッジを生成する。
+
+IF / EVALUATE などの構造文が `TrueStatements` / `FalseStatements` / `WhenStatements` のような専用リストを持つ実装の場合、
+そこに含まれる `StatementNode` は同じインスタンスを `AstNode.Children` にも追加すること。
+Phase 4 の `LineNodeIndex` は `children` を DFS 走査するため、分岐内ステートメントが `Children` に含まれないと N2 ナビゲーション対象から漏れる。
 
 ### 3.2 DataItemNode 拡張
 
@@ -242,6 +250,13 @@ public class ControlFlowGraph
 3. GO TO の遷移先パラグラフ先頭
 4. IF / EVALUATE の分岐先（真・偽・WHEN）
 5. PERFORM（OOL）の復帰先となる次の文
+
+#### IF / EVALUATE 分岐ブロックの扱い
+
+IF / EVALUATE の分岐は synthetic BasicBlock として分割してよい。
+分岐内 synthetic ブロックに `StatementType = "GOTO"` の文が含まれる場合、
+その synthetic ブロックから対象パラグラフ先頭ブロックへの `GoTo` エッジを生成すること。
+GO TO エッジ生成はパラグラフ直下のステートメントだけを対象にしてはならない。
 
 #### ALTER 文の扱い
 
@@ -526,6 +541,13 @@ Content-Type: application/json
 
 ## 10. テスト要件
 
+### AstBuilderPhase2Tests.cs
+
+| テスト名 | 検証内容 |
+|----------|---------|
+| `Build_PerformSingle_StatementTypeIsPerform` | `PERFORM paragraph` が `StatementType = "PERFORM"` となり、`PerformFrom` を保持する |
+| `Build_IfBranchStatements_AlsoInChildren` | IF の True/False ブランチ内ステートメントが専用リストだけでなく `Children` にも含まれる |
+
 ### CfgBuilderTests.cs
 
 | テスト名 | 検証内容 |
@@ -535,6 +557,7 @@ Content-Type: application/json
 | `Build_GoTo_GoToEdge` | GO TO文が GoTo エッジを生成する |
 | `Build_PerformOOL_CallAndReturnEdges` | PERFORM（OOL）が PerformCall / PerformReturn エッジを生成する |
 | `Build_PerformThru_ThruEdges` | PERFORM THRU が PerformThruCall / PerformThruReturn エッジを生成する |
+| `Build_IfBranchGoTo_GoToEdgeFromSyntheticBlock` | IF ブランチ synthetic ブロック内の GO TO から対象パラグラフへの GoTo エッジが生成される |
 | `Build_AlterStatement_HasAlterTrue` | ALTER文を含むプログラムで HasAlter = true |
 | `Build_RecursivePerform_HasRecursionTrue` | 相互再帰PERFORMで HasRecursion = true |
 | `Build_EntryAndExit_Correct` | EntryBlockId が PROCEDURE DIVISION 先頭、ExitBlockIds に STOP RUN ブロックが含まれる |
@@ -590,6 +613,8 @@ Content-Type: application/json
 5. **MdiWeights の合計検証**: 重みの合計が 1.0 でない場合、起動時に警告ログを出力すること（エラーで止めない）。
 
 6. **enum の JSON 表現**: `CfgEdgeKind` / `DfgEdgeKind` / `MdiRisk` は Phase 1 §8 の `JsonStringEnumConverter` 設定により文字列で返す。TypeScript 型定義は数値 enum を受け取らない。
+
+7. **Phase 4 ナビゲーション前提**: Phase 4 の `LineNodeIndex` は AST `children` を DFS し、N3 は CFG エッジを辿る。IF ブランチ内のステートメントは `Children` にも含め、IF ブランチ synthetic ブロック内の GO TO からも `GoTo` エッジを生成すること。
 
 ---
 

@@ -1,8 +1,8 @@
 # Phase 1 仕様：環境構築・ANTLRパーサー
 
-バージョン: 1.3  
+バージョン: 1.4  
 作成日: 2026-05-03  
-更新日: 2026-05-08（整合性レビューによる修正: AstNode.Id 追加・DataItemNode.IsGroup 統一・StatementType "CALL" 追加・enum JSON 文字列化方針追加・旧フェーズ番号修正）  
+更新日: 2026-05-10（整合性レビュー反映済み。Phase 4 実装フィードバック対応: StatementType "PERFORM" 追加）  
 ステータス: 確定（implement/ への引き渡し可）
 
 ---
@@ -202,12 +202,13 @@ AstBuilder でこれらの情報を落としてはならない。
 |------|-----------------|------|
 | `GO TO paragraph-name` | `"GOTO"` | 非構造化制御フロー。制御エッジ解析の起点 |
 | `ALTER paragraph TO PROCEED TO paragraph` | `"ALTER"` | 動的GOTO変更。高リスクパターン |
+| `PERFORM paragraph` | `"PERFORM"` | OOL単体実行。`StatementNode.PerformFrom` に呼び出し先パラグラフ名を保持し、`PerformThru = null` とする |
 | `PERFORM paragraph THRU paragraph` | `"PERFORM_THRU"` | 範囲実行。境界情報（From/Thru）を保持 |
 | `PERFORM UNTIL / VARYING` | `"PERFORM_LOOP"` | ループ構造。条件式テキストを保持 |
 | `CALL "program-name"` | `"CALL"` | 静的CALL。`StatementNode.CallTarget` に大文字正規化済みのプログラム名を格納する。Phase 6 依存グラフ構築で必要 |
 | `CALL identifier` | `"CALL"` | 動的CALL。`StatementNode.CallTarget = null` とし、静的CALLと区別する |
 
-PERFORM THRU の `From` / `Thru` パラグラフ名は `StatementNode` の追加プロパティとして保持すること。
+PERFORM / PERFORM THRU の `From` / `Thru` パラグラフ名は `StatementNode` の追加プロパティとして保持すること。
 
 #### DFG構築（Phase 2）に必要な構文
 
@@ -367,6 +368,7 @@ MVC Controller を使う場合は `AddJsonOptions` で同等の設定を行う�
 | `Build_ProcedureDivision_ContainsParagraphs` | PROCEDURE DIVISIONのパラグラフが正しくParagraphNodeに変換される |
 | `Build_WorkingStorage_ContainsSection` | WORKING-STORAGE SECTIONが正しくSectionNodeに変換される |
 | `Build_GoTo_StatementTypeIsGoto` | GO TO文のStatementTypeが `"GOTO"` であること |
+| `Build_Perform_StatementTypeIsPerform` | `PERFORM paragraph` のStatementTypeが `"PERFORM"` であり、PerformFrom が保持されること |
 | `Build_PerformThru_PreservesFromAndThru` | PERFORM ... THRU ... のFrom/Thruパラグラフ名が保持されること |
 | `Build_DataItem_PreservesLevelAndPicture` | レベル番号・名前・PIC句が正しくDataItemNodeに格納される |
 | `Build_Redefines_PreservesTargetName` | REDEFINES句の対象フィールド名がRedefinesTargetに格納される |
