@@ -11,6 +11,7 @@ export class JumpController {
   private cfg: ControlFlowGraph | null = null;
   private dfg: DataFlowGraph | null = null;
   private storeUnsub: (() => void) | null = null;
+  private programmaticMoveUntil = 0;
 
   constructor(
     private readonly editor: monaco.editor.IStandaloneCodeEditor,
@@ -31,7 +32,13 @@ export class JumpController {
     selectionStore.clearAll();
   }
 
+  private suppressN2(): void {
+    // Suppress N2 (cursor→diagram) for 300ms to prevent it from clearing N1/N3 highlight
+    this.programmaticMoveUntil = Date.now() + 300;
+  }
+
   onAstNodeClick(nodeId: string, location: SourceLocation): void {
+    this.suppressN2();
     selectionStore.selectAstNode(nodeId, { start: location.startLine, end: location.stopLine });
     this.highlighter.highlight(location.startLine, location.stopLine, 'highlight-node');
     this.editor.revealLineInCenter(location.startLine);
@@ -39,6 +46,7 @@ export class JumpController {
   }
 
   onCfgBlockClick(blockId: string, location: SourceLocation | null): void {
+    this.suppressN2();
     selectionStore.selectCfgBlock(blockId);
     if (!location) return;
     this.highlighter.highlight(location.startLine, location.stopLine, 'highlight-node');
@@ -56,6 +64,7 @@ export class JumpController {
     selectionStore.selectCfgBlock(edge.toBlockId);
 
     if (!toBlock?.location) return;
+    this.suppressN2();
     this.highlighter.highlight(toBlock.location.startLine, toBlock.location.stopLine, 'highlight-jump');
     this.editor.revealLineInCenter(toBlock.location.startLine);
     this.editor.setPosition({ lineNumber: toBlock.location.startLine, column: 1 });
@@ -68,6 +77,8 @@ export class JumpController {
   }
 
   onCursorMove(line: number): void {
+    // Skip if we just did a programmatic jump (N1/N3) to avoid clearing Monaco highlight
+    if (Date.now() < this.programmaticMoveUntil) return;
     if (!this.index) return;
     const entry = this.index.lookup(line);
     if (entry) {
