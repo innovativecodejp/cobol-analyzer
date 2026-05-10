@@ -10,7 +10,13 @@ public class AstBuilder
     public ProgramNode Build(StartRuleContext ctx)
     {
         var unit = ctx.compilationUnit().programUnit(0);
-        var program = new ProgramNode { Location = GetLocation(ctx) };
+        var programName = unit.identificationDivision()
+            ?.programIdParagraph()
+            ?.programName()
+            ?.GetText()
+            .Trim('\'', '"')
+            .ToUpperInvariant() ?? string.Empty;
+        var program = new ProgramNode { Name = programName, Location = GetLocation(ctx) };
 
         var id = unit.identificationDivision();
         if (id != null) program.Children.Add(BuildIdentificationDivision(id));

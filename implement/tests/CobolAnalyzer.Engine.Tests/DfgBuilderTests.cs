@@ -75,8 +75,25 @@ public class DfgBuilderTests
 
         var (_, dfg, closure) = BuildFromSource(source);
 
-        // The closure should exist and contain nodes
-        Assert.NotNull(closure);
-        Assert.NotEmpty(closure);
+        Assert.True(closure.TryGetValue("WS-A", out var impactedByA));
+        Assert.Contains("WS-B", impactedByA);
+        Assert.Contains("WS-C", impactedByA);
+    }
+
+    [Fact]
+    public void Build_Redefines_ImpactClosureIncludesOverlay()
+    {
+        var (_, _, closure) = BuildFromSource(ReadTestData("data-sample.cbl"));
+
+        Assert.True(closure.TryGetValue("WS-BUFFER.WS-NUMERIC", out var impactedByNumeric));
+        Assert.Contains("WS-BUFFER.WS-CHAR", impactedByNumeric);
+    }
+
+    [Fact]
+    public void Build_ProgramName_SetFromProgramId()
+    {
+        var (_, dfg, _) = BuildFromSource(ReadTestData("data-sample.cbl"));
+
+        Assert.Equal("DATA-SAMPLE", dfg.ProgramName);
     }
 }

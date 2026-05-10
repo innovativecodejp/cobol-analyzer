@@ -16,7 +16,7 @@ public class CfgBuilder
         _edges.Clear();
         _hasAlter = false;
 
-        var programName = "";
+        var programName = ast.Name;
         var procDiv = ast.Children.OfType<DivisionNode>()
             .FirstOrDefault(d => d.Name == "PROCEDURE DIVISION");
         if (procDiv == null)

@@ -26,7 +26,13 @@ public class DfgBuilder
             CollectStatementEdges(procDiv, nodes, edges);
 
         var closure = ComputeImpactClosure(nodes, edges);
-        return new DataFlowGraph { Nodes = nodes, Edges = edges, ImpactClosure = closure };
+        return new DataFlowGraph
+        {
+            ProgramName = ast.Name,
+            Nodes = nodes,
+            Edges = edges,
+            ImpactClosure = closure
+        };
     }
 
     private static void CollectDataNodes(DataItemNode item, string? parentId,
@@ -118,30 +124,61 @@ public class DfgBuilder
     private static Dictionary<string, List<string>> ComputeImpactClosure(
         List<DfgNode> nodes, List<DfgEdge> edges)
     {
-        // Build define→use connections: when A defines B, and C uses B → A impacts C
-        // Simplified: for each node, BFS over Define edges to find reachable Use targets
-        var result = new Dictionary<string, List<string>>();
+        var dependencyGraph = nodes.ToDictionary(
+            n => n.Id,
+            _ => new HashSet<string>(StringComparer.OrdinalIgnoreCase),
+            StringComparer.OrdinalIgnoreCase);
+
+        foreach (var statementGroup in edges
+            .Where(e => e.StatementRef != null && e.Kind is DfgEdgeKind.Define or DfgEdgeKind.Use)
+            .GroupBy(e => e.StatementRef))
+        {
+            var usedIds = statementGroup
+                .Where(e => e.Kind == DfgEdgeKind.Use)
+                .Select(e => e.FromId)
+                .Distinct(StringComparer.OrdinalIgnoreCase);
+            var definedIds = statementGroup
+                .Where(e => e.Kind == DfgEdgeKind.Define)
+                .Select(e => e.ToId)
+                .Distinct(StringComparer.OrdinalIgnoreCase);
+
+            foreach (var usedId in usedIds)
+            {
+                if (!dependencyGraph.TryGetValue(usedId, out var impacts)) continue;
+                foreach (var definedId in definedIds)
+                    if (!usedId.Equals(definedId, StringComparison.OrdinalIgnoreCase))
+                        impacts.Add(definedId);
+            }
+        }
+
+        foreach (var redefines in edges.Where(e => e.Kind == DfgEdgeKind.Redefines))
+        {
+            if (dependencyGraph.TryGetValue(redefines.ToId, out var targetImpacts))
+                targetImpacts.Add(redefines.FromId);
+            if (dependencyGraph.TryGetValue(redefines.FromId, out var redefiningImpacts))
+                redefiningImpacts.Add(redefines.ToId);
+        }
+
+        var result = new Dictionary<string, List<string>>(StringComparer.OrdinalIgnoreCase);
         foreach (var node in nodes)
         {
-            var reachable = new HashSet<string>();
-            BfsUseReachable(node.Id, edges, reachable, new HashSet<string>());
-            result[node.Id] = reachable.Where(r => r != node.Id).ToList();
+            var reachable = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            CollectReachable(node.Id, dependencyGraph, reachable);
+            reachable.Remove(node.Id);
+            result[node.Id] = reachable.OrderBy(id => id, StringComparer.OrdinalIgnoreCase).ToList();
         }
         return result;
     }
 
-    private static void BfsUseReachable(string startId, List<DfgEdge> edges,
-        HashSet<string> reachable, HashSet<string> visited)
+    private static void CollectReachable(string startId,
+        Dictionary<string, HashSet<string>> dependencyGraph,
+        HashSet<string> reachable)
     {
-        if (!visited.Add(startId)) return;
-        // Find all nodes that have a Use edge (i.e., are used after startId is defined)
-        var defineEdges = edges.Where(e => e.Kind == DfgEdgeKind.Define && e.FromId == startId);
-        foreach (var de in defineEdges)
+        if (!dependencyGraph.TryGetValue(startId, out var nextIds)) return;
+        foreach (var nextId in nextIds)
         {
-            // Find Use edges from the same node
-            var useEdges = edges.Where(e => e.Kind == DfgEdgeKind.Use && e.FromId == de.ToId);
-            foreach (var ue in useEdges)
-                reachable.Add(ue.ToId);
+            if (!reachable.Add(nextId)) continue;
+            CollectReachable(nextId, dependencyGraph, reachable);
         }
     }
 }

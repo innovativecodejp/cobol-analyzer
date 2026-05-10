@@ -151,7 +151,15 @@ public class CfgBuilderTests
     }
 
     [Fact]
-    public void Build_GotoInsideIf_GoToEdgeFromSyntheticBlock()
+    public void Build_ProgramName_SetFromProgramId()
+    {
+        var (_, cfg) = BuildFromSource(ReadTestData("hello.cbl"));
+
+        Assert.Equal("HELLO", cfg.ProgramName);
+    }
+
+    [Fact]
+    public void Build_IfBranchGoTo_GoToEdgeFromSyntheticBlock()
     {
         var source = @"       IDENTIFICATION DIVISION.
        PROGRAM-ID. MYPROG.
