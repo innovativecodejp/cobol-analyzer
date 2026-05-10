@@ -21,6 +21,24 @@ function makeAst(): AstNode {
   };
 }
 
+function makeAstAtLine(line: number): AstNode {
+  return {
+    id: 'Program:1:0',
+    nodeType: 'Program',
+    category: 'Structure',
+    location: { startLine: 1, startColumn: 0, stopLine: 10, stopColumn: 0 },
+    children: [
+      {
+        id: `Statement:${line}:4`,
+        nodeType: 'Statement',
+        category: 'Unit',
+        location: { startLine: line, startColumn: 4, stopLine: line, stopColumn: 20 },
+        children: [],
+      },
+    ],
+  };
+}
+
 function makeCfg(): ControlFlowGraph {
   return {
     programName: 'TEST',
@@ -81,11 +99,33 @@ describe('JumpController', () => {
     expect(mockHighlighter.highlight).toHaveBeenCalledWith(3, 3, 'highlight-node');
   });
 
+  it('init_rebuildsLineNodeIndex', () => {
+    controller.init(makeAstAtLine(8), makeCfg(), makeDfg());
+    controller.onCursorMove(8);
+
+    expect(selectionStore.getState().selectedAstNodeId).toBe('Statement:8:4');
+  });
+
   it('onCursorMove_selectsAstNodeAtLine', () => {
     controller.onCursorMove(5);
     const state = selectionStore.getState();
     expect(state.selectedAstNodeId).toBe('Statement:5:4');
     expect(state.selectedAstLineRange).toEqual({ start: 5, end: 5 });
+  });
+
+  it('onCursorMove_noNode_storeCleared', () => {
+    selectionStore.selectAstNode('old-node', { start: 1, end: 1 });
+    controller.onCursorMove(99);
+
+    expect(selectionStore.getState().selectedAstNodeId).toBeNull();
+  });
+
+  it('onCursorMove_suppressedAfterProgrammaticMove', () => {
+    const loc = { startLine: 3, startColumn: 0, stopLine: 3, stopColumn: 10 };
+    controller.onAstNodeClick('node-1', loc);
+    controller.onCursorMove(5);
+
+    expect(selectionStore.getState().selectedAstNodeId).toBe('node-1');
   });
 
   it('onGotoStatementClick_selectsTargetBlockAndJumps', () => {

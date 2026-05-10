@@ -26,17 +26,25 @@ const EDGE_DASH: Record<string, string> = {
 };
 
 const NAVIGATE_TYPES = new Set(['GOTO', 'PERFORM_THRU', 'PERFORM', 'PERFORM_LOOP']);
+const NAVIGATE_EDGE_KINDS = new Set(['GoTo', 'PerformCall', 'PerformThruCall']);
 
 const MAX_BLOCKS = 200;
 
 type SimNode = D3Node & d3.SimulationNodeDatum;
 type SimLink = Omit<D3Link, 'source' | 'target'> & d3.SimulationLinkDatum<SimNode>;
 
+function nodeId(value: string | number | SimNode): string {
+  return typeof value === 'object' ? value.id : String(value);
+}
+
 export class CfgGraph {
   private readonly svg: d3.Selection<SVGSVGElement, unknown, null, undefined>;
   private readonly g: d3.Selection<SVGGElement, unknown, null, undefined>;
   private readonly container: HTMLElement;
+  private readonly zoom: d3.ZoomBehavior<SVGSVGElement, unknown>;
   private unsub: (() => void) | null = null;
+  private impactBlockIds = new Set<string>();
+  private currentNodes = new Map<string, SimNode>();
   private onNodeClick?: (blockId: string, location: SourceLocation | null) => void;
   private onStatementClick?: (blockId: string, statementType: string) => void;
   private onBackgroundClick?: () => void;
@@ -48,11 +56,10 @@ export class CfgGraph {
       .attr('height', '100%');
     this.g = this.svg.append('g');
 
-    this.svg.call(
-      d3.zoom<SVGSVGElement, unknown>().on('zoom', event => {
-        this.g.attr('transform', event.transform);
-      }),
-    );
+    this.zoom = d3.zoom<SVGSVGElement, unknown>().on('zoom', event => {
+      this.g.attr('transform', event.transform);
+    });
+    this.svg.call(this.zoom);
 
     this.svg.on('click', () => {
       this.onBackgroundClick?.();
@@ -74,12 +81,45 @@ export class CfgGraph {
   }
 
   private applySelection(state: SelectionState): void {
+    if (state.selectedCfgBlockId === null) {
+      this.impactBlockIds.clear();
+    }
+
     this.g.selectAll<SVGGElement, SimNode>('g.node')
       .classed('selected', d => d.id === state.selectedCfgBlockId)
-      .classed('dimmed', d => state.selectedCfgBlockId !== null && d.id !== state.selectedCfgBlockId);
+      .classed('impact', d =>
+        state.selectedCfgBlockId !== null &&
+        d.id !== state.selectedCfgBlockId &&
+        this.impactBlockIds.has(d.id),
+      )
+      .classed('dimmed', d =>
+        state.selectedCfgBlockId !== null &&
+        d.id !== state.selectedCfgBlockId &&
+        !this.impactBlockIds.has(d.id),
+      );
+
+    if (state.selectedCfgBlockId) {
+      this.centerBlock(state.selectedCfgBlockId);
+    }
+  }
+
+  private centerBlock(blockId: string): void {
+    const node = this.currentNodes.get(blockId);
+    const svgNode = this.svg.node();
+    if (!node || !svgNode || node.x === undefined || node.y === undefined) return;
+
+    const width = this.container.clientWidth || 600;
+    const height = this.container.clientHeight || 400;
+    const current = d3.zoomTransform(svgNode);
+    const next = d3.zoomIdentity
+      .translate(width / 2 - node.x * current.k, height / 2 - node.y * current.k)
+      .scale(current.k);
+    this.svg.call(this.zoom.transform, next);
   }
 
   render(data: D3CfgData): void {
+    this.impactBlockIds.clear();
+    this.currentNodes.clear();
     this.g.selectAll('*').remove();
     this.svg.selectAll('defs').remove();
 
@@ -104,6 +144,7 @@ export class CfgGraph {
       .append('path').attr('d', 'M0,-5L10,0L0,5').attr('fill', '#555');
 
     const nodes: SimNode[] = data.nodes.map(n => ({ ...n }));
+    this.currentNodes = new Map(nodes.map(n => [n.id, n]));
     const nodeById = new Map(nodes.map(n => [n.id, n]));
     const links: SimLink[] = data.links.map(l => ({
       ...l,
@@ -156,6 +197,7 @@ export class CfgGraph {
       .call(nodeDrag)
       .on('click', (event, d) => {
         event.stopPropagation();
+        this.impactBlockIds.clear();
         this.onNodeClick?.(d.id, d.location);
       });
 
@@ -201,6 +243,10 @@ export class CfgGraph {
       .text(d => `→ ${d.statementType}`)
       .on('click', (event, d) => {
         event.stopPropagation();
+        const targetIds = links
+          .filter(l => nodeId(l.source) === d.block.id && NAVIGATE_EDGE_KINDS.has(l.kind))
+          .map(l => nodeId(l.target));
+        this.impactBlockIds = new Set(targetIds.slice(1));
         this.onStatementClick?.(d.block.id, d.statementType);
       });
 

@@ -18,6 +18,7 @@ export class AstTree {
   private unsub: (() => void) | null = null;
   private onNodeClick?: (nodeId: string, location: SourceLocation) => void;
   private root: AstNodeWithMeta | null = null;
+  private nodePositions = new Map<string, { x: number; y: number }>();
 
   constructor(container: HTMLElement) {
     this.container = container;
@@ -69,6 +70,24 @@ export class AstTree {
     this.g.selectAll<SVGGElement, d3.HierarchyPointNode<AstNodeWithMeta>>('g.node')
       .classed('selected', d => d.data.id === nodeId)
       .classed('dimmed', d => nodeId !== null && d.data.id !== nodeId);
+
+    if (nodeId) {
+      this.centerNode(nodeId);
+    }
+  }
+
+  private centerNode(nodeId: string): void {
+    const position = this.nodePositions.get(nodeId);
+    const svgNode = this.svg.node();
+    if (!position || !svgNode) return;
+
+    const width = this.container.clientWidth || 600;
+    const height = this.container.clientHeight || 500;
+    const current = d3.zoomTransform(svgNode);
+    const next = d3.zoomIdentity
+      .translate(width / 2 - position.y * current.k, height / 2 - position.x * current.k)
+      .scale(current.k);
+    this.svg.call(this.zoom.transform, next);
   }
 
   render(root: AstNodeWithMeta): void {
@@ -78,6 +97,9 @@ export class AstTree {
     const treeLayout = d3.tree<AstNodeWithMeta>().nodeSize([28, 160]);
     const pointRoot = treeLayout(
       d3.hierarchy<AstNodeWithMeta>(root, d => (d.collapsed ? null : d.children)),
+    );
+    this.nodePositions = new Map(
+      pointRoot.descendants().map(d => [d.data.id, { x: d.x, y: d.y }]),
     );
 
     if (!this.initialized) {
@@ -117,6 +139,10 @@ export class AstTree {
       .style('cursor', 'pointer')
       .on('click', (_event, d) => {
         this.onNodeClick?.(d.data.id, d.data.location);
+      })
+      .on('dblclick', (event, d) => {
+        event.stopPropagation();
+        event.preventDefault();
         d.data.collapsed = !d.data.collapsed;
         this.render(root);
       });

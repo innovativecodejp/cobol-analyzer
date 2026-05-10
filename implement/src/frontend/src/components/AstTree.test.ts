@@ -49,7 +49,7 @@ afterEach(() => {
 });
 
 describe('AstTree', () => {
-  it('clickingNode_togglesCollapseAndInvokesHandler', () => {
+  it('clickingNode_invokesHandlerWithoutTogglingCollapse', () => {
     const container = document.createElement('div');
     Object.defineProperty(container, 'clientHeight', { value: 500, configurable: true });
     document.body.appendChild(container);
@@ -69,6 +69,27 @@ describe('AstTree', () => {
     divisionNode!.dispatchEvent(new MouseEvent('click', { bubbles: true }));
 
     expect(clickedNodeId).toBe('Division:2:0');
+    expect(root.children[0].collapsed).toBe(false);
+    expect(container.textContent).toContain('Statement');
+
+    tree.clear();
+  });
+
+  it('doubleClickingNode_togglesCollapse', () => {
+    const container = document.createElement('div');
+    Object.defineProperty(container, 'clientHeight', { value: 500, configurable: true });
+    document.body.appendChild(container);
+
+    const tree = new AstTree(container);
+    const root = buildAst();
+
+    tree.render(root);
+    const divisionNode = Array.from(container.querySelectorAll<SVGGElement>('g.node'))
+      .find(node => node.textContent?.includes('Division'));
+    expect(divisionNode).toBeDefined();
+
+    divisionNode!.dispatchEvent(new MouseEvent('dblclick', { bubbles: true }));
+
     expect(root.children[0].collapsed).toBe(true);
     expect(container.textContent).not.toContain('Statement');
 
