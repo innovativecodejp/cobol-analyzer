@@ -117,8 +117,6 @@ export class AstTree {
       .style('cursor', 'pointer')
       .on('click', (_event, d) => {
         this.onNodeClick?.(d.data.id, d.data.location);
-      })
-      .on('dblclick', (_event, d) => {
         d.data.collapsed = !d.data.collapsed;
         this.render(root);
       });
