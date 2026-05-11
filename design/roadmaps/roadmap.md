@@ -1,7 +1,7 @@
 # cobol-analyzer ロードマップ
 
 作成日: 2026-05-05  
-更新日: 2026-05-08（整合性レビューによる仕様書バージョン更新を反映）
+更新日: 2026-05-12（Phase 6 実装フィードバックによる仕様書更新を反映）
 
 ---
 
@@ -137,8 +137,8 @@
 | 仕様書 | バージョン | 更新日 | 状態 |
 |--------|-----------|--------|------|
 | `specs/phase1-antlr-parser.md` | 1.4 | 2026-05-10 | ✅ 確定 |
-| `specs/phase2-engine.md` | 1.4 | 2026-05-10 | ✅ 確定 |
+| `specs/phase2-engine.md` | 1.5 | 2026-05-12 | ✅ 確定 |
 | `specs/phase3-visualization.md` | 1.3 | 2026-05-08 | ✅ 確定 |
 | `specs/phase4-navigation.md` | 1.2 | 2026-05-10 | ✅ 確定 |
 | `specs/phase5-comment.md` | 1.2 | 2026-05-08 | ✅ 確定 |
-| `specs/phase6-export.md` | 1.1 | 2026-05-08 | ✅ 確定 |
+| `specs/phase6-export.md` | 1.2 | 2026-05-12 | ✅ 確定 |

@@ -1,8 +1,8 @@
 # Phase 6 仕様：分析機能・エクスポート
 
-バージョン: 1.1  
+バージョン: 1.2
 作成日: 2026-05-05  
-更新日: 2026-05-08（整合性レビューによる修正: CALL 解析の CallTarget 参照化・enum JSON 文字列化方針追記）  
+更新日: 2026-05-12（実装フィードバック反映: ProjectAnalyzeResult の Engine 配置・50件超過 validation・ParagraphCount 算出根拠を明確化）
 ステータス: 確定（implement/ への引き渡し可）
 
 前提:
@@ -29,7 +29,7 @@
 - ファイルシステムへの直接保存
 - PDF出力
 - 動的CALL（変数による呼び出し先）の解析
-- プログラム数50超の大規模プロジェクト（警告を返す）
+- プログラム数50超の大規模プロジェクト（API validation で 400 Bad Request を返す）
 
 ---
 
@@ -42,6 +42,7 @@ implement/
 │       ├── CobolAnalyzer.Engine/
 │       │   ├── Project/                          ← 新規
 │       │   │   ├── ProjectAnalyzer.cs
+│       │   │   ├── ProjectAnalyzeResult.cs
 │       │   │   ├── CallGraphBuilder.cs
 │       │   │   ├── ProgramDependencyGraph.cs
 │       │   │   └── MigrationRanking.cs
@@ -51,7 +52,7 @@ implement/
 │       ├── CobolAnalyzer.Core/
 │       │   └── Models/
 │       │       ├── ProjectAnalyzeRequest.cs      ← 追加
-│       │       ├── ProjectAnalyzeResult.cs       ← 追加
+│       │       ├── CobolSource.cs                ← 追加
 │       │       ├── ExportReportRequest.cs        ← 追加
 │       │       └── ExportDesignRequest.cs        ← 追加
 │       └── CobolAnalyzer.API/
@@ -59,10 +60,12 @@ implement/
 │               ├── ProjectController.cs          ← 追加
 │               └── ExportController.cs           ← 追加
 └── tests/
-    └── CobolAnalyzer.Engine.Tests/
+    ├── CobolAnalyzer.Engine.Tests/
         ├── CallGraphBuilderTests.cs              ← 追加
         ├── MigrationRankingTests.cs              ← 追加
         └── ExportGeneratorTests.cs               ← 追加
+    └── CobolAnalyzer.API.Tests/
+        └── ProjectControllerTests.cs             ← 追加
 
 src/frontend/src/
 ├── components/
@@ -75,6 +78,12 @@ src/frontend/src/
 └── types/
     └── projectTypes.ts                           ← 追加
 ```
+
+モデル配置方針:
+- `CobolAnalyzer.Core` は Engine 型に依存しない request/input DTO のみを置く。
+- `ProjectAnalyzeResult` は `AnalyzeResult` / `ProgramDependencyGraph` / `MigrationRanking` を含むため、`CobolAnalyzer.Engine/Project` に置く。
+- `CobolAnalyzer.API` は Core の request DTO を受け取り、Engine の result model を JSON 応答として返す。
+- `Core -> Engine` 参照は作らない。`Engine -> Core` と `API -> Core/Engine` の依存方向を維持する。
 
 ---
 
@@ -126,7 +135,7 @@ public class DependencyEdge
 4. 検出した (caller, callee) ペアで `DependencyEdge` を生成し、CALL 文の `StatementNode.Location` を `CallSites` に追加する
 5. 全ノードの `FanIn` / `FanOut` を集計する
 6. DFS/BFS でサイクル検出を行い、存在する場合は `HasCycle = true` を設定する
-7. ノード数が 50 を超える場合は処理を中断し、エラーを返す
+7. 入力プログラム数の 50 件上限は `ProjectController` で検証する。`CallGraphBuilder` は検証済み入力を前提とし、ノード数超過エラーは返さない
 
 ---
 
@@ -153,6 +162,10 @@ public class MigrationRanking
     public List<MigrationRankingEntry> Entries { get; init; } = new();
 }
 ```
+
+`LineCount` は `CobolSource.Source` を改行で分割した物理行数とする。
+`ParagraphCount` は解析済み `AnalyzeResult.Ast` 配下の AST ノードのうち、`NodeType == "Paragraph"` かつ `Category == Unit` のノード数とする。
+ソース未提供の外部プログラムノードはランキング対象外とし、`ParagraphCount` を算出しない。
 
 ### 4.2 移行戦略（MigrationStrategy）
 
@@ -188,22 +201,23 @@ public enum MigrationStrategy
 ## 5. ProjectAnalyzer
 
 ```csharp
-// ProjectAnalyzer.cs
+// CobolAnalyzer.Engine/Project/ProjectAnalyzer.cs
 public class ProjectAnalyzer
 {
     // 複数COBOLソースを受け取り、全プログラムの分析結果と依存グラフ・ランキングを返す
     public ProjectAnalyzeResult Analyze(IReadOnlyList<CobolSource> sources);
 }
 
-// Models/ProjectAnalyzeRequest.cs
+// CobolAnalyzer.Core/Models/ProjectAnalyzeRequest.cs
 public class ProjectAnalyzeRequest
 {
     public List<CobolSource> Sources { get; init; } = new();
 }
 
+// CobolAnalyzer.Core/Models/CobolSource.cs
 public record CobolSource(string FileName, string Source);
 
-// Models/ProjectAnalyzeResult.cs
+// CobolAnalyzer.Engine/Project/ProjectAnalyzeResult.cs
 public class ProjectAnalyzeResult
 {
     public List<AnalyzeResult> Programs { get; init; } = new();    // 各プログラムの分析結果
@@ -212,6 +226,14 @@ public class ProjectAnalyzeResult
     public List<string> Errors { get; init; } = new();             // プロジェクトレベルのエラー
 }
 ```
+
+`ProjectAnalyzeResult` は Engine 層の分析結果モデルとする。
+`AnalyzeResult` は Phase 2 で `CobolAnalyzer.Engine/AnalyzeResult.cs` に配置され、CFG / DFG / Metrics 型を参照するため、Core 層へ移動しない。
+Core 層に置くのは `ProjectAnalyzeRequest` / `CobolSource` / `ExportReportRequest` / `ExportDesignRequest` のように Engine 型を参照しない DTO のみとする。
+
+入力 validation:
+- `sources` が空、または 50 件を超える場合、`ProjectController` が `400 Bad Request` を返し、`ProjectAnalyzer` / `CallGraphBuilder` は呼び出さない。
+- `ProjectAnalyzeResult.Errors` は、validation 通過後にプロジェクト分析中に発生したプロジェクトレベルのエラーを格納する。
 
 ---
 
@@ -334,14 +356,14 @@ public class ProjectAnalyzeResult
 ### 6.3 ExportRequest モデル
 
 ```csharp
-// Models/ExportReportRequest.cs（単一プログラム注釈レポート）
+// CobolAnalyzer.Core/Models/ExportReportRequest.cs（単一プログラム注釈レポート）
 public class ExportReportRequest
 {
     public string FileName { get; init; } = "program.cbl";
     public string Source { get; init; }   // タグコメント挿入済みソース
 }
 
-// Models/ExportDesignRequest.cs（移行設計書）
+// CobolAnalyzer.Core/Models/ExportDesignRequest.cs（移行設計書）
 public class ExportDesignRequest
 {
     public List<CobolSource> Sources { get; init; } = new();
@@ -403,8 +425,8 @@ Content-Type: application/json
 | 状況 | ステータス |
 |------|-----------|
 | 正常 | 200 OK |
-| sources が空 | 400 Bad Request |
-| プログラム数が 50 超 | 400 Bad Request |
+| sources が空 | 400 Bad Request（`ProjectController` validation。Engine は呼び出さない） |
+| プログラム数が 50 超 | 400 Bad Request（`ProjectController` validation。Engine は呼び出さない） |
 
 ### 7.2 注釈レポート生成
 
@@ -598,7 +620,14 @@ export interface ProjectAnalyzeResult {
 | `Build_ExternalProgram_IsExternalTrue` | ソース未提供の被呼び出しプログラムが `IsExternal = true` |
 | `Build_CircularCall_HasCycleTrue` | A→B→A の循環で `HasCycle = true` |
 | `Build_FanInFanOut_Correct` | FanIn / FanOut が正しく集計される |
-| `Build_ExceedsMaxNodes_ReturnsError` | プログラム数 51 でエラーが返る |
+
+### ProjectControllerTests.cs
+
+| テスト名 | 検証内容 |
+|----------|---------|
+| `Analyze_EmptySources_ReturnsBadRequest` | `sources` が空の場合、400 Bad Request を返し Engine を呼び出さない |
+| `Analyze_ExceedsMaxSources_ReturnsBadRequest` | 51 ファイルの場合、400 Bad Request を返し Engine を呼び出さない |
+| `Analyze_ValidSources_CallsProjectAnalyzer` | 1〜50 ファイルの場合、`ProjectAnalyzer` を呼び出して結果を返す |
 
 ### MigrationRankingTests.cs
 
@@ -608,6 +637,7 @@ export interface ProjectAnalyzeResult {
 | `Strategy_Critical_NeedsStudy` | MDI ≥ 75 で `NeedsStudy` |
 | `Strategy_HighFanInOut_StranglerFig` | FanIn+FanOut ≥ 6 で `StranglerFig` |
 | `Strategy_Low_BigBang` | MDI < 25 かつ FanIn+FanOut < 3 で `BigBang` |
+| `Rank_ParagraphCount_CountsParagraphNodes` | `NodeType == "Paragraph"` かつ `Category == Unit` の AST ノード数を `ParagraphCount` に反映する |
 
 ### ExportGeneratorTests.cs
 
@@ -634,6 +664,7 @@ export interface ProjectAnalyzeResult {
 
 - [ ] `dotnet test` が全テストPASS（CallGraphBuilder / MigrationRanking / ExportGenerator を含む）
 - [ ] `POST /api/project/analyze` に2ファイル（一方が他方をCALLする）を送信して依存グラフのエッジが1件返る
+- [ ] `POST /api/project/analyze` に51ファイルを送信すると `400 Bad Request` が返り、Engine が呼び出されない
 - [ ] `POST /api/project/analyze` で MDI スコア降順のランキングが返る
 - [ ] `POST /api/export/annotation-report` でMarkdownが返る（ProgramName・MDIスコア・戦略提案を含む）
 - [ ] `POST /api/export/annotation-report` にタグコメント付きソースを渡してテーブルにタグが出力される
@@ -656,9 +687,13 @@ export interface ProjectAnalyzeResult {
 
 4. **enum の JSON 表現**: `MigrationStrategy` は Phase 1 §8 の `JsonStringEnumConverter` 設定により `BigBang` / `Incremental` / `StranglerFig` / `NeedsStudy` の文字列で返す。TypeScript 型定義は数値 enum を受け取らない。
 
-5. **大量データのダウンロード**: ファイルが大きい場合、`Blob` の生成はメモリを消費する。Phase 6 の対象プログラム数を最大 50 に制限することで問題を回避する。
+5. **モデル配置**: `ProjectAnalyzeResult` は `AnalyzeResult` / `ProgramDependencyGraph` / `MigrationRanking` に依存するため Engine 層に配置する。Core 層は Engine 型を参照しない request/input DTO のみを保持し、`Core -> Engine` 参照を作らない。
 
-6. **循環依存の表示**: `HasCycle = true` の場合、依存グラフ上でサイクルを構成するエッジを赤破線で強調表示し、ユーザーに警告を示す。
+6. **50件上限の責務**: Phase 6 の対象プログラム数は最大 50 とし、`ProjectController` が `sources.Count > 50` を `400 Bad Request` として扱う。`CallGraphBuilder` は validation 済み入力を前提とし、上限超過エラーを返す責務を持たない。
+
+7. **大量データのダウンロード**: ファイルが大きい場合、`Blob` の生成はメモリを消費する。Phase 6 の対象プログラム数を最大 50 に制限することで問題を回避する。
+
+8. **循環依存の表示**: `HasCycle = true` の場合、依存グラフ上でサイクルを構成するエッジを赤破線で強調表示し、ユーザーに警告を示す。
 
 ---
 
@@ -668,7 +703,8 @@ export interface ProjectAnalyzeResult {
 |------|---------|--------------|
 | `design/docs/CobolStructureAnalysis.md` §5.2.2 | 移行戦略選択（ビッグバン・Strangler Fig・増分） | §4.3 戦略判定ロジック・§6.1 戦略説明文 |
 | `design/docs/CobolStructureAnalysis.md` §5.2.1 | リスクパターン（制御・データ・統合リスク） | §6.1 注釈レポートの「高リスクパターン」 |
-| `design/specs/phase2-engine.md` §6 | MDI指標・MdiScore・MdiRisk | §4.1 DependencyNode.Mdi・§6.1 レポートの指標内訳 |
+| `design/specs/phase2-engine.md` v1.5 §6・§7 | MDI指標・MdiScore・MdiRisk・AnalyzeResult の Engine 配置 | §4.1 DependencyNode.Mdi・§5 ProjectAnalyzeResult・§6.1 レポートの指標内訳 |
 | `design/specs/phase3-visualization.md` §6.4 | MDIパネルのリスクバッジ色 | §8.3 ランキングテーブルのリスク列 |
 | `design/specs/phase5-comment.md` §4 | CommentTag パース | §6.1 注釈レポートのタグコメント一覧 |
 | `design/brainstorm/phase6-planning.md` | 設計判断メモ | 本仕様全体 |
+| `implement/docs/feedback-phase6-model-placement.md` | 実装側フィードバック | §2 モデル配置方針・§5 ProjectAnalyzer・§7.1 validation・§9 テスト要件 |

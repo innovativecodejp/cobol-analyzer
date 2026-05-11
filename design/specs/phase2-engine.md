@@ -1,8 +1,8 @@
 # Phase 2 仕様：AST設計・指標計算エンジン
 
-バージョン: 1.4  
+バージョン: 1.5
 作成日: 2026-05-05  
-更新日: 2026-05-10（整合性レビュー反映済み。Phase 4 実装フィードバック対応: PERFORM単体・IFブランチChildren・syntheticブロック内GOTO追記）  
+更新日: 2026-05-12（整合性レビュー反映済み。Phase 4 実装フィードバック対応済み。AnalyzeResult の Engine 配置を明確化）
 ステータス: 確定（implement/ への引き渡し可）
 
 前提: `design/specs/phase1-antlr-parser.md` の実装が完了していること。
@@ -47,6 +47,7 @@ implement/
 │       │       └── DataReferenceNode.cs           ← 追加
 │       ├── CobolAnalyzer.Engine/                  ← 新規プロジェクト
 │       │   ├── CobolAnalyzer.Engine.csproj
+│       │   ├── AnalyzeResult.cs                   ← 追加
 │       │   ├── Cfg/
 │       │   │   ├── BasicBlock.cs
 │       │   │   ├── CfgEdge.cs
@@ -69,9 +70,6 @@ implement/
 │       │           ├── RedefinesDensityCalculator.cs
 │       │           ├── CrossScopeDependencyCalculator.cs
 │       │           └── MdiCalculator.cs
-│       ├── CobolAnalyzer.Core/
-│       │   └── Models/
-│       │       └── AnalyzeResult.cs               ← 追加
 │       └── CobolAnalyzer.API/
 │           └── Controllers/
 │               └── AnalyzeController.cs           ← 追加
@@ -431,10 +429,10 @@ MDI = 100 × (
 
 ---
 
-## 7. AnalyzeResult（Core層）
+## 7. AnalyzeResult（Engine層）
 
 ```csharp
-// Models/AnalyzeResult.cs
+// CobolAnalyzer.Engine/AnalyzeResult.cs
 public class AnalyzeResult
 {
     public ProgramNode? Ast { get; init; }          // 構文エラー時は null
