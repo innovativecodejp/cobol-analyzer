@@ -8,7 +8,7 @@ namespace CobolAnalyzer.Engine;
 
 public class AnalyzeResult
 {
-    public AstNode? Ast { get; init; }
+    public ProgramNode? Ast { get; init; }
     public ControlFlowGraph? Cfg { get; init; }
     public DataFlowGraph? Dfg { get; init; }
     public MetricsResult? Metrics { get; init; }
