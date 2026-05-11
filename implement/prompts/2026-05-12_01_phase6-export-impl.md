@@ -53,20 +53,15 @@ implement 側では開かない。
 
 ### 2. Core と Engine の依存方向に注意
 
-Phase 6 仕様 §5 は `ProjectAnalyzeResult` を `CobolAnalyzer.Core/Models/` に追加し、
-その中で `List<AnalyzeResult>` を持つ例を示している。
-
-ただし現行実装では `AnalyzeResult` は `CobolAnalyzer.Engine` にある。
-`Core` から `Engine` を参照すると循環参照になる可能性が高い。
+Phase 6 仕様 v1.2 では、モデル配置方針が明確化されている。
 
 実装開始時に `.csproj` の参照関係を必ず確認する。
 
-- 循環参照なしに仕様どおり実装できる場合はそのまま進める
-- 循環参照になる場合は、以下のどちらが妥当か判断できないため実装を止める
-  - `AnalyzeResult` を `Core` 側へ移動する
-  - `ProjectAnalyzeResult` を `Engine` 側または API DTO 側へ置く
-
-この場合は `implement/docs/feedback-phase6-*.md` に記録して、ユーザーに確認する。
+- `CobolAnalyzer.Core` は request/input DTO のみを置く
+- `ProjectAnalyzeResult` は `CobolAnalyzer.Engine/Project` に置く
+- `AnalyzeResult` は Phase 2 v1.5 どおり `CobolAnalyzer.Engine/AnalyzeResult.cs` を使う
+- `Core -> Engine` 参照は作らない
+- 依存方向は `Engine -> Core`、`API -> Core/Engine` を維持する
 
 ### 3. CALL 解析は `CallTarget` を使う
 
@@ -121,7 +116,7 @@ Phase 6 では `プロジェクト` タブを追加する。
 - `MigrationStrategy` は `JsonStringEnumConverter` により文字列で返る
 - 既存 `POST /api/analyze` のレスポンス形状は変えない
 
-循環参照が避けられない場合は実装を止め、`implement/docs/` に記録する。
+仕様 v1.2 のモデル配置どおりに進める。
 
 ---
 
@@ -133,14 +128,15 @@ Phase 6 仕様 §3〜§6 のモデルを追加する。
 
 ```text
 src/backend/CobolAnalyzer.Core/Models/ProjectAnalyzeRequest.cs
-src/backend/CobolAnalyzer.Core/Models/ProjectAnalyzeResult.cs
+src/backend/CobolAnalyzer.Core/Models/CobolSource.cs
 src/backend/CobolAnalyzer.Core/Models/ExportReportRequest.cs
 src/backend/CobolAnalyzer.Core/Models/ExportDesignRequest.cs
+src/backend/CobolAnalyzer.Engine/Project/ProjectAnalyzeResult.cs
 src/backend/CobolAnalyzer.Engine/Project/ProgramDependencyGraph.cs
 src/backend/CobolAnalyzer.Engine/Project/MigrationRanking.cs
 ```
 
-最低限定義する型:
+Core 側に最低限定義する型:
 
 ```csharp
 public class ProjectAnalyzeRequest
@@ -149,14 +145,6 @@ public class ProjectAnalyzeRequest
 }
 
 public record CobolSource(string FileName, string Source);
-
-public class ProjectAnalyzeResult
-{
-    public List<AnalyzeResult> Programs { get; init; } = new();
-    public ProgramDependencyGraph DependencyGraph { get; init; } = new();
-    public MigrationRanking Ranking { get; init; } = new();
-    public List<string> Errors { get; init; } = new();
-}
 
 public class ExportReportRequest
 {
@@ -167,6 +155,18 @@ public class ExportReportRequest
 public class ExportDesignRequest
 {
     public List<CobolSource> Sources { get; init; } = new();
+}
+```
+
+Engine 側に定義する分析結果モデル:
+
+```csharp
+public class ProjectAnalyzeResult
+{
+    public List<AnalyzeResult> Programs { get; init; } = new();
+    public ProgramDependencyGraph DependencyGraph { get; init; } = new();
+    public MigrationRanking Ranking { get; init; } = new();
+    public List<string> Errors { get; init; } = new();
 }
 ```
 
@@ -234,6 +234,8 @@ public class MigrationRanking
 - nullable warning を増やさないよう、文字列は `""` 初期化または nullable にする
 - `SourceLocation` は既存 `CobolAnalyzer.Core.Models.SourceLocation` を使う
 - `MdiScore` の namespace は現行実装に合わせる
+- `ProjectAnalyzeResult` は `AnalyzeResult` / `ProgramDependencyGraph` / `MigrationRanking` に依存するため Engine 側に置く
+- `CobolAnalyzer.Core.csproj` に `CobolAnalyzer.Engine` への参照を追加しない
 
 ---
 
@@ -268,7 +270,7 @@ public ProjectAnalyzer(
 - 単一プログラム解析ロジックを共有化する場合も、差分は最小限にする
 - 解析失敗したソースは `AnalyzeResult.Errors` に入れ、他ソースの解析は継続する
 - `sources.Count > 50` は API Controller で 400 にする
-- `ProjectAnalyzer` 内でも 50 超過を検出し、`Errors` に入れる
+- `ProjectAnalyzer` / `CallGraphBuilder` は validation 済み入力を前提とし、50件超過エラーは返さない
 
 LineCount:
 
@@ -276,8 +278,8 @@ LineCount:
 
 ParagraphCount:
 
-- AST の paragraph 相当ノードを既存 NodeType / Category に合わせて数える
-- 現行 AST 構造から判断できない場合は、実装を止めず、最小妥当な方法を選びテストで固定する
+- 解析済み `AnalyzeResult.Ast` 配下の AST ノードのうち、`NodeType == "Paragraph"` かつ `Category == Unit` のノード数を数える
+- ソース未提供の外部プログラムノードはランキング対象外とし、`ParagraphCount` を算出しない
 
 ---
 
@@ -303,13 +305,10 @@ ParagraphCount:
 - 非 CALL 文や `Operands` だけにある値から CALL エッジを作らない
 - 動的 CALL はエッジを作らない
 
-50 件超過:
+50 件上限:
 
-- Phase 6 仕様では `CallGraphBuilderTests.Build_ExceedsMaxNodes_ReturnsError` が要求されている
-- 一方で `ProgramDependencyGraph` には `Errors` がない
-- 実装前にエラー表現を確認する
-- 既存構造で自然に表現できない場合は、`ProjectAnalyzer.Errors` / API 400 をエラー面として扱う
-- 仕様どおりのテスト名と整合しないと判断した場合は `implement/docs/` に記録して止める
+- `ProjectController` が `sources.Count > 50` を validation し、400 Bad Request を返す
+- `CallGraphBuilder` は validation 済み入力を前提とし、ノード数超過エラーを返さない
 
 ---
 
@@ -512,6 +511,7 @@ Parse エラー:
 tests/CobolAnalyzer.Engine.Tests/CallGraphBuilderTests.cs
 tests/CobolAnalyzer.Engine.Tests/MigrationRankingTests.cs
 tests/CobolAnalyzer.Engine.Tests/ExportGeneratorTests.cs
+tests/CobolAnalyzer.API.Tests/ProjectControllerTests.cs
 ```
 
 #### CallGraphBuilderTests
@@ -523,7 +523,6 @@ tests/CobolAnalyzer.Engine.Tests/ExportGeneratorTests.cs
 - `Build_ExternalProgram_IsExternalTrue`
 - `Build_CircularCall_HasCycleTrue`
 - `Build_FanInFanOut_Correct`
-- `Build_ExceedsMaxNodes_ReturnsError`
 
 重視する観点:
 
@@ -533,17 +532,31 @@ tests/CobolAnalyzer.Engine.Tests/ExportGeneratorTests.cs
 - A -> B -> A で `HasCycle = true`
 - FanIn / FanOut が正しい
 
+#### ProjectControllerTests
+
+- `Analyze_EmptySources_ReturnsBadRequest`
+- `Analyze_ExceedsMaxSources_ReturnsBadRequest`
+- `Analyze_ValidSources_CallsProjectAnalyzer`
+
+重視する観点:
+
+- `sources` が空の場合、400 Bad Request を返し Engine を呼び出さない
+- 51 ファイルの場合、400 Bad Request を返し Engine を呼び出さない
+- 1〜50 ファイルの場合、`ProjectAnalyzer` を呼び出して結果を返す
+
 #### MigrationRankingTests
 
 - `Rank_ByMdiDescending`
 - `Strategy_Critical_NeedsStudy`
 - `Strategy_HighFanInOut_StranglerFig`
 - `Strategy_Low_BigBang`
+- `Rank_ParagraphCount_CountsParagraphNodes`
 
 追加推奨:
 
 - 同点時 FanIn 降順
 - FanIn 同点時 ProgramName 昇順
+- `NodeType == "Paragraph"` かつ `Category == Unit` の AST ノード数が `ParagraphCount` に反映されること
 
 #### ExportGeneratorTests
 
@@ -951,7 +964,7 @@ npm run build
 
 特に以下は実装開始時に注意する。
 
-- `ProjectAnalyzeResult` を `Core/Models` に置くと `AnalyzeResult` 参照で循環参照にならないか
-- `Build_ExceedsMaxNodes_ReturnsError` のエラー表現が `ProgramDependencyGraph` に存在しない点をどう扱うか
-- `ParagraphCount` の算出元が現行 AST で明確か
+- `ProjectAnalyzeResult` は `CobolAnalyzer.Engine/Project` に置き、Core には置かない
+- 50件超過は `ProjectController` validation で 400 とし、`CallGraphBuilder` の責務にしない
+- `ParagraphCount` は `NodeType == "Paragraph"` かつ `Category == Unit` の AST ノード数とする
 - 循環依存エッジの赤破線強調をどの粒度まで実装するか

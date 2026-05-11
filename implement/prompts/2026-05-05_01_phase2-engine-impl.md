@@ -12,13 +12,24 @@
 2. Phase 1 の実装済み構造を確認する：
    - AST ノードは `CobolAnalyzer.Core/Ast/` にある（仕様の記述と異なる点に注意）
    - `CobolAnalyzer.Parser/AstBuilder.cs` が Phase 1 の AstBuilder
-3. 不明点があれば実装を止めてユーザーに確認する
+3. Phase 2 v1.5 の更新点として、`AnalyzeResult` は `CobolAnalyzer.Engine/AnalyzeResult.cs` に配置する
+4. `CobolAnalyzer.Core` から `CobolAnalyzer.Engine` への参照は追加しない
+5. 不明点があれば実装を止めてユーザーに確認する
 
 ### Phase 1 との差分に関する注意
 
 仕様 §2 では新規 AST ノード 3 件を `CobolAnalyzer.Parser/Ast/` に配置すると記載しているが、
 Phase 1 の実装では全 AST ノードが `CobolAnalyzer.Core/Ast/` にある。
 **新規 AST ノードも `CobolAnalyzer.Core/Ast/` に配置すること**（一貫性を優先）。
+
+### Phase 2 v1.5 のモデル配置に関する注意
+
+仕様 §7 では `AnalyzeResult` を Engine 層のモデルとして定義している。
+`AnalyzeResult` は `ControlFlowGraph` / `DataFlowGraph` / `MetricsResult` を参照するため、
+`CobolAnalyzer.Engine/AnalyzeResult.cs` に配置する。
+
+`CobolAnalyzer.Core` は Engine 型へ依存させない。
+`CobolAnalyzer.Core.csproj` に `CobolAnalyzer.Engine` への参照を追加してはならない。
 
 ---
 
@@ -35,6 +46,7 @@ Phase 1 の実装では全 AST ノードが `CobolAnalyzer.Core/Ast/` にある�
 ```
 src/backend/CobolAnalyzer.Engine/
 ├── CobolAnalyzer.Engine.csproj
+├── AnalyzeResult.cs
 ├── Cfg/
 ├── Dfg/
 └── Metrics/
@@ -325,7 +337,8 @@ public class MdiScore
 
 ### タスク 6：AnalyzeResult モデル
 
-`CobolAnalyzer.Core/Models/AnalyzeResult.cs` を仕様 §7 の通り作成：
+`CobolAnalyzer.Engine/AnalyzeResult.cs` を仕様 §7 の通り作成する。
+`CobolAnalyzer.Core/Models/AnalyzeResult.cs` は作成しない。
 
 ```csharp
 public class AnalyzeResult
@@ -339,13 +352,15 @@ public class AnalyzeResult
 }
 ```
 
-`ControlFlowGraph` / `DataFlowGraph` / `MetricsResult` への参照が必要なため、
-`CobolAnalyzer.Core.csproj` に `CobolAnalyzer.Engine` への参照を追加するか、
-またはこれらの型を `CobolAnalyzer.Core` 側に移すことなく `CobolAnalyzer.API` 側で解決すること。
+配置と依存方向：
 
-> **推奨**: `AnalyzeResult.cs` は `CobolAnalyzer.API` 側（または新規の `CobolAnalyzer.Engine` 内）に配置し、
-> Core が Engine に依存しない構造を維持する。
-> 配置先を変更した場合は `using` / `namespace` を調整すること。
+- namespace は `CobolAnalyzer.Engine` とする
+- `AnalyzeController` は `CobolAnalyzer.Engine.AnalyzeResult` を返す
+- `CobolAnalyzer.Engine` は `CobolAnalyzer.Core` を参照する
+- `CobolAnalyzer.Core` は `CobolAnalyzer.Engine` を参照しない
+- `CobolAnalyzer.Core.csproj` に `CobolAnalyzer.Engine` への参照を追加しない
+
+この配置は Phase 6 の `ProjectAnalyzeResult` が Engine 側に置かれる前提にもなる。
 
 ---
 
