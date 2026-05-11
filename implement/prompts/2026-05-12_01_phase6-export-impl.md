@@ -514,6 +514,24 @@ tests/CobolAnalyzer.Engine.Tests/ExportGeneratorTests.cs
 tests/CobolAnalyzer.API.Tests/ProjectControllerTests.cs
 ```
 
+`tests/CobolAnalyzer.API.Tests/` が存在しない場合は、新規 xUnit プロジェクトとして作成し、
+`src/backend/CobolAnalyzer.sln` に追加する。
+
+```powershell
+dotnet new xunit -n CobolAnalyzer.API.Tests -o tests/CobolAnalyzer.API.Tests --framework net8.0
+dotnet sln src/backend/CobolAnalyzer.sln add tests/CobolAnalyzer.API.Tests/CobolAnalyzer.API.Tests.csproj
+```
+
+プロジェクト参照:
+
+- `CobolAnalyzer.API.Tests` -> `CobolAnalyzer.API`
+- `CobolAnalyzer.API.Tests` -> `CobolAnalyzer.Core`
+- `CobolAnalyzer.API.Tests` -> `CobolAnalyzer.Engine`
+
+ProjectController validation は、Engine が呼び出されないことを確認する。
+既存構造で controller 単体テストが難しい場合は、API.Tests で TestServer / WebApplicationFactory を使う。
+その場合でも、テストの目的は「400 validation が ProjectAnalyzer 実行前に返ること」とする。
+
 #### CallGraphBuilderTests
 
 仕様 §9 の以下を実装する。
@@ -926,7 +944,7 @@ npm run build
 
 期待:
 
-- Backend: 既存 Parser / Engine tests + Phase 6 tests が PASS
+- Backend: 既存 Parser / Engine tests + Phase 6 Engine/API tests が PASS
 - Frontend: 既存 tests + exportApi / projectApi tests が PASS
 - `npm run build` はエラーなし
   - Monaco 由来の chunk size warning は許容
@@ -940,6 +958,7 @@ npm run build
 ```text
 - [ ] dotnet test が全テストPASS（CallGraphBuilder / MigrationRanking / ExportGenerator を含む）
 - [ ] POST /api/project/analyze に2ファイル（一方が他方をCALLする）を送信して依存グラフのエッジが1件返る
+- [ ] POST /api/project/analyze に51ファイルを送信すると 400 Bad Request が返り、Engine が呼び出されない
 - [ ] POST /api/project/analyze で MDI スコア降順のランキングが返る
 - [ ] POST /api/export/annotation-report でMarkdownが返る（ProgramName・MDIスコア・戦略提案を含む）
 - [ ] POST /api/export/annotation-report にタグコメント付きソースを渡してテーブルにタグが出力される
