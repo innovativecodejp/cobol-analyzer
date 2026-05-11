@@ -1,6 +1,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using CobolAnalyzer.Engine.Cfg;
+using CobolAnalyzer.Engine.Comment;
 using CobolAnalyzer.Engine.Dfg;
 using CobolAnalyzer.Engine.Metrics;
 using CobolAnalyzer.Engine.Metrics.Calculators;
@@ -35,6 +36,8 @@ builder.Services.AddSingleton<CobolParserFacade>();
 builder.Services.Configure<MdiWeights>(builder.Configuration.GetSection("MdiWeights"));
 builder.Services.AddSingleton<CfgBuilder>();
 builder.Services.AddSingleton<DfgBuilder>();
+builder.Services.AddSingleton<CommentInserter>();
+builder.Services.AddSingleton<CommentRemover>();
 builder.Services.AddSingleton<MdiCalculator>(sp =>
     new MdiCalculator(sp.GetRequiredService<IOptions<MdiWeights>>().Value));
 

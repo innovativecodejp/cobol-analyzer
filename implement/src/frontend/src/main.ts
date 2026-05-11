@@ -6,6 +6,7 @@ import { toDfgData } from './adapters/dfgAdapter';
 import { Editor } from './components/Editor';
 import { AstTree } from './components/AstTree';
 import { CfgGraph } from './components/CfgGraph';
+import { CommentPanel } from './components/CommentPanel';
 import { DfgGraph } from './components/DfgGraph';
 import { MdiPanel } from './components/MdiPanel';
 import { JumpController } from './navigation/JumpController';
@@ -31,6 +32,14 @@ const jumpController = new JumpController(
   new MonacoHighlighter(editor.getEditor()),
 );
 
+const commentPanel = new CommentPanel(
+  document.getElementById('tab-comment')!,
+  () => editor.getValue(),
+  source => editor.setValue(source),
+  editor.getEditor(),
+);
+commentPanel.render();
+
 // N2: Monaco cursor move → AST node highlight (200ms debounce, wired once)
 let cursorDebounce: ReturnType<typeof setTimeout> | null = null;
 editor.getEditor().onDidChangeCursorPosition(e => {
@@ -48,6 +57,9 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
     document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
     btn.classList.add('active');
     document.getElementById(`tab-${tab}`)?.classList.add('active');
+    if (tab === 'comment') {
+      commentPanel.render();
+    }
   });
 });
 
