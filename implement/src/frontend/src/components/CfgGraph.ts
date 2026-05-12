@@ -43,6 +43,7 @@ export class CfgGraph {
   private readonly container: HTMLElement;
   private readonly zoom: d3.ZoomBehavior<SVGSVGElement, unknown>;
   private unsub: (() => void) | null = null;
+  private simulation: d3.Simulation<SimNode, SimLink> | null = null;
   private impactBlockIds = new Set<string>();
   private currentNodes = new Map<string, SimNode>();
   private onNodeClick?: (blockId: string, location: SourceLocation | null) => void;
@@ -118,6 +119,8 @@ export class CfgGraph {
   }
 
   render(data: D3CfgData): void {
+    this.simulation?.stop();
+    this.simulation = null;
     this.impactBlockIds.clear();
     this.currentNodes.clear();
     this.g.selectAll('*').remove();
@@ -152,10 +155,11 @@ export class CfgGraph {
       target: nodeById.get(l.target) ?? l.target,
     }));
 
-    const simulation = d3.forceSimulation<SimNode>(nodes)
+    this.simulation = d3.forceSimulation<SimNode, SimLink>(nodes)
       .force('link', d3.forceLink<SimNode, SimLink>(links).id(d => d.id).distance(80))
       .force('charge', d3.forceManyBody<SimNode>().strength(-200))
       .force('center', d3.forceCenter(W / 2, H / 2));
+    const activeSimulation = this.simulation;
 
     const linkSel = this.g.selectAll<SVGLineElement, SimLink>('line.link')
       .data(links)
@@ -176,7 +180,7 @@ export class CfgGraph {
 
     const nodeDrag = d3.drag<SVGGElement, SimNode>()
       .on('start', (event, d) => {
-        if (!event.active) simulation.alphaTarget(0.3).restart();
+        if (!event.active) activeSimulation.alphaTarget(0.3).restart();
         d.fx = d.x ?? null;
         d.fy = d.y ?? null;
       })
@@ -185,7 +189,7 @@ export class CfgGraph {
         d.fy = event.y;
       })
       .on('end', (event, d) => {
-        if (!event.active) simulation.alphaTarget(0);
+        if (!event.active) activeSimulation.alphaTarget(0);
         d.fx = null;
         d.fy = null;
       });
@@ -250,7 +254,7 @@ export class CfgGraph {
         this.onStatementClick?.(d.block.id, d.statementType);
       });
 
-    simulation.on('tick', () => {
+    activeSimulation.on('tick', () => {
       linkSel
         .attr('x1', d => (d.source as SimNode).x ?? 0)
         .attr('y1', d => (d.source as SimNode).y ?? 0)
@@ -271,6 +275,8 @@ export class CfgGraph {
   }
 
   clear(): void {
+    this.simulation?.stop();
+    this.simulation = null;
     this.unsub?.();
     this.unsub = null;
     this.g.selectAll('*').remove();
