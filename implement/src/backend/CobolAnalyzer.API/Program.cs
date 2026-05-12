@@ -1,10 +1,13 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using CobolAnalyzer.API.Services;
 using CobolAnalyzer.Engine.Cfg;
 using CobolAnalyzer.Engine.Comment;
 using CobolAnalyzer.Engine.Dfg;
+using CobolAnalyzer.Engine.Export;
 using CobolAnalyzer.Engine.Metrics;
 using CobolAnalyzer.Engine.Metrics.Calculators;
+using CobolAnalyzer.Engine.Project;
 using CobolAnalyzer.Parser;
 using Microsoft.Extensions.Options;
 
@@ -38,6 +41,13 @@ builder.Services.AddSingleton<CfgBuilder>();
 builder.Services.AddSingleton<DfgBuilder>();
 builder.Services.AddSingleton<CommentInserter>();
 builder.Services.AddSingleton<CommentRemover>();
+builder.Services.AddSingleton<IProjectSourceParser, CobolSourceParser>();
+builder.Services.AddSingleton<CallGraphBuilder>();
+builder.Services.AddSingleton<MigrationRankingBuilder>();
+builder.Services.AddSingleton<ProjectAnalyzer>();
+builder.Services.AddSingleton<IProjectAnalyzer>(sp => sp.GetRequiredService<ProjectAnalyzer>());
+builder.Services.AddSingleton<AnnotationReportGenerator>();
+builder.Services.AddSingleton<MigrationDesignGenerator>();
 builder.Services.AddSingleton<MdiCalculator>(sp =>
     new MdiCalculator(sp.GetRequiredService<IOptions<MdiWeights>>().Value));
 

@@ -9,6 +9,7 @@ import { CfgGraph } from './components/CfgGraph';
 import { CommentPanel } from './components/CommentPanel';
 import { DfgGraph } from './components/DfgGraph';
 import { MdiPanel } from './components/MdiPanel';
+import { ProjectPanel } from './components/ProjectPanel';
 import { JumpController } from './navigation/JumpController';
 import { MonacoHighlighter } from './navigation/MonacoHighlighter';
 import { selectionStore } from './store/SelectionStore';
@@ -40,6 +41,9 @@ const commentPanel = new CommentPanel(
 );
 commentPanel.render();
 
+const projectPanel = new ProjectPanel(document.getElementById('tab-project')!);
+projectPanel.render();
+
 // N2: Monaco cursor move → AST node highlight (200ms debounce, wired once)
 let cursorDebounce: ReturnType<typeof setTimeout> | null = null;
 editor.getEditor().onDidChangeCursorPosition(e => {
@@ -59,6 +63,8 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
     document.getElementById(`tab-${tab}`)?.classList.add('active');
     if (tab === 'comment') {
       commentPanel.render();
+    } else if (tab === 'project') {
+      projectPanel.render();
     }
   });
 });

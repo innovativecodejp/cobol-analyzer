@@ -278,3 +278,243 @@ html, body, #app {
 .hidden {
   display: none;
 }
+
+.project-panel {
+  height: 100%;
+  display: grid;
+  grid-template-rows: auto auto auto minmax(0, 1fr);
+  background: #fff;
+  color: #222;
+}
+
+.project-section {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.file-drop-zone {
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) minmax(260px, 1.2fr);
+  gap: 12px;
+  padding: 12px;
+  align-items: start;
+}
+
+.file-drop-target {
+  min-height: 82px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px dashed #9aa7b7;
+  border-radius: 6px;
+  color: #52616f;
+  background: #f7fafc;
+}
+
+.file-drop-target.drag-over {
+  border-color: #1a4fa8;
+  background: #eef5ff;
+}
+
+.project-actions,
+.project-toolbar,
+.project-view-tabs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.project-actions {
+  grid-column: 1;
+}
+
+.project-actions input[type="file"] {
+  max-width: 100%;
+}
+
+.project-actions button,
+.project-toolbar button,
+.project-view-tabs button,
+.project-file-item button {
+  height: 30px;
+  padding: 0 12px;
+  border: none;
+  border-radius: 4px;
+  background: #1a4fa8;
+  color: #fff;
+  cursor: pointer;
+  font: inherit;
+}
+
+.project-actions button:hover,
+.project-toolbar button:hover,
+.project-view-tabs button:hover,
+.project-file-item button:hover {
+  background: #2e86c1;
+}
+
+.project-actions button:disabled,
+.project-toolbar button:disabled {
+  background: #b7c0ca;
+  cursor: default;
+}
+
+.project-status {
+  min-height: 18px;
+  color: #555;
+  font-size: 12px;
+}
+
+.project-file-list {
+  grid-column: 2;
+  grid-row: 1 / span 3;
+  max-height: 128px;
+  overflow: auto;
+  border: 1px solid #ececec;
+  border-radius: 6px;
+}
+
+.project-file-item {
+  min-height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 5px 8px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.project-file-item span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.project-file-item button {
+  height: 24px;
+  background: #697887;
+  font-size: 12px;
+}
+
+.project-empty {
+  padding: 12px;
+  color: #777;
+  font-size: 13px;
+}
+
+.project-toolbar {
+  min-height: 44px;
+  padding: 8px 12px;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.project-file-select {
+  min-width: 180px;
+  max-width: 280px;
+  height: 30px;
+  padding: 4px 8px;
+  border: 1px solid #cfcfcf;
+  border-radius: 4px;
+}
+
+.project-view-tabs {
+  min-height: 38px;
+  padding: 6px 12px 0;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.project-view-tabs button {
+  background: transparent;
+  color: #555;
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
+}
+
+.project-view-tabs button.active {
+  color: #1a4fa8;
+  border-bottom-color: #1a4fa8;
+  font-weight: 600;
+}
+
+.project-view-tabs button:hover {
+  background: transparent;
+  color: #1a4fa8;
+}
+
+.project-view-area {
+  min-height: 0;
+  position: relative;
+}
+
+.project-view {
+  display: none;
+  position: absolute;
+  inset: 0;
+  overflow: auto;
+}
+
+.project-view.active {
+  display: block;
+}
+
+.project-view-graph {
+  overflow: hidden;
+}
+
+.project-node text,
+.project-link-label {
+  pointer-events: none;
+}
+
+.project-link {
+  opacity: 0.82;
+}
+
+.ranking-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.ranking-table th,
+.ranking-table td {
+  padding: 7px 10px;
+  border-bottom: 1px solid #e8e8e8;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.ranking-table th {
+  position: sticky;
+  top: 0;
+  background: #f8f8f8;
+  color: #444;
+  font-weight: 700;
+}
+
+.risk-badge {
+  display: inline-block;
+  min-width: 64px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  color: #fff;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.strategy-label {
+  border-bottom: 1px dotted #777;
+  cursor: help;
+}
+
+@media (max-width: 900px) {
+  .file-drop-zone {
+    grid-template-columns: 1fr;
+  }
+
+  .project-file-list {
+    grid-column: 1;
+    grid-row: auto;
+  }
+}
