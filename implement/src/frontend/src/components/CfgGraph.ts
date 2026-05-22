@@ -250,6 +250,7 @@ export class CfgGraph {
         const targetIds = links
           .filter(l => nodeId(l.source) === d.block.id && NAVIGATE_EDGE_KINDS.has(l.kind))
           .map(l => nodeId(l.target));
+        // The first target is selected by onStatementClick; remaining targets stay as impact blocks.
         this.impactBlockIds = new Set(targetIds.slice(1));
         this.onStatementClick?.(d.block.id);
       });
