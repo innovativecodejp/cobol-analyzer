@@ -9,6 +9,8 @@ const NODE_COLORS: Record<string, string> = {
   Element: '#808080',
 };
 
+const NODE_CLICK_DELAY_MS = 250;
+
 export class AstTree {
   private readonly svg: d3.Selection<SVGSVGElement, unknown, null, undefined>;
   private readonly g: d3.Selection<SVGGElement, unknown, null, undefined>;
@@ -19,6 +21,7 @@ export class AstTree {
   private onNodeClick?: (nodeId: string, location: SourceLocation) => void;
   private root: AstNodeWithMeta | null = null;
   private nodePositions = new Map<string, { x: number; y: number }>();
+  private pendingClickTimer: ReturnType<typeof setTimeout> | null = null;
 
   constructor(container: HTMLElement) {
     this.container = container;
@@ -37,6 +40,20 @@ export class AstTree {
 
   setOnNodeClick(handler: (nodeId: string, location: SourceLocation) => void): void {
     this.onNodeClick = handler;
+  }
+
+  private clearPendingClick(): void {
+    if (this.pendingClickTimer === null) return;
+    clearTimeout(this.pendingClickTimer);
+    this.pendingClickTimer = null;
+  }
+
+  private scheduleNodeClick(nodeId: string, location: SourceLocation): void {
+    this.clearPendingClick();
+    this.pendingClickTimer = window.setTimeout(() => {
+      this.pendingClickTimer = null;
+      this.onNodeClick?.(nodeId, location);
+    }, NODE_CLICK_DELAY_MS);
   }
 
   private expandToNode(nodeId: string, node: AstNodeWithMeta): boolean {
@@ -137,12 +154,14 @@ export class AstTree {
       .attr('class', 'node')
       .attr('transform', d => `translate(${d.y},${d.x})`)
       .style('cursor', 'pointer')
-      .on('click', (_event, d) => {
-        this.onNodeClick?.(d.data.id, d.data.location);
+      .on('click', (event, d) => {
+        event.stopPropagation();
+        this.scheduleNodeClick(d.data.id, d.data.location);
       })
       .on('dblclick', (event, d) => {
         event.stopPropagation();
         event.preventDefault();
+        this.clearPendingClick();
         d.data.collapsed = !d.data.collapsed;
         this.render(root);
       });
@@ -162,6 +181,7 @@ export class AstTree {
   }
 
   clear(): void {
+    this.clearPendingClick();
     this.unsub?.();
     this.unsub = null;
     this.g.selectAll('*').remove();

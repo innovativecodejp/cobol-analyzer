@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeAll, afterEach } from 'vitest';
+import { describe, it, expect, beforeAll, afterEach, vi } from 'vitest';
 import { AstTree } from './AstTree';
 import { selectionStore } from '../store/SelectionStore';
 import type { AstNodeWithMeta } from '../adapters/astAdapter';
@@ -44,12 +44,14 @@ beforeAll(() => {
 });
 
 afterEach(() => {
+  vi.useRealTimers();
   selectionStore.clearAll();
   document.body.innerHTML = '';
 });
 
 describe('AstTree', () => {
   it('astTree_singleClickCallsOnNodeClick', () => {
+    vi.useFakeTimers();
     const container = document.createElement('div');
     Object.defineProperty(container, 'clientHeight', { value: 500, configurable: true });
     document.body.appendChild(container);
@@ -68,9 +70,39 @@ describe('AstTree', () => {
 
     divisionNode!.dispatchEvent(new MouseEvent('click', { bubbles: true }));
 
+    expect(clickedNodeIds).toEqual([]);
+    vi.advanceTimersByTime(250);
     expect(clickedNodeIds).toEqual(['Division:2:0']);
     expect(root.children[0].collapsed).toBe(false);
     expect(container.textContent).toContain('Statement');
+
+    tree.clear();
+  });
+
+  it('astTree_doubleClickDoesNotCallOnNodeClick', () => {
+    vi.useFakeTimers();
+    const container = document.createElement('div');
+    Object.defineProperty(container, 'clientHeight', { value: 500, configurable: true });
+    document.body.appendChild(container);
+
+    const tree = new AstTree(container);
+    const root = buildAst();
+    const clickedNodeIds: string[] = [];
+    tree.setOnNodeClick(nodeId => {
+      clickedNodeIds.push(nodeId);
+    });
+
+    tree.render(root);
+    const divisionNode = Array.from(container.querySelectorAll<SVGGElement>('g.node'))
+      .find(node => node.textContent?.includes('Division'));
+    expect(divisionNode).toBeDefined();
+
+    divisionNode!.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    divisionNode!.dispatchEvent(new MouseEvent('dblclick', { bubbles: true }));
+    vi.advanceTimersByTime(250);
+
+    expect(clickedNodeIds).toEqual([]);
+    expect(root.children[0].collapsed).toBe(true);
 
     tree.clear();
   });
