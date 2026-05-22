@@ -1,8 +1,8 @@
 # Phase 3 仕様：ダイアグラム可視化
 
-バージョン: 1.3  
+バージョン: 1.4
 作成日: 2026-05-05  
-更新日: 2026-05-08（整合性レビューによる修正: AstNode.id追加・CfgBlock型修正・CfgEdge.isRecursive追加・MetricsResult.ccPerParagraph追加・CORS条件付き設定・D3 CFG データへの Statement 情報保持）  
+更新日: 2026-05-23（実装フィードバック反映: AST 折りたたみ方式を `_children` 退避から `collapsed` フラグ方式へ修正し、単クリック選択/ダブルクリック折りたたみ契約を明確化）
 ステータス: 確定（implement/ への引き渡し可）
 
 前提: `design/specs/phase2-engine.md` の実装が完了し、`POST /api/analyze` が稼働していること。
@@ -174,8 +174,15 @@ interface D3DfgData { nodes: D3DfgNode[]; links: D3DfgLink[]; }
 
 `d3.hierarchy()` は `children` プロパティを持つオブジェクトをそのまま受け取れる。
 Phase 2 AST の `children[]` 構造はそのまま渡せるため、変換は最小限とする。
+`AstNodeWithMeta` は `_children` を持たず、完全な `children` ツリーを保持したまま
+`collapsed` フラグで表示対象だけを切り替える。
 
 ```typescript
+interface AstNodeWithMeta extends AstNode {
+  collapsed: boolean;
+  children: AstNodeWithMeta[];
+}
+
 // d3.hierarchy() に渡す前に各ノードへ視覚プロパティを付与する
 function toD3Hierarchy(astNode: AstNode): AstNodeWithMeta {
   return {
@@ -184,6 +191,8 @@ function toD3Hierarchy(astNode: AstNode): AstNodeWithMeta {
     children: astNode.children.map(toD3Hierarchy),
   };
 }
+
+const hierarchy = d3.hierarchy(root, d => (d.collapsed ? null : d.children));
 ```
 
 ---
@@ -203,7 +212,8 @@ function toD3Hierarchy(astNode: AstNode): AstNodeWithMeta {
 | Element | `#808080`（グレー） |
 
 - ラベル: `nodeType`（ノード右隣）
-- 折りたたみ: ノードクリックで `children` を `_children` に退避して再描画
+- 単クリック: `onNodeClick(node)` を呼び出す（Phase 3 では入力契約のみ定義し、選択ハイライト本体は Phase 4 で実装する）
+- 折りたたみ: ノードダブルクリックで `collapsed` をトグルして再描画する（`children` を `_children` に退避しない）
 - ズーム: `d3.zoom()` によるパン・ズーム
 
 ### 6.2 CFG グラフ（CfgGraph.ts）
@@ -460,6 +470,13 @@ export interface AnalyzeResult {
 | `dfgAdapter_redefinesEdgeSetsFlag` | Redefines エッジの起点ノードで `hasRedefines = true` |
 | `astAdapter_elementNodesInitiallyCollapsed` | Element カテゴリノードが `collapsed = true` で初期化される |
 
+### AstTree.test.ts
+
+| テスト名 | 検証内容 |
+|----------|---------|
+| `astTree_singleClickCallsOnNodeClick` | AST ノード単クリックで `onNodeClick` が1回呼ばれる |
+| `astTree_doubleClickTogglesCollapsed` | AST ノードダブルクリックで `collapsed` が切り替わり、子ノード表示が更新される |
+
 ### MdiPanel.test.ts
 
 | テスト名 | 検証内容 |
@@ -482,7 +499,7 @@ export interface AnalyzeResult {
 - [ ] MDI パネルにスコア・リスクランク・指標バーが表示される
 - [ ] goto-sample.cbl の CFG で GoTo エッジが紫破線で表示される
 - [ ] data-sample.cbl の DFG で Redefines エッジがオレンジ破線で表示される
-- [ ] AST ノードをクリックして折りたたみ・展開が動作する
+- [ ] AST ノードをダブルクリックして折りたたみ・展開が動作する
 - [ ] ダイアグラムエリアでパン・ズームが動作する
 
 ---
@@ -499,6 +516,8 @@ export interface AnalyzeResult {
 
 5. **CORS は開発環境限定**: `AllowAnyOrigin()` は `builder.Environment.IsDevelopment()` 条件下でのみ登録する（§7 のコード例参照）。本番環境では許可オリジンを明示的に指定すること（Phase 3 スコープ外）。
 
+6. **AST 折りたたみ状態の保持**: `AstNodeWithMeta.children` は常に完全木を保持し、描画時だけ `collapsed` を見て `d3.hierarchy()` の子ノード列挙を止める。`_children` フィールドの追加や `children` 配列の破壊的な退避・復元は行わない。
+
 ---
 
 ## 13. 参照資料
@@ -509,4 +528,5 @@ export interface AnalyzeResult {
 | `design/specs/phase2-engine.md` §5 | DFG モデル（DfgNode / DfgEdge / DfgEdgeKind） | §5.2 DFG アダプター入力型 |
 | `design/specs/phase2-engine.md` §6 | MDI 指標・MdiScore・MdiRisk | §6.4 MDI パネル |
 | `design/specs/phase2-engine.md` §8 | `POST /api/analyze` レスポンス例 | §9 TypeScript 型定義 |
+| `implement/docs/feedback-2026-05-23-ast-collapse-spec-mismatch.md` | 実装フィードバック | §5.3 AST アダプター / §6.1 AST 操作 / §10 テスト要件 / §11 完了基準 |
 | `design/brainstorm/phase3-planning.md` | 設計判断メモ | 本仕様全体 |

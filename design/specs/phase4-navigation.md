@@ -1,8 +1,8 @@
 # Phase 4 仕様：双方向ナビゲーション
 
-バージョン: 1.2  
+バージョン: 1.3
 作成日: 2026-05-05  
-更新日: 2026-05-10（整合性レビュー反映済み。実装フィードバック反映: SelectionStore / LineNodeIndex / JumpController の実装形状、N2 抑制、N3 navLayer 描画）  
+更新日: 2026-05-23（Phase 3 AST 折りたたみ仕様 v1.4 への参照更新。AST 単クリック選択 / ダブルクリック折りたたみ契約との整合を明確化）
 ステータス: 確定（implement/ への引き渡し可）
 
 前提: `design/specs/phase3-visualization.md` の実装が完了していること。
@@ -38,8 +38,8 @@ Phase 4 の実装が依存する上流仕様・実装前提は以下とする。
 | 仕様書 | 変更内容 |
 |--------|---------|
 | `phase2-engine.md` v1.4 | `DataFlowGraph.ImpactClosure` を API レスポンスに含める |
-| `phase3-visualization.md` v1.3 | `DataFlowGraph` TypeScript 型に `impactClosure` フィールドを追加 |
-| `phase3-visualization.md` v1.3 | `D3Node` に `statements` / `location` を保持し、BasicBlock 内の遷移文クリックで使用可能にする |
+| `phase3-visualization.md` v1.4 | `DataFlowGraph` TypeScript 型に `impactClosure` フィールドを追加 |
+| `phase3-visualization.md` v1.4 | `D3Node` に `statements` / `location` を保持し、BasicBlock 内の遷移文クリックで使用可能にする |
 | `phase2-engine.md` v1.4 | IF ブランチ内ステートメントを AST `Children` にも含めること（LineNodeIndex が `children` を DFS するため） |
 | `phase2-engine.md` v1.4 | IF ブランチ synthetic ブロック内の GOTO からも `GoTo` エッジを生成すること（N3 が CFG エッジを辿るため） |
 
@@ -170,7 +170,7 @@ Monaco の `deltaDecorations` を内部で使用し、decoration ID を保持し
 
 ### 7.1 N1：ダイアグラムノード → ソース行ジャンプ
 
-**トリガー**: AST / CFG グラフのノードをクリック（DFG ノードは N4 で扱う）
+**トリガー**: AST ノードの単クリック、または CFG グラフのブロッククリック（DFG ノードは N4 で扱う）
 
 **処理**:
 1. クリックされたノードの `location.startLine` / `location.stopLine` を取得
@@ -379,6 +379,8 @@ Analyze ボタン押下で AST / CFG / DFG が更新されるたびに `init(ast
 
 7. **N3 ラベルの SVG レイヤー**: GOTO / PERFORM ラベルは `g.node` 内部ではなく、独立した最前面レイヤー（例: `navLayer`）に描画する。ノード矩形や隣接ブロックがクリックイベントを横取りしないようにするため、simulation tick ごとに `navLayer` のラベル座標を更新する。
 
+8. **AST クリック操作の共存**: Phase 3 §6.1 のとおり、AST ツリーでは単クリックを `onNodeClick`（N1）に使用し、ダブルクリックを `collapsed` 切り替えに使用する。Phase 4 のナビゲーション実装はダブルクリックで折りたたみが壊れず、単クリック時だけ N1 が発火する前提でイベントを接続する。
+
 ---
 
 ## 13. 参照資料
@@ -388,8 +390,8 @@ Analyze ボタン押下で AST / CFG / DFG が更新されるたびに `init(ast
 | `design/specs/phase2-engine.md` v1.4 §5.4 | `DataFlowGraph.ImpactClosure` | §7.4 N4 影響閉包ハイライト |
 | `design/specs/phase2-engine.md` §4.2 | `BasicBlock.Location` | §7.3 N3 遷移先ソース行ジャンプ |
 | `design/specs/phase2-engine.md` §4.3 | `CfgEdgeKind` 全種別 | §7.3 N3 エッジ種別フィルタリング |
-| `design/specs/phase3-visualization.md` v1.3 §9 | `AnalyzeResult` TypeScript 型 | §9 JumpController コンストラクタ引数 |
-| `design/specs/phase3-visualization.md` v1.3 §5.1 | `D3Node.statements` / `D3Node.location` | §7.3 N3 Statement クリック |
+| `design/specs/phase3-visualization.md` v1.4 §9 | `AnalyzeResult` TypeScript 型 | §9 JumpController コンストラクタ引数 |
+| `design/specs/phase3-visualization.md` v1.4 §5.1 | `D3Node.statements` / `D3Node.location` | §7.3 N3 Statement クリック |
 | `design/specs/phase3-visualization.md` §6.2 | CFG グラフ `.selected` / `.dimmed` | §8 D3 ハイライト CSS |
 | `design/brainstorm/phase4-planning.md` | 設計判断メモ | 本仕様全体 |
 | `implement/docs/feedback-phase4-spec-deviation.md` | 実装フィードバック | §4 / §5 / §7.3 / §9 / §12 の更新根拠 |
