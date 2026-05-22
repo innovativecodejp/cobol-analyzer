@@ -3,7 +3,6 @@ import type { AstNode } from '../types/analyzeResult';
 export interface AstNodeWithMeta extends Omit<AstNode, 'children'> {
   collapsed: boolean;
   children: AstNodeWithMeta[];
-  _children?: AstNodeWithMeta[];
 }
 
 export function toD3Hierarchy(astNode: AstNode): AstNodeWithMeta {
