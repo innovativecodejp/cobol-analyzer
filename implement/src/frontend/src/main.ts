@@ -149,6 +149,7 @@ analyzeBtn.addEventListener('click', async () => {
     lastResult = result;
     renderResult(result);
   } catch (err) {
+    lastResult = null;
     selectionStore.clearAll();
     const msg = err instanceof Error ? err.message : String(err);
     const html = `<div class="error-list"><p class="error-item">${msg}</p></div>`;
