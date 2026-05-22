@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { JumpController } from './JumpController';
 import { selectionStore } from '../store/SelectionStore';
 import type { AstNode, ControlFlowGraph, DataFlowGraph } from '../types/analyzeResult';
@@ -91,6 +91,11 @@ describe('JumpController', () => {
     controller.init(makeAst(), makeCfg(), makeDfg());
   });
 
+  afterEach(() => {
+    controller.dispose();
+    selectionStore.clearAll();
+  });
+
   it('onAstNodeClick_selectsNodeAndJumpsToLine', () => {
     const loc = { startLine: 3, startColumn: 0, stopLine: 3, stopColumn: 10 };
     controller.onAstNodeClick('node-1', loc);
@@ -104,6 +109,18 @@ describe('JumpController', () => {
     controller.onCursorMove(8);
 
     expect(selectionStore.getState().selectedAstNodeId).toBe('Statement:8:4');
+  });
+
+  it('init_doesNotDuplicateSelectionSubscription', () => {
+    controller.init(makeAstAtLine(8), makeCfg(), makeDfg());
+    controller.init(makeAstAtLine(9), makeCfg(), makeDfg());
+
+    vi.clearAllMocks();
+
+    selectionStore.selectAstNode('node-1', { start: 1, end: 1 });
+    selectionStore.clearAll();
+
+    expect(mockHighlighter.clearAll).toHaveBeenCalledTimes(1);
   });
 
   it('onCursorMove_selectsAstNodeAtLine', () => {
@@ -141,5 +158,22 @@ describe('JumpController', () => {
     const state = selectionStore.getState();
     expect(state.selectedDfgNodeId).toBe('WS-A');
     expect(state.impactClosureIds).toEqual(new Set(['WS-B']));
+  });
+
+  it('dispose_unsubscribesSelectionStoreListener', () => {
+    selectionStore.selectAstNode('node-1', { start: 1, end: 1 });
+
+    controller.dispose();
+    vi.clearAllMocks();
+    selectionStore.clearAll();
+
+    expect(mockHighlighter.clearAll).not.toHaveBeenCalled();
+  });
+
+  it('dispose_isIdempotent', () => {
+    expect(() => {
+      controller.dispose();
+      controller.dispose();
+    }).not.toThrow();
   });
 });

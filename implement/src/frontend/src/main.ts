@@ -32,6 +32,7 @@ const jumpController = new JumpController(
   editor.getEditor(),
   new MonacoHighlighter(editor.getEditor()),
 );
+window.addEventListener('beforeunload', () => jumpController.dispose());
 
 const commentPanel = new CommentPanel(
   document.getElementById('tab-comment')!,

@@ -91,5 +91,7 @@ export class JumpController {
 
   dispose(): void {
     this.storeUnsub?.();
+    this.storeUnsub = null;
+    this.highlighter.clearAll();
   }
 }
