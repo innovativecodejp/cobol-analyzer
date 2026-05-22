@@ -21,3 +21,4 @@
            DISPLAY WS-CHAR.
            CLOSE INFILE.
            STOP RUN.
+
