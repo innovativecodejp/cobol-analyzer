@@ -47,7 +47,7 @@ export class CfgGraph {
   private impactBlockIds = new Set<string>();
   private currentNodes = new Map<string, SimNode>();
   private onNodeClick?: (blockId: string, location: SourceLocation | null) => void;
-  private onStatementClick?: (blockId: string, statementType: string) => void;
+  private onStatementClick?: (blockId: string) => void;
   private onBackgroundClick?: () => void;
 
   constructor(container: HTMLElement) {
@@ -73,7 +73,7 @@ export class CfgGraph {
     this.onNodeClick = handler;
   }
 
-  setOnStatementClick(handler: (blockId: string, statementType: string) => void): void {
+  setOnStatementClick(handler: (blockId: string) => void): void {
     this.onStatementClick = handler;
   }
 
@@ -251,7 +251,7 @@ export class CfgGraph {
           .filter(l => nodeId(l.source) === d.block.id && NAVIGATE_EDGE_KINDS.has(l.kind))
           .map(l => nodeId(l.target));
         this.impactBlockIds = new Set(targetIds.slice(1));
-        this.onStatementClick?.(d.block.id, d.statementType);
+        this.onStatementClick?.(d.block.id);
       });
 
     activeSimulation.on('tick', () => {
