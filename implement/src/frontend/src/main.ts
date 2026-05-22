@@ -74,13 +74,21 @@ let currentAstTree: AstTree | null = null;
 let currentCfgGraph: CfgGraph | null = null;
 let currentDfgGraph: DfgGraph | null = null;
 
+function setDiagramErrorHtml(html: string): void {
+  document.getElementById('tab-ast')!.innerHTML = html;
+  document.getElementById('tab-cfg')!.innerHTML = html;
+  document.getElementById('tab-dfg')!.innerHTML = html;
+}
+
 function showErrors(result: AnalyzeResult): void {
   const html = `<div class="error-list">${result.errors
     .map(e => `<p class="error-item">Line ${e.line}:${e.column} — ${e.message}</p>`)
     .join('')}</div>`;
-  document.getElementById('tab-ast')!.innerHTML = html;
-  document.getElementById('tab-cfg')!.innerHTML = html;
-  document.getElementById('tab-dfg')!.innerHTML = html;
+  setDiagramErrorHtml(html);
+}
+
+function showErrorMessage(msg: string): void {
+  setDiagramErrorHtml(`<div class="error-list"><p class="error-item">${msg}</p></div>`);
 }
 
 function renderResult(result: AnalyzeResult): void {
@@ -153,10 +161,7 @@ analyzeBtn.addEventListener('click', async () => {
     lastResult = null;
     selectionStore.clearAll();
     const msg = err instanceof Error ? err.message : String(err);
-    const html = `<div class="error-list"><p class="error-item">${msg}</p></div>`;
-    document.getElementById('tab-ast')!.innerHTML = html;
-    document.getElementById('tab-cfg')!.innerHTML = html;
-    document.getElementById('tab-dfg')!.innerHTML = html;
+    showErrorMessage(msg);
   } finally {
     analyzeBtn.disabled = false;
   }
