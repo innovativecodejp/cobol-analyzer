@@ -34,13 +34,16 @@ describe('astAdapter', () => {
 
     expect(root.collapsed).toBe(false);
     expect(root.category).toBe('Structure');
+    expect(root.children).toHaveLength(1);
 
     const division = root.children[0];
     expect(division.collapsed).toBe(false);
     expect(division.category).toBe('Unit');
+    expect(division.children).toHaveLength(1);
 
     const statement = division.children[0];
     expect(statement.collapsed).toBe(true);
     expect(statement.category).toBe('Element');
+    expect(statement.children).toEqual([]);
   });
 });

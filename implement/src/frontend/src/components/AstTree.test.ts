@@ -49,16 +49,16 @@ afterEach(() => {
 });
 
 describe('AstTree', () => {
-  it('clickingNode_invokesHandlerWithoutTogglingCollapse', () => {
+  it('astTree_singleClickCallsOnNodeClick', () => {
     const container = document.createElement('div');
     Object.defineProperty(container, 'clientHeight', { value: 500, configurable: true });
     document.body.appendChild(container);
 
     const tree = new AstTree(container);
     const root = buildAst();
-    let clickedNodeId: string | null = null;
+    const clickedNodeIds: string[] = [];
     tree.setOnNodeClick(nodeId => {
-      clickedNodeId = nodeId;
+      clickedNodeIds.push(nodeId);
     });
 
     tree.render(root);
@@ -68,14 +68,14 @@ describe('AstTree', () => {
 
     divisionNode!.dispatchEvent(new MouseEvent('click', { bubbles: true }));
 
-    expect(clickedNodeId).toBe('Division:2:0');
+    expect(clickedNodeIds).toEqual(['Division:2:0']);
     expect(root.children[0].collapsed).toBe(false);
     expect(container.textContent).toContain('Statement');
 
     tree.clear();
   });
 
-  it('doubleClickingNode_togglesCollapse', () => {
+  it('astTree_doubleClickTogglesCollapsed', () => {
     const container = document.createElement('div');
     Object.defineProperty(container, 'clientHeight', { value: 500, configurable: true });
     document.body.appendChild(container);
@@ -84,13 +84,17 @@ describe('AstTree', () => {
     const root = buildAst();
 
     tree.render(root);
+    const renderedNodeCountBefore = container.querySelectorAll('g.node').length;
     const divisionNode = Array.from(container.querySelectorAll<SVGGElement>('g.node'))
       .find(node => node.textContent?.includes('Division'));
     expect(divisionNode).toBeDefined();
 
     divisionNode!.dispatchEvent(new MouseEvent('dblclick', { bubbles: true }));
 
+    const renderedNodeCountAfter = container.querySelectorAll('g.node').length;
     expect(root.children[0].collapsed).toBe(true);
+    expect(root.children[0].children).toHaveLength(1);
+    expect(renderedNodeCountAfter).toBeLessThan(renderedNodeCountBefore);
     expect(container.textContent).not.toContain('Statement');
 
     tree.clear();
