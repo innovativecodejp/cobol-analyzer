@@ -180,4 +180,74 @@ public class PreprocessorTests
         var result = new CobolParserFacade().Parse(source);
         Assert.True(result.IsSuccess, string.Join(", ", result.Errors.Select(e => e.Message)));
     }
+
+    // ---- §3.5 区切りカンマの正規化 ----
+
+    [Fact]
+    public void Comma_SeparatorInCallAndString_NormalizedAndParses()
+    {
+        var text = Fixture("comma-separator.cbl");
+
+        var pre = new CobolPreprocessor().Process(text);
+        // 区切りカンマ（カンマ + 直後空白 / 行末）は空白へ
+        Assert.Contains("WS-A  WS-B", pre.Text);   // CALL USING WS-A, WS-B
+        Assert.DoesNotContain("WS-A,", pre.Text);  // STRING WS-A, （行末カンマ）含め残らない
+
+        var result = new CobolParserFacade().Parse(text);
+        Assert.True(result.IsSuccess, string.Join(", ", result.Errors.Select(e => e.Message)));
+    }
+
+    [Fact]
+    public void Comma_NonSeparatorAndProtected_AreUntouched()
+    {
+        var pre = new CobolPreprocessor().Process(Fixture("comma-cases.cbl"));
+
+        Assert.Contains("WS-A  WS-B", pre.Text);            // 区切りカンマは正規化
+        Assert.Contains("PIC ZZ,ZZ9", pre.Text);           // PIC 挿入文字（直後が Z）は不変
+        Assert.Contains("VALUE 1,5", pre.Text);            // 小数点（直後が数字）は不変
+        Assert.Contains("'a, b'", pre.Text);               // リテラル内は不変
+        Assert.Contains("'Segoe UI,sans-serif'", pre.Text); // リテラル内は不変
+        Assert.Contains("== A, B ==", pre.Text);           // 擬似テキスト内は不変
+        Assert.Contains("TBL(I,J)", pre.Text);             // 空白を伴わない添字カンマは不変（§9）
+    }
+
+    [Fact]
+    public void Comma_Normalization_PreservesLineLength()
+    {
+        // 同一長置換（桁位置保存）：カンマ 1 文字 → 空白 1 文字。
+        var text = Fixture("comma-cases.cbl");
+        var pre = new CobolPreprocessor().Process(text);
+
+        var srcLine = NormalizeFixedFormFirstDataLine(text);        // "CALL 'X' USING WS-A, WS-B"
+        var outLine = pre.Text.Split('\n').First(l => l.Contains("USING"));
+        Assert.Equal(srcLine.Length, outLine.Length);
+        Assert.DoesNotContain(",", outLine);
+    }
+
+    // 参考：固定形式抽出後の 1 行目相当（テスト内でのハードコードを避けるため実ファイルから導出）
+    private static string NormalizeFixedFormFirstDataLine(string fixtureText)
+        => fixtureText.Replace("\r\n", "\n").Split('\n')[0].Substring(7).TrimEnd();
+
+    [Fact]
+    public void Comma_GoldenLiteral_IsNotCorruptedByNormalization_Section7_5()
+    {
+        // §7-5 非破壊性 golden：'… Segoe UI,sans-serif …' がカンマ正規化で変質しないこと。
+        var pre = new CobolPreprocessor().Process(Fixture("comma-cases.cbl"));
+        Assert.Contains("'Segoe UI,sans-serif'", pre.Text);
+    }
+
+    // ---- §3.1 リテラル行継続（CBSTM03A 型・§9 格上げ）----
+
+    [Fact]
+    public void LiteralContinuation_AcrossHyphen_RejoinsAndPreservesInnerComma()
+    {
+        var text = Fixture("literal-continuation.cbl");
+
+        var pre = new CobolPreprocessor().Process(text);
+        // 継続の再開クォートを除去して 1 つのリテラルに再結合（内部のカンマは保護）
+        Assert.Contains("'<td style=\"f:12px Segoe UI,sans-serif;\">'", pre.Text);
+
+        var result = new CobolParserFacade().Parse(text);
+        Assert.True(result.IsSuccess, string.Join(", ", result.Errors.Select(e => e.Message)));
+    }
 }
