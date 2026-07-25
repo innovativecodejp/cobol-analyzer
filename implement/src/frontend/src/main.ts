@@ -1,5 +1,7 @@
 import editorWorker from 'monaco-editor/esm/vs/editor/editor.worker?worker';
-import { analyze } from './api/analyzeApi';
+import { analyze, loadProgramByName } from './api/analyzeApi';
+import { downloadAnnotationReport } from './api/exportApi';
+import { STATIC_MODE, loadManifest, loadProgramSource } from './api/staticData';
 import { toD3Hierarchy } from './adapters/astAdapter';
 import { toCfgData } from './adapters/cfgAdapter';
 import { toDfgData } from './adapters/dfgAdapter';
@@ -166,3 +168,84 @@ analyzeBtn.addEventListener('click', async () => {
     analyzeBtn.disabled = false;
   }
 });
+
+// 静的データモード（デモ C）: バックエンド非依存。プログラムピッカーで事前計算結果を読む。
+// 任意ソース解析（Analyze）・コメント・プロジェクトはバックエンド前提のため非表示（§6-3）。
+if (STATIC_MODE) {
+  void initStaticMode();
+}
+
+async function initStaticMode(): Promise<void> {
+  analyzeBtn.style.display = 'none';
+  editor.getEditor().updateOptions({ readOnly: true });
+  document
+    .querySelectorAll('.tab-btn[data-tab="comment"], .tab-btn[data-tab="project"]')
+    .forEach(btn => ((btn as HTMLElement).style.display = 'none'));
+
+  let manifest;
+  try {
+    manifest = await loadManifest();
+  } catch (err) {
+    showErrorMessage(err instanceof Error ? err.message : String(err));
+    return;
+  }
+
+  const bar = document.createElement('div');
+  bar.id = 'program-picker-bar';
+
+  const label = document.createElement('label');
+  label.htmlFor = 'program-picker';
+  label.textContent = 'プログラム: ';
+
+  const picker = document.createElement('select');
+  picker.id = 'program-picker';
+  for (const p of manifest.programs) {
+    const option = document.createElement('option');
+    option.value = p.programName;
+    option.textContent = `${p.programName}  (MDI ${p.mdi.toFixed(1)} · ${p.strategy})`;
+    picker.appendChild(option);
+  }
+
+  const dlButton = document.createElement('button');
+  dlButton.id = 'static-report-dl';
+  dlButton.type = 'button';
+  dlButton.textContent = '注釈レポートDL';
+  dlButton.addEventListener('click', () => {
+    void downloadAnnotationReport({ fileName: picker.value, source: '' });
+  });
+
+  bar.append(label, picker, dlButton);
+  document.getElementById('left-pane')!.insertBefore(bar, editorContainer);
+
+  const attribution = document.createElement('div');
+  attribution.id = 'static-attribution';
+  const link = document.createElement('a');
+  link.href = manifest.corpus.sourceUrl;
+  link.target = '_blank';
+  link.rel = 'noopener';
+  link.textContent = manifest.corpus.name;
+  attribution.append(
+    document.createTextNode('静的デモ（バックエンド不要）｜ 出典 '),
+    link,
+    document.createTextNode(
+      ` (${manifest.corpus.license}, pin ${manifest.corpus.pinnedCommit.slice(0, 12)})`,
+    ),
+  );
+  document.getElementById('mdi-bar')!.appendChild(attribution);
+
+  async function loadProgram(name: string): Promise<void> {
+    try {
+      const [source, result] = await Promise.all([loadProgramSource(name), loadProgramByName(name)]);
+      editor.setValue(source);
+      lastResult = result;
+      renderResult(result);
+    } catch (err) {
+      lastResult = null;
+      selectionStore.clearAll();
+      showErrorMessage(err instanceof Error ? err.message : String(err));
+    }
+  }
+
+  picker.addEventListener('change', () => void loadProgram(picker.value));
+  if (manifest.programs.length > 0) await loadProgram(manifest.programs[0].programName);
+}

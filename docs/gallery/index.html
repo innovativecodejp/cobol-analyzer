@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="ja">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>carddemo — ギャラリー</title><style>:root{color-scheme:light dark}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.6;color:#1c2330;background:#f5f7fa}
+header{background:#2c3e50;color:#fff;padding:1.2rem 1.5rem}
+header a{color:#9ec5ff}
+main{max-width:1080px;margin:0 auto;padding:1.5rem}
+h1{margin:.2rem 0}
+h2{border-bottom:2px solid #e1e6ee;padding-bottom:.3rem;margin-top:2rem}
+table{border-collapse:collapse;width:100%;background:#fff;margin:1rem 0;font-size:.92rem}
+th,td{border:1px solid #dce2ea;padding:.4rem .6rem;text-align:left}
+th{background:#eef2f7}
+tr:nth-child(even) td{background:#fafbfc}
+.fig{overflow-x:auto;background:#fff;border:1px solid #dce2ea;border-radius:6px;padding:.5rem;margin:1rem 0}
+.fig img{display:block}
+.badge{display:inline-block;padding:.1rem .5rem;border-radius:10px;color:#fff;font-size:.8rem}
+.Low{background:#27ae60}.Medium{background:#f39c12}.High{background:#e67e22}.Critical{background:#e74c3c}
+.attribution{font-size:.85rem;color:#5a6474;background:#eef2f7;border-radius:6px;padding:.8rem 1rem;margin-top:2rem}
+code{background:#eef2f7;padding:.1rem .3rem;border-radius:3px;font-size:.9em}
+.cards{display:flex;flex-wrap:wrap;gap:.6rem;margin:1rem 0}
+.card{background:#fff;border:1px solid #dce2ea;border-radius:6px;padding:.7rem 1rem;min-width:180px}
+.card a{font-weight:600;text-decoration:none;color:#2c3e50}
+footer{max-width:1080px;margin:0 auto;padding:1.5rem;color:#5a6474;font-size:.85rem}</style></head>
+<body>
+<header><a href="../index.html">← 戻る</a><h1>carddemo — ギャラリー</h1></header>
+<main>
+<h2>プロジェクト概要</h2>
+<p>対象コーパス <strong>carddemo</strong> の全 31 プログラムを解析し、移行困難度指数（MDI）でランキングした。深い成果物（注釈レポート＋AST/CFG/DFG 図）は上位 9 本（MDI 上位 8 ＋ バケット代表）を掲載する。</p>
+<p><a href="migration-design.html">▶ プロジェクト移行設計書</a></p>
+<h2>プログラム間依存グラフ</h2>
+<div class="fig"><img src="../data/figures/dependency-graph.svg" alt="program dependency graph"></div>
+<p>循環依存: なし / 動的CALL: なし / CALL エッジ数: 16</p>
+<h2>デモ対象プログラム</h2>
+<div class="cards">
+<div class="card"><a href="COACTUPC.html">COACTUPC</a><br><span class="badge Low">Low</span> MDI 24.3</div>
+<div class="card"><a href="CBSTM03B.html">CBSTM03B</a><br><span class="badge Low">Low</span> MDI 19.5</div>
+<div class="card"><a href="COCRDUPC.html">COCRDUPC</a><br><span class="badge Low">Low</span> MDI 15.3</div>
+<div class="card"><a href="COTRN02C.html">COTRN02C</a><br><span class="badge Low">Low</span> MDI 12.4</div>
+<div class="card"><a href="COCRDLIC.html">COCRDLIC</a><br><span class="badge Low">Low</span> MDI 11.2</div>
+<div class="card"><a href="COUSR00C.html">COUSR00C</a><br><span class="badge Low">Low</span> MDI 9.7</div>
+<div class="card"><a href="COTRN00C.html">COTRN00C</a><br><span class="badge Low">Low</span> MDI 9.7</div>
+<div class="card"><a href="COCRDSLC.html">COCRDSLC</a><br><span class="badge Low">Low</span> MDI 9.6</div>
+<div class="card"><a href="CSUTLDTC.html">CSUTLDTC</a><br><span class="badge Low">Low</span> MDI 4.9</div>
+</div>
+<h2>移行優先度ランキング（全 31 本）</h2>
+<table>
+<thead><tr><th>順位</th><th>プログラム</th><th>MDI</th><th>リスク</th><th>ファンイン</th><th>ファンアウト</th><th>推奨戦略</th></tr></thead>
+<tbody>
+<tr><td>1</td><td><a href="COACTUPC.html">COACTUPC</a></td><td>24.3</td><td><span class="badge Low">Low</span></td><td>0</td><td>1</td><td>BigBang</td></tr>
+<tr><td>2</td><td><a href="CBSTM03B.html">CBSTM03B</a></td><td>19.5</td><td><span class="badge Low">Low</span></td><td>1</td><td>0</td><td>BigBang</td></tr>
+<tr><td>3</td><td><a href="COCRDUPC.html">COCRDUPC</a></td><td>15.3</td><td><span class="badge Low">Low</span></td><td>0</td><td>0</td><td>BigBang</td></tr>
+<tr><td>4</td><td><a href="COTRN02C.html">COTRN02C</a></td><td>12.4</td><td><span class="badge Low">Low</span></td><td>0</td><td>1</td><td>BigBang</td></tr>
+<tr><td>5</td><td><a href="COCRDLIC.html">COCRDLIC</a></td><td>11.2</td><td><span class="badge Low">Low</span></td><td>0</td><td>0</td><td>BigBang</td></tr>
+<tr><td>6</td><td><a href="COUSR00C.html">COUSR00C</a></td><td>9.7</td><td><span class="badge Low">Low</span></td><td>0</td><td>0</td><td>BigBang</td></tr>
+<tr><td>7</td><td><a href="COTRN00C.html">COTRN00C</a></td><td>9.7</td><td><span class="badge Low">Low</span></td><td>0</td><td>0</td><td>BigBang</td></tr>
+<tr><td>8</td><td><a href="COCRDSLC.html">COCRDSLC</a></td><td>9.6</td><td><span class="badge Low">Low</span></td><td>0</td><td>0</td><td>BigBang</td></tr>
+<tr><td>9</td><td>COACTVWC</td><td>9.5</td><td><span class="badge Low">Low</span></td><td>0</td><td>0</td><td>BigBang</td></tr>
+<tr><td>10</td><td>COUSR02C</td><td>9.4</td><td><span class="badge Low">Low</span></td><td>0</td><td>0</td><td>BigBang</td></tr>
+<tr><td>11</td><td>COUSR03C</td><td>9.4</td><td><span class="badge Low">Low</span></td><td>0</td><td>0</td><td>BigBang</td></tr>
+<tr><td>12</td><td>COTRN01C</td><td>9.3</td><td><span class="badge Low">Low</span></td><td>0</td><td>0</td><td>BigBang</td></tr>
+<tr><td>13</td><td>COBIL00C</td><td>9.2</td><td><span class="badge Low">Low</span></td><td>0</td><td>0</td><td>BigBang</td></tr>
+<tr><td>14</td><td>CBACT01C</td><td>8.8</td><td><span class="badge Low">Low</span></td><td>0</td><td>2</td><td>BigBang</td></tr>
+<tr><td>15</td><td>CORPT00C</td><td>8.6</td><td><span class="badge Low">Low</span></td><td>0</td><td>0</td><td>BigBang</td></tr>
+<tr><td>16</td><td>CBACT03C</td><td>8.4</td><td><span class="badge Low">Low</span></td><td>0</td><td>1</td><td>BigBang</td></tr>
+<tr><td>17</td><td>CBTRN03C</td><td>8.3</td><td><span class="badge Low">Low</span></td><td>0</td><td>1</td><td>BigBang</td></tr>
+<tr><td>18</td><td>CBACT02C</td><td>8.2</td><td><span class="badge Low">Low</span></td><td>0</td><td>1</td><td>BigBang</td></tr>
+<tr><td>19</td><td>CBCUS01C</td><td>7.9</td><td><span class="badge Low">Low</span></td><td>0</td><td>1</td><td>BigBang</td></tr>
+<tr><td>20</td><td>CBACT04C</td><td>7.7</td><td><span class="badge Low">Low</span></td><td>0</td><td>1</td><td>BigBang</td></tr>
+<tr><td>21</td><td>COADM01C</td><td>7.7</td><td><span class="badge Low">Low</span></td><td>0</td><td>0</td><td>BigBang</td></tr>
+<tr><td>22</td><td>COUSR01C</td><td>7.6</td><td><span class="badge Low">Low</span></td><td>0</td><td>0</td><td>BigBang</td></tr>
+<tr><td>23</td><td>COMEN01C</td><td>7.5</td><td><span class="badge Low">Low</span></td><td>0</td><td>0</td><td>BigBang</td></tr>
+<tr><td>24</td><td>CBTRN02C</td><td>7.3</td><td><span class="badge Low">Low</span></td><td>0</td><td>1</td><td>BigBang</td></tr>
+<tr><td>25</td><td>CBSTM03A</td><td>7.2</td><td><span class="badge Low">Low</span></td><td>0</td><td>2</td><td>BigBang</td></tr>
+<tr><td>26</td><td>CBTRN01C</td><td>7.1</td><td><span class="badge Low">Low</span></td><td>0</td><td>1</td><td>BigBang</td></tr>
+<tr><td>27</td><td>CBEXPORT</td><td>7.0</td><td><span class="badge Low">Low</span></td><td>0</td><td>1</td><td>BigBang</td></tr>
+<tr><td>28</td><td>CBIMPORT</td><td>6.0</td><td><span class="badge Low">Low</span></td><td>0</td><td>1</td><td>BigBang</td></tr>
+<tr><td>29</td><td>COSGN00C</td><td>5.7</td><td><span class="badge Low">Low</span></td><td>0</td><td>0</td><td>BigBang</td></tr>
+<tr><td>30</td><td><a href="CSUTLDTC.html">CSUTLDTC</a></td><td>4.9</td><td><span class="badge Low">Low</span></td><td>2</td><td>1</td><td>Incremental</td></tr>
+<tr><td>31</td><td>COBSWAIT</td><td>0.5</td><td><span class="badge Low">Low</span></td><td>0</td><td>0</td><td>BigBang</td></tr>
+</tbody>
+</table>
+<div class="attribution">出典: <a href="https://github.com/aws-samples/aws-mainframe-modernization-carddemo">carddemo</a>（<code>Apache-2.0</code>, pinned <code>59cc6c2fd7eb</code>）。本ギャラリーは事前計算された静的成果物であり、バックエンドを必要としない。</div>
+
+</main>
+<footer>COBOL Analyzer — Phase 9 デモ B（ギャラリー）</footer>
+</body></html>

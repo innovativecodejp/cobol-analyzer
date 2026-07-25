@@ -124,10 +124,15 @@ public class DfgBuilder
     private static Dictionary<string, List<string>> ComputeImpactClosure(
         List<DfgNode> nodes, List<DfgEdge> edges)
     {
-        var dependencyGraph = nodes.ToDictionary(
-            n => n.Id,
-            _ => new HashSet<string>(StringComparer.OrdinalIgnoreCase),
-            StringComparer.OrdinalIgnoreCase);
+        // 同一グループ配下の複数 FILLER 等で Id が重複しうる（実 COBOL で普遍的）。
+        // ToDictionary は重複キーで例外になるため、重複は 1 エントリに畳んで耐性を持たせる。
+        // FILLER は文中で参照されず影響閉包の意味論に影響しない。
+        var dependencyGraph = new Dictionary<string, HashSet<string>>(StringComparer.OrdinalIgnoreCase);
+        foreach (var node in nodes)
+        {
+            if (!dependencyGraph.ContainsKey(node.Id))
+                dependencyGraph[node.Id] = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        }
 
         foreach (var statementGroup in edges
             .Where(e => e.StatementRef != null && e.Kind is DfgEdgeKind.Define or DfgEdgeKind.Use)

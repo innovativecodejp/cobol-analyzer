@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="ja">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>COACTUPC — 注釈レポート</title><style>:root{color-scheme:light dark}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.6;color:#1c2330;background:#f5f7fa}
+header{background:#2c3e50;color:#fff;padding:1.2rem 1.5rem}
+header a{color:#9ec5ff}
+main{max-width:1080px;margin:0 auto;padding:1.5rem}
+h1{margin:.2rem 0}
+h2{border-bottom:2px solid #e1e6ee;padding-bottom:.3rem;margin-top:2rem}
+table{border-collapse:collapse;width:100%;background:#fff;margin:1rem 0;font-size:.92rem}
+th,td{border:1px solid #dce2ea;padding:.4rem .6rem;text-align:left}
+th{background:#eef2f7}
+tr:nth-child(even) td{background:#fafbfc}
+.fig{overflow-x:auto;background:#fff;border:1px solid #dce2ea;border-radius:6px;padding:.5rem;margin:1rem 0}
+.fig img{display:block}
+.badge{display:inline-block;padding:.1rem .5rem;border-radius:10px;color:#fff;font-size:.8rem}
+.Low{background:#27ae60}.Medium{background:#f39c12}.High{background:#e67e22}.Critical{background:#e74c3c}
+.attribution{font-size:.85rem;color:#5a6474;background:#eef2f7;border-radius:6px;padding:.8rem 1rem;margin-top:2rem}
+code{background:#eef2f7;padding:.1rem .3rem;border-radius:3px;font-size:.9em}
+.cards{display:flex;flex-wrap:wrap;gap:.6rem;margin:1rem 0}
+.card{background:#fff;border:1px solid #dce2ea;border-radius:6px;padding:.7rem 1rem;min-width:180px}
+.card a{font-weight:600;text-decoration:none;color:#2c3e50}
+footer{max-width:1080px;margin:0 auto;padding:1.5rem;color:#5a6474;font-size:.85rem}</style></head>
+<body>
+<header><a href="index.html">← 戻る</a><h1>COACTUPC — 注釈レポート</h1></header>
+<main>
+<p><span class="badge Low">Low</span> MDI 24.3 / 推奨戦略 <strong>BigBang</strong> / ファンイン 0 ・ ファンアウト 1</p>
+<h2>注釈レポート</h2>
+<h1>COBOL 移行分析レポート：COACTUPC</h1>
+<p>生成日: 2026-07-26 ファイル名: COACTUPC.cbl</p>
+<hr>
+<h2>MDI サマリー</h2>
+<table>
+<thead><tr><th>指標</th><th>スコア</th><th>リスクランク</th></tr></thead>
+<tbody>
+<tr><td>総合MDI</td><td>24.3</td><td>Low</td></tr>
+</tbody>
+</table>
+<h2>指標内訳</h2>
+<table>
+<thead><tr><th>指標ID</th><th>指標名</th><th>実測値</th><th>寄与スコア</th></tr></thead>
+<tbody>
+<tr><td>CC</td><td>サイクロマティック複雑度</td><td>2</td><td>1.00</td></tr>
+<tr><td>GD</td><td>GO TO 密度</td><td>0.062</td><td>4.12</td></tr>
+<tr><td>AD</td><td>ALTER 文数</td><td>0</td><td>0.00</td></tr>
+<tr><td>ND</td><td>ネスト深度</td><td>3</td><td>5.62</td></tr>
+<tr><td>RD</td><td>REDEFINES 密度</td><td>0.105</td><td>3.51</td></tr>
+<tr><td>CS</td><td>スコープ横断依存数</td><td>128</td><td>10.00</td></tr>
+</tbody>
+</table>
+<h2>高リスクパターン</h2>
+<ul>
+<li>GO TO 密度が 0.062 です（非構造化制御フロー）</li>
+<li>REDEFINES が 57 件存在します</li>
+</ul>
+<h2>タグ付きコメント一覧</h2>
+<p>なし</p>
+<h2>移行戦略提案</h2>
+<p><strong>判定</strong>: ビッグバン移行</p>
+<p>MDI スコアが低く、プログラム間依存も少ないため、ビッグバン移行が実現可能です。一括置換によるリスクは低いと判断されます。</p>
+<h2>AST（構造概観）</h2>
+<div class="fig"><img src="../data/figures/COACTUPC-ast.svg" alt="AST"></div>
+<h2>制御フローグラフ（CFG）</h2>
+<div class="fig"><img src="../data/figures/COACTUPC-cfg.svg" alt="CFG"></div>
+<h2>データフローグラフ（DFG）</h2>
+<div class="fig"><img src="../data/figures/COACTUPC-dfg.svg" alt="DFG"></div>
+<div class="attribution">出典: <a href="https://github.com/aws-samples/aws-mainframe-modernization-carddemo">carddemo</a>（<code>Apache-2.0</code>, pinned <code>59cc6c2fd7eb</code>）。本ギャラリーは事前計算された静的成果物であり、バックエンドを必要としない。</div>
+
+</main>
+<footer>COBOL Analyzer — Phase 9 デモ B（ギャラリー）</footer>
+</body></html>

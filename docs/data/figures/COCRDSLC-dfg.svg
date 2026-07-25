@@ -1,0 +1,815 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 376 6424" width="376" height="6424" role="img" aria-label="DFG: COCRDSLC">
+<title>DFG: COCRDSLC</title>
+<rect x="0" y="0" width="376" height="6424" fill="#ffffff"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#7f8c8d"/></marker></defs>
+<path d="M276 63 C316 63, 316 29, 276 29" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 97 C316 97, 316 63, 276 63" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 131 C316 131, 316 63, 276 63" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 165 C316 165, 316 63, 276 63" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 199 C316 199, 316 29, 276 29" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 233 C316 233, 316 29, 276 29" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 267 C316 267, 316 29, 276 29" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 301 C316 301, 316 29, 276 29" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 335 C316 335, 316 29, 276 29" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 369 C316 369, 316 29, 276 29" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 403 C316 403, 316 369, 276 369" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 437 C316 437, 316 369, 276 369" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 437 C316 437, 316 403, 276 403" fill="none" stroke="#e74c3c" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 471 C316 471, 316 369, 276 369" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 505 C316 505, 316 369, 276 369" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 505 C316 505, 316 471, 276 471" fill="none" stroke="#e74c3c" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 539 C316 539, 316 369, 276 369" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 573 C316 573, 316 369, 276 369" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 573 C316 573, 316 539, 276 539" fill="none" stroke="#e74c3c" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 607 C316 607, 316 369, 276 369" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 641 C316 641, 316 369, 276 369" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 675 C316 675, 316 369, 276 369" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 709 C316 709, 316 369, 276 369" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 709 C316 709, 316 675, 276 675" fill="none" stroke="#e74c3c" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 743 C316 743, 316 709, 276 709" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 845 C316 845, 316 709, 276 709" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 811 C316 811, 316 709, 276 709" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 845 C316 845, 316 709, 276 709" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 879 C316 879, 316 709, 276 709" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 913 C316 913, 316 369, 276 369" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 913 C316 913, 316 675, 276 675" fill="none" stroke="#e74c3c" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 947 C316 947, 316 29, 276 29" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 981 C316 981, 316 947, 276 947" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 1015 C316 1015, 316 947, 276 947" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 1049 C316 1049, 316 947, 276 947" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 1049 C316 1049, 316 1015, 276 1015" fill="none" stroke="#e74c3c" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 1083 C316 1083, 316 29, 276 29" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 1389 C316 1389, 316 1083, 276 1083" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 1151 C316 1151, 316 1083, 276 1083" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 1389 C316 1389, 316 1083, 276 1083" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 1219 C316 1219, 316 1083, 276 1083" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 1389 C316 1389, 316 1083, 276 1083" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 1287 C316 1287, 316 1083, 276 1083" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 1389 C316 1389, 316 1083, 276 1083" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 1355 C316 1355, 316 1083, 276 1083" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 1389 C316 1389, 316 1083, 276 1083" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 1423 C316 1423, 316 29, 276 29" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 1457 C316 1457, 316 29, 276 29" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 1491 C316 1491, 316 29, 276 29" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 1559 C316 1559, 316 1525, 276 1525" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 1593 C316 1593, 316 1525, 276 1525" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 1627 C316 1627, 316 1525, 276 1525" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 1661 C316 1661, 316 1525, 276 1525" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 1695 C316 1695, 316 1525, 276 1525" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 1729 C316 1729, 316 1525, 276 1525" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 1763 C316 1763, 316 1525, 276 1525" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 1797 C316 1797, 316 1525, 276 1525" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 1831 C316 1831, 316 1525, 276 1525" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 1865 C316 1865, 316 1525, 276 1525" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 1899 C316 1899, 316 1525, 276 1525" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 1933 C316 1933, 316 1525, 276 1525" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 1967 C316 1967, 316 1525, 276 1525" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 2001 C316 2001, 316 1525, 276 1525" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 2069 C316 2069, 316 2035, 276 2035" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 2103 C316 2103, 316 2069, 276 2069" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 2137 C316 2137, 316 2069, 276 2069" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 2171 C316 2171, 316 2069, 276 2069" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 2205 C316 2205, 316 2069, 276 2069" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 2239 C316 2239, 316 2069, 276 2069" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 2273 C316 2273, 316 2069, 276 2069" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 2307 C316 2307, 316 2069, 276 2069" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 2341 C316 2341, 316 2069, 276 2069" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 2341 C316 2341, 316 2307, 276 2307" fill="none" stroke="#e74c3c" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 2375 C316 2375, 316 2069, 276 2069" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 2409 C316 2409, 316 2069, 276 2069" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 2409 C316 2409, 316 2375, 276 2375" fill="none" stroke="#e74c3c" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 2443 C316 2443, 316 2069, 276 2069" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 2477 C316 2477, 316 2069, 276 2069" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 2477 C316 2477, 316 2443, 276 2443" fill="none" stroke="#e74c3c" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 2545 C316 2545, 316 2511, 276 2511" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 2579 C316 2579, 316 2545, 276 2545" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 2613 C316 2613, 316 2545, 276 2545" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 2647 C316 2647, 316 2545, 276 2545" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 2681 C316 2681, 316 2545, 276 2545" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 2715 C316 2715, 316 2545, 276 2545" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 2749 C316 2749, 316 2545, 276 2545" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 2783 C316 2783, 316 2545, 276 2545" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 2817 C316 2817, 316 2511, 276 2511" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 2851 C316 2851, 316 2817, 276 2817" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 2885 C316 2885, 316 2817, 276 2817" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 2919 C316 2919, 316 2817, 276 2817" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 2953 C316 2953, 316 2817, 276 2817" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 2987 C316 2987, 316 2511, 276 2511" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 3021 C316 3021, 316 2987, 276 2987" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 3055 C316 3055, 316 2987, 276 2987" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 3089 C316 3089, 316 2511, 276 2511" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 3123 C316 3123, 316 3089, 276 3089" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 3157 C316 3157, 316 2511, 276 2511" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 3191 C316 3191, 316 3157, 276 3157" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 3225 C316 3225, 316 3157, 276 3157" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 3293 C316 3293, 316 3259, 276 3259" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 3327 C316 3327, 316 3293, 276 3293" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 3361 C316 3361, 316 3293, 276 3293" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 3463 C316 3463, 316 3429, 276 3429" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 3497 C316 3497, 316 3429, 276 3429" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 3531 C316 3531, 316 3429, 276 3429" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 3599 C316 3599, 316 3565, 276 3565" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 3633 C316 3633, 316 3599, 276 3599" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 3667 C316 3667, 316 3633, 276 3633" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 3701 C316 3701, 316 3633, 276 3633" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 3735 C316 3735, 316 3633, 276 3633" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 3769 C316 3769, 316 3599, 276 3599" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 3769 C316 3769, 316 3633, 276 3633" fill="none" stroke="#e74c3c" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 3803 C316 3803, 316 3599, 276 3599" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 3837 C316 3837, 316 3803, 276 3803" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 3871 C316 3871, 316 3803, 276 3803" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 3905 C316 3905, 316 3803, 276 3803" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 3939 C316 3939, 316 3803, 276 3803" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 3973 C316 3973, 316 3599, 276 3599" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 3973 C316 3973, 316 3803, 276 3803" fill="none" stroke="#e74c3c" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 4007 C316 4007, 316 3565, 276 3565" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 4041 C316 4041, 316 4007, 276 4007" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 4143 C316 4143, 316 4007, 276 4007" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 4109 C316 4109, 316 4007, 276 4007" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 4143 C316 4143, 316 4007, 276 4007" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 4177 C316 4177, 316 4007, 276 4007" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 4211 C316 4211, 316 3565, 276 3565" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 4245 C316 4245, 316 4211, 276 4211" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 4347 C316 4347, 316 4211, 276 4211" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 4313 C316 4313, 316 4211, 276 4211" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 4347 C316 4347, 316 4211, 276 4211" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 4381 C316 4381, 316 4211, 276 4211" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 4415 C316 4415, 316 3565, 276 3565" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 4449 C316 4449, 316 4415, 276 4415" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 4823 C316 4823, 316 4415, 276 4415" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 4517 C316 4517, 316 4415, 276 4415" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 4823 C316 4823, 316 4415, 276 4415" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 4585 C316 4585, 316 4415, 276 4415" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 4823 C316 4823, 316 4415, 276 4415" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 4653 C316 4653, 316 4415, 276 4415" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 4823 C316 4823, 316 4415, 276 4415" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 4721 C316 4721, 316 4415, 276 4415" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 4823 C316 4823, 316 4415, 276 4415" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 4789 C316 4789, 316 4415, 276 4415" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 4823 C316 4823, 316 4415, 276 4415" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 4857 C316 4857, 316 4415, 276 4415" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 4925 C316 4925, 316 4891, 276 4891" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 4959 C316 4959, 316 4891, 276 4891" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 5027 C316 5027, 316 4993, 276 4993" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 5061 C316 5061, 316 4993, 276 4993" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 5095 C316 5095, 316 4993, 276 4993" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 5129 C316 5129, 316 4993, 276 4993" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 5197 C316 5197, 316 5163, 276 5163" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 5231 C316 5231, 316 5163, 276 5163" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 5265 C316 5265, 316 5163, 276 5163" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 5299 C316 5299, 316 5163, 276 5163" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 5333 C316 5333, 316 5163, 276 5163" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 5367 C316 5367, 316 5163, 276 5163" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 5435 C316 5435, 316 5401, 276 5401" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 5469 C316 5469, 316 5401, 276 5401" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 5503 C316 5503, 316 5401, 276 5401" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 5537 C316 5537, 316 5401, 276 5401" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 5571 C316 5571, 316 5401, 276 5401" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 5605 C316 5605, 316 5401, 276 5401" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 5639 C316 5639, 316 5401, 276 5401" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 5707 C316 5707, 316 5673, 276 5673" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 5741 C316 5741, 316 5673, 276 5673" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 5775 C316 5775, 316 5673, 276 5673" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 5809 C316 5809, 316 5673, 276 5673" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 5843 C316 5843, 316 5673, 276 5673" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 5877 C316 5877, 316 5673, 276 5673" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 5911 C316 5911, 316 5673, 276 5673" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 5945 C316 5945, 316 5673, 276 5673" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 5979 C316 5979, 316 5673, 276 5673" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 6013 C316 6013, 316 5673, 276 5673" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 6047 C316 6047, 316 5673, 276 5673" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 6081 C316 6081, 316 5673, 276 5673" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 6115 C316 6115, 316 5673, 276 5673" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 6149 C316 6149, 316 5673, 276 5673" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 6183 C316 6183, 316 5673, 276 5673" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 6217 C316 6217, 316 5673, 276 5673" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 6251 C316 6251, 316 5673, 276 5673" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 6285 C316 6285, 316 5673, 276 5673" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 6319 C316 6319, 316 5673, 276 5673" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 6387 C316 6387, 316 6353, 276 6353" fill="none" stroke="#8e44ad" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 1593 C316 1593, 316 1593, 276 1593" fill="none" stroke="#95a5a6" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 165 C316 165, 316 165, 276 165" fill="none" stroke="#27ae60" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 2511 C316 2511, 316 2511, 276 2511" fill="none" stroke="#27ae60" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 3259 C316 3259, 316 3259, 276 3259" fill="none" stroke="#27ae60" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 1491 C316 1491, 316 1491, 276 1491" fill="none" stroke="#95a5a6" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 2239 C316 2239, 316 2239, 276 2239" fill="none" stroke="#27ae60" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 1491 C316 1491, 316 1491, 276 1491" fill="none" stroke="#95a5a6" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 2239 C316 2239, 316 2239, 276 2239" fill="none" stroke="#27ae60" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 2511 C316 2511, 316 2511, 276 2511" fill="none" stroke="#95a5a6" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 3395 C316 3395, 316 3395, 276 3395" fill="none" stroke="#27ae60" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 3259 C316 3259, 316 3259, 276 3259" fill="none" stroke="#95a5a6" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 3599 C316 3599, 316 3599, 276 3599" fill="none" stroke="#27ae60" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 3463 C316 3463, 316 3463, 276 3463" fill="none" stroke="#95a5a6" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 3497 C316 3497, 316 3497, 276 3497" fill="none" stroke="#95a5a6" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 1593 C316 1593, 316 1593, 276 1593" fill="none" stroke="#95a5a6" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 1559 C316 1559, 316 1559, 276 1559" fill="none" stroke="#95a5a6" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 3599 C316 3599, 316 3599, 276 3599" fill="none" stroke="#27ae60" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 3701 C316 3701, 316 3701, 276 3701" fill="none" stroke="#95a5a6" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 4041 C316 4041, 316 4041, 276 4041" fill="none" stroke="#27ae60" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 3735 C316 3735, 316 3735, 276 3735" fill="none" stroke="#95a5a6" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 4109 C316 4109, 316 4109, 276 4109" fill="none" stroke="#27ae60" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 4177 C316 4177, 316 4177, 276 4177" fill="none" stroke="#27ae60" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 4007 C316 4007, 316 4007, 276 4007" fill="none" stroke="#95a5a6" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 3837 C316 3837, 316 3837, 276 3837" fill="none" stroke="#95a5a6" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 4245 C316 4245, 316 4245, 276 4245" fill="none" stroke="#27ae60" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 3871 C316 3871, 316 3871, 276 3871" fill="none" stroke="#95a5a6" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 4313 C316 4313, 316 4313, 276 4313" fill="none" stroke="#27ae60" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 3905 C316 3905, 316 3905, 276 3905" fill="none" stroke="#95a5a6" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 4381 C316 4381, 316 4381, 276 4381" fill="none" stroke="#27ae60" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 4211 C316 4211, 316 4211, 276 4211" fill="none" stroke="#95a5a6" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 1491 C316 1491, 316 1491, 276 1491" fill="none" stroke="#95a5a6" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 1457 C316 1457, 316 1457, 276 1457" fill="none" stroke="#95a5a6" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 1627 C316 1627, 316 1627, 276 1627" fill="none" stroke="#95a5a6" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 2171 C316 2171, 316 2171, 276 2171" fill="none" stroke="#27ae60" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 1661 C316 1661, 316 1661, 276 1661" fill="none" stroke="#95a5a6" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 2205 C316 2205, 316 2205, 276 2205" fill="none" stroke="#27ae60" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 1491 C316 1491, 316 1491, 276 1491" fill="none" stroke="#95a5a6" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 2239 C316 2239, 316 2239, 276 2239" fill="none" stroke="#27ae60" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 1559 C316 1559, 316 1559, 276 1559" fill="none" stroke="#95a5a6" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 2137 C316 2137, 316 2137, 276 2137" fill="none" stroke="#27ae60" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 1627 C316 1627, 316 1627, 276 1627" fill="none" stroke="#95a5a6" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 2171 C316 2171, 316 2171, 276 2171" fill="none" stroke="#27ae60" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 1661 C316 1661, 316 1661, 276 1661" fill="none" stroke="#95a5a6" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 2205 C316 2205, 316 2205, 276 2205" fill="none" stroke="#27ae60" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 2307 C316 2307, 316 2307, 276 2307" fill="none" stroke="#27ae60" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 2307 C316 2307, 316 2307, 276 2307" fill="none" stroke="#27ae60" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 2375 C316 2375, 316 2375, 276 2375" fill="none" stroke="#27ae60" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 2375 C316 2375, 316 2375, 276 2375" fill="none" stroke="#27ae60" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 3021 C316 3021, 316 3021, 276 3021" fill="none" stroke="#27ae60" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 3021 C316 3021, 316 3021, 276 3021" fill="none" stroke="#27ae60" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 2307 C316 2307, 316 2307, 276 2307" fill="none" stroke="#95a5a6" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 3021 C316 3021, 316 3021, 276 3021" fill="none" stroke="#27ae60" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 3123 C316 3123, 316 3123, 276 3123" fill="none" stroke="#27ae60" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 3123 C316 3123, 316 3123, 276 3123" fill="none" stroke="#27ae60" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 2409 C316 2409, 316 2409, 276 2409" fill="none" stroke="#95a5a6" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 3123 C316 3123, 316 3123, 276 3123" fill="none" stroke="#27ae60" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 2375 C316 2375, 316 2375, 276 2375" fill="none" stroke="#95a5a6" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 981 C316 981, 316 981, 276 981" fill="none" stroke="#27ae60" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 5129 C316 5129, 316 5129, 276 5129" fill="none" stroke="#27ae60" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 1559 C316 1559, 316 1559, 276 1559" fill="none" stroke="#95a5a6" stroke-width="1.2" marker-end="url(#arrow)"/>
+<path d="M276 5061 C316 5061, 316 5061, 276 5061" fill="none" stroke="#27ae60" stroke-width="1.2" marker-end="url(#arrow)"/>
+<rect x="16" y="16" width="260" height="26" rx="4" fill="#f4ecff" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="29" fill="#2c3e50" font-size="11" font-family="monospace">01 WS-MISC-STORAGE</text>
+<text x="24" y="41" fill="#7f8c8d" font-size="9" font-family="monospace"></text>
+<rect x="16" y="50" width="260" height="26" rx="4" fill="#f4ecff" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="63" fill="#2c3e50" font-size="11" font-family="monospace">05 WS-CICS-PROCESSNG-VARS</text>
+<text x="24" y="75" fill="#7f8c8d" font-size="9" font-family="monospace"></text>
+<rect x="16" y="84" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="97" fill="#2c3e50" font-size="11" font-family="monospace">07 WS-RESP-CD</text>
+<text x="24" y="109" fill="#7f8c8d" font-size="9" font-family="monospace">PIC S9(09)</text>
+<rect x="16" y="118" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="131" fill="#2c3e50" font-size="11" font-family="monospace">07 WS-REAS-CD</text>
+<text x="24" y="143" fill="#7f8c8d" font-size="9" font-family="monospace">PIC S9(09)</text>
+<rect x="16" y="152" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="165" fill="#2c3e50" font-size="11" font-family="monospace">07 WS-TRANID</text>
+<text x="24" y="177" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(4)</text>
+<rect x="16" y="186" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="199" fill="#2c3e50" font-size="11" font-family="monospace">05 WS-INPUT-FLAG</text>
+<text x="24" y="211" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(1)</text>
+<rect x="16" y="220" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="233" fill="#2c3e50" font-size="11" font-family="monospace">05 WS-EDIT-ACCT-FLAG</text>
+<text x="24" y="245" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(1)</text>
+<rect x="16" y="254" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="267" fill="#2c3e50" font-size="11" font-family="monospace">05 WS-EDIT-CARD-FLAG</text>
+<text x="24" y="279" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(1)</text>
+<rect x="16" y="288" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="301" fill="#2c3e50" font-size="11" font-family="monospace">05 WS-RETURN-FLAG</text>
+<text x="24" y="313" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(1)</text>
+<rect x="16" y="322" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="335" fill="#2c3e50" font-size="11" font-family="monospace">05 WS-PFK-FLAG</text>
+<text x="24" y="347" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(1)</text>
+<rect x="16" y="356" width="260" height="26" rx="4" fill="#f4ecff" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="369" fill="#2c3e50" font-size="11" font-family="monospace">05 CICS-OUTPUT-EDIT-VARS</text>
+<text x="24" y="381" fill="#7f8c8d" font-size="9" font-family="monospace"></text>
+<rect x="16" y="390" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="403" fill="#2c3e50" font-size="11" font-family="monospace">10 CARD-ACCT-ID-X</text>
+<text x="24" y="415" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(11)</text>
+<rect x="16" y="424" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="437" fill="#2c3e50" font-size="11" font-family="monospace">10 CARD-ACCT-ID-N</text>
+<text x="24" y="449" fill="#7f8c8d" font-size="9" font-family="monospace">PIC 9(11)</text>
+<rect x="16" y="458" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="471" fill="#2c3e50" font-size="11" font-family="monospace">10 CARD-CVV-CD-X</text>
+<text x="24" y="483" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(03)</text>
+<rect x="16" y="492" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="505" fill="#2c3e50" font-size="11" font-family="monospace">10 CARD-CVV-CD-N</text>
+<text x="24" y="517" fill="#7f8c8d" font-size="9" font-family="monospace">PIC 9(03)</text>
+<rect x="16" y="526" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="539" fill="#2c3e50" font-size="11" font-family="monospace">10 CARD-CARD-NUM-X</text>
+<text x="24" y="551" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(16)</text>
+<rect x="16" y="560" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="573" fill="#2c3e50" font-size="11" font-family="monospace">10 CARD-CARD-NUM-N</text>
+<text x="24" y="585" fill="#7f8c8d" font-size="9" font-family="monospace">PIC 9(16)</text>
+<rect x="16" y="594" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="607" fill="#2c3e50" font-size="11" font-family="monospace">10 CARD-NAME-EMBOSSED-X</text>
+<text x="24" y="619" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(50)</text>
+<rect x="16" y="628" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="641" fill="#2c3e50" font-size="11" font-family="monospace">10 CARD-STATUS-X</text>
+<text x="24" y="653" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X</text>
+<rect x="16" y="662" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="675" fill="#2c3e50" font-size="11" font-family="monospace">10 CARD-EXPIRAION-DATE-X</text>
+<text x="24" y="687" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(10)</text>
+<rect x="16" y="696" width="260" height="26" rx="4" fill="#f4ecff" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="709" fill="#2c3e50" font-size="11" font-family="monospace">10 FILLER</text>
+<text x="24" y="721" fill="#7f8c8d" font-size="9" font-family="monospace"></text>
+<rect x="16" y="730" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="743" fill="#2c3e50" font-size="11" font-family="monospace">20 CARD-EXPIRY-YEAR</text>
+<text x="24" y="755" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(4)</text>
+<rect x="16" y="832" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="845" fill="#2c3e50" font-size="11" font-family="monospace">20 FILLER</text>
+<text x="24" y="857" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(1)</text>
+<rect x="16" y="798" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="811" fill="#2c3e50" font-size="11" font-family="monospace">20 CARD-EXPIRY-MONTH</text>
+<text x="24" y="823" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(2)</text>
+<rect x="16" y="832" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="845" fill="#2c3e50" font-size="11" font-family="monospace">20 FILLER</text>
+<text x="24" y="857" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(1)</text>
+<rect x="16" y="866" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="879" fill="#2c3e50" font-size="11" font-family="monospace">20 CARD-EXPIRY-DAY</text>
+<text x="24" y="891" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(2)</text>
+<rect x="16" y="900" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="913" fill="#2c3e50" font-size="11" font-family="monospace">10 CARD-EXPIRAION-DATE-N</text>
+<text x="24" y="925" fill="#7f8c8d" font-size="9" font-family="monospace">PIC 9(10)</text>
+<rect x="16" y="934" width="260" height="26" rx="4" fill="#f4ecff" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="947" fill="#2c3e50" font-size="11" font-family="monospace">05 WS-CARD-RID</text>
+<text x="24" y="959" fill="#7f8c8d" font-size="9" font-family="monospace"></text>
+<rect x="16" y="968" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="981" fill="#2c3e50" font-size="11" font-family="monospace">10 WS-CARD-RID-CARDNUM</text>
+<text x="24" y="993" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(16)</text>
+<rect x="16" y="1002" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="1015" fill="#2c3e50" font-size="11" font-family="monospace">10 WS-CARD-RID-ACCT-ID</text>
+<text x="24" y="1027" fill="#7f8c8d" font-size="9" font-family="monospace">PIC 9(11)</text>
+<rect x="16" y="1036" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="1049" fill="#2c3e50" font-size="11" font-family="monospace">10 WS-CARD-RID-ACCT-ID-X</text>
+<text x="24" y="1061" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(11)</text>
+<rect x="16" y="1070" width="260" height="26" rx="4" fill="#f4ecff" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="1083" fill="#2c3e50" font-size="11" font-family="monospace">05 WS-FILE-ERROR-MESSAGE</text>
+<text x="24" y="1095" fill="#7f8c8d" font-size="9" font-family="monospace"></text>
+<rect x="16" y="1376" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="1389" fill="#2c3e50" font-size="11" font-family="monospace">10 FILLER</text>
+<text x="24" y="1401" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(12)</text>
+<rect x="16" y="1138" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="1151" fill="#2c3e50" font-size="11" font-family="monospace">10 ERROR-OPNAME</text>
+<text x="24" y="1163" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(8)</text>
+<rect x="16" y="1376" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="1389" fill="#2c3e50" font-size="11" font-family="monospace">10 FILLER</text>
+<text x="24" y="1401" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(4)</text>
+<rect x="16" y="1206" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="1219" fill="#2c3e50" font-size="11" font-family="monospace">10 ERROR-FILE</text>
+<text x="24" y="1231" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(9)</text>
+<rect x="16" y="1376" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="1389" fill="#2c3e50" font-size="11" font-family="monospace">10 FILLER</text>
+<text x="24" y="1401" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(15)</text>
+<rect x="16" y="1274" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="1287" fill="#2c3e50" font-size="11" font-family="monospace">10 ERROR-RESP</text>
+<text x="24" y="1299" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(10)</text>
+<rect x="16" y="1376" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="1389" fill="#2c3e50" font-size="11" font-family="monospace">10 FILLER</text>
+<text x="24" y="1401" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(7)</text>
+<rect x="16" y="1342" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="1355" fill="#2c3e50" font-size="11" font-family="monospace">10 ERROR-RESP2</text>
+<text x="24" y="1367" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(10)</text>
+<rect x="16" y="1376" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="1389" fill="#2c3e50" font-size="11" font-family="monospace">10 FILLER</text>
+<text x="24" y="1401" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(5)</text>
+<rect x="16" y="1410" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="1423" fill="#2c3e50" font-size="11" font-family="monospace">05 WS-LONG-MSG</text>
+<text x="24" y="1435" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(500)</text>
+<rect x="16" y="1444" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="1457" fill="#2c3e50" font-size="11" font-family="monospace">05 WS-INFO-MSG</text>
+<text x="24" y="1469" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(40)</text>
+<rect x="16" y="1478" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="1491" fill="#2c3e50" font-size="11" font-family="monospace">05 WS-RETURN-MSG</text>
+<text x="24" y="1503" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(75)</text>
+<rect x="16" y="1512" width="260" height="26" rx="4" fill="#f4ecff" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="1525" fill="#2c3e50" font-size="11" font-family="monospace">01 WS-LITERALS</text>
+<text x="24" y="1537" fill="#7f8c8d" font-size="9" font-family="monospace"></text>
+<rect x="16" y="1546" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="1559" fill="#2c3e50" font-size="11" font-family="monospace">05 LIT-THISPGM</text>
+<text x="24" y="1571" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(8)</text>
+<rect x="16" y="1580" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="1593" fill="#2c3e50" font-size="11" font-family="monospace">05 LIT-THISTRANID</text>
+<text x="24" y="1605" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(4)</text>
+<rect x="16" y="1614" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="1627" fill="#2c3e50" font-size="11" font-family="monospace">05 LIT-THISMAPSET</text>
+<text x="24" y="1639" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(8)</text>
+<rect x="16" y="1648" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="1661" fill="#2c3e50" font-size="11" font-family="monospace">05 LIT-THISMAP</text>
+<text x="24" y="1673" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(7)</text>
+<rect x="16" y="1682" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="1695" fill="#2c3e50" font-size="11" font-family="monospace">05 LIT-CCLISTPGM</text>
+<text x="24" y="1707" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(8)</text>
+<rect x="16" y="1716" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="1729" fill="#2c3e50" font-size="11" font-family="monospace">05 LIT-CCLISTTRANID</text>
+<text x="24" y="1741" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(4)</text>
+<rect x="16" y="1750" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="1763" fill="#2c3e50" font-size="11" font-family="monospace">05 LIT-CCLISTMAPSET</text>
+<text x="24" y="1775" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(7)</text>
+<rect x="16" y="1784" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="1797" fill="#2c3e50" font-size="11" font-family="monospace">05 LIT-CCLISTMAP</text>
+<text x="24" y="1809" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(7)</text>
+<rect x="16" y="1818" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="1831" fill="#2c3e50" font-size="11" font-family="monospace">05 LIT-MENUPGM</text>
+<text x="24" y="1843" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(8)</text>
+<rect x="16" y="1852" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="1865" fill="#2c3e50" font-size="11" font-family="monospace">05 LIT-MENUTRANID</text>
+<text x="24" y="1877" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(4)</text>
+<rect x="16" y="1886" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="1899" fill="#2c3e50" font-size="11" font-family="monospace">05 LIT-MENUMAPSET</text>
+<text x="24" y="1911" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(7)</text>
+<rect x="16" y="1920" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="1933" fill="#2c3e50" font-size="11" font-family="monospace">05 LIT-MENUMAP</text>
+<text x="24" y="1945" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(7)</text>
+<rect x="16" y="1954" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="1967" fill="#2c3e50" font-size="11" font-family="monospace">05 LIT-CARDFILENAME</text>
+<text x="24" y="1979" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(8)</text>
+<rect x="16" y="1988" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="2001" fill="#2c3e50" font-size="11" font-family="monospace">05 LIT-CARDFILENAME-ACCT-PATH</text>
+<text x="24" y="2013" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(8)</text>
+<rect x="16" y="2022" width="260" height="26" rx="4" fill="#f4ecff" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="2035" fill="#2c3e50" font-size="11" font-family="monospace">01 CC-WORK-AREAS</text>
+<text x="24" y="2047" fill="#7f8c8d" font-size="9" font-family="monospace"></text>
+<rect x="16" y="2056" width="260" height="26" rx="4" fill="#f4ecff" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="2069" fill="#2c3e50" font-size="11" font-family="monospace">05 CC-WORK-AREA</text>
+<text x="24" y="2081" fill="#7f8c8d" font-size="9" font-family="monospace"></text>
+<rect x="16" y="2090" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="2103" fill="#2c3e50" font-size="11" font-family="monospace">10 CCARD-AID</text>
+<text x="24" y="2115" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(5)</text>
+<rect x="16" y="2124" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="2137" fill="#2c3e50" font-size="11" font-family="monospace">10 CCARD-NEXT-PROG</text>
+<text x="24" y="2149" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(8)</text>
+<rect x="16" y="2158" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="2171" fill="#2c3e50" font-size="11" font-family="monospace">10 CCARD-NEXT-MAPSET</text>
+<text x="24" y="2183" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(7)</text>
+<rect x="16" y="2192" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="2205" fill="#2c3e50" font-size="11" font-family="monospace">10 CCARD-NEXT-MAP</text>
+<text x="24" y="2217" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(7)</text>
+<rect x="16" y="2226" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="2239" fill="#2c3e50" font-size="11" font-family="monospace">10 CCARD-ERROR-MSG</text>
+<text x="24" y="2251" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(75)</text>
+<rect x="16" y="2260" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="2273" fill="#2c3e50" font-size="11" font-family="monospace">10 CCARD-RETURN-MSG</text>
+<text x="24" y="2285" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(75)</text>
+<rect x="16" y="2294" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="2307" fill="#2c3e50" font-size="11" font-family="monospace">10 CC-ACCT-ID</text>
+<text x="24" y="2319" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(11)</text>
+<rect x="16" y="2328" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="2341" fill="#2c3e50" font-size="11" font-family="monospace">10 CC-ACCT-ID-N</text>
+<text x="24" y="2353" fill="#7f8c8d" font-size="9" font-family="monospace">PIC 9(11)</text>
+<rect x="16" y="2362" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="2375" fill="#2c3e50" font-size="11" font-family="monospace">10 CC-CARD-NUM</text>
+<text x="24" y="2387" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(16)</text>
+<rect x="16" y="2396" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="2409" fill="#2c3e50" font-size="11" font-family="monospace">10 CC-CARD-NUM-N</text>
+<text x="24" y="2421" fill="#7f8c8d" font-size="9" font-family="monospace">PIC 9(16)</text>
+<rect x="16" y="2430" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="2443" fill="#2c3e50" font-size="11" font-family="monospace">10 CC-CUST-ID</text>
+<text x="24" y="2455" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(09)</text>
+<rect x="16" y="2464" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="2477" fill="#2c3e50" font-size="11" font-family="monospace">10 CC-CUST-ID-N</text>
+<text x="24" y="2489" fill="#7f8c8d" font-size="9" font-family="monospace">PIC 9(9)</text>
+<rect x="16" y="2498" width="260" height="26" rx="4" fill="#f4ecff" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="2511" fill="#2c3e50" font-size="11" font-family="monospace">01 CARDDEMO-COMMAREA</text>
+<text x="24" y="2523" fill="#7f8c8d" font-size="9" font-family="monospace"></text>
+<rect x="16" y="2532" width="260" height="26" rx="4" fill="#f4ecff" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="2545" fill="#2c3e50" font-size="11" font-family="monospace">05 CDEMO-GENERAL-INFO</text>
+<text x="24" y="2557" fill="#7f8c8d" font-size="9" font-family="monospace"></text>
+<rect x="16" y="2566" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="2579" fill="#2c3e50" font-size="11" font-family="monospace">10 CDEMO-FROM-TRANID</text>
+<text x="24" y="2591" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(04)</text>
+<rect x="16" y="2600" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="2613" fill="#2c3e50" font-size="11" font-family="monospace">10 CDEMO-FROM-PROGRAM</text>
+<text x="24" y="2625" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(08)</text>
+<rect x="16" y="2634" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="2647" fill="#2c3e50" font-size="11" font-family="monospace">10 CDEMO-TO-TRANID</text>
+<text x="24" y="2659" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(04)</text>
+<rect x="16" y="2668" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="2681" fill="#2c3e50" font-size="11" font-family="monospace">10 CDEMO-TO-PROGRAM</text>
+<text x="24" y="2693" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(08)</text>
+<rect x="16" y="2702" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="2715" fill="#2c3e50" font-size="11" font-family="monospace">10 CDEMO-USER-ID</text>
+<text x="24" y="2727" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(08)</text>
+<rect x="16" y="2736" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="2749" fill="#2c3e50" font-size="11" font-family="monospace">10 CDEMO-USER-TYPE</text>
+<text x="24" y="2761" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(01)</text>
+<rect x="16" y="2770" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="2783" fill="#2c3e50" font-size="11" font-family="monospace">10 CDEMO-PGM-CONTEXT</text>
+<text x="24" y="2795" fill="#7f8c8d" font-size="9" font-family="monospace">PIC 9(01)</text>
+<rect x="16" y="2804" width="260" height="26" rx="4" fill="#f4ecff" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="2817" fill="#2c3e50" font-size="11" font-family="monospace">05 CDEMO-CUSTOMER-INFO</text>
+<text x="24" y="2829" fill="#7f8c8d" font-size="9" font-family="monospace"></text>
+<rect x="16" y="2838" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="2851" fill="#2c3e50" font-size="11" font-family="monospace">10 CDEMO-CUST-ID</text>
+<text x="24" y="2863" fill="#7f8c8d" font-size="9" font-family="monospace">PIC 9(09)</text>
+<rect x="16" y="2872" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="2885" fill="#2c3e50" font-size="11" font-family="monospace">10 CDEMO-CUST-FNAME</text>
+<text x="24" y="2897" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(25)</text>
+<rect x="16" y="2906" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="2919" fill="#2c3e50" font-size="11" font-family="monospace">10 CDEMO-CUST-MNAME</text>
+<text x="24" y="2931" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(25)</text>
+<rect x="16" y="2940" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="2953" fill="#2c3e50" font-size="11" font-family="monospace">10 CDEMO-CUST-LNAME</text>
+<text x="24" y="2965" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(25)</text>
+<rect x="16" y="2974" width="260" height="26" rx="4" fill="#f4ecff" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="2987" fill="#2c3e50" font-size="11" font-family="monospace">05 CDEMO-ACCOUNT-INFO</text>
+<text x="24" y="2999" fill="#7f8c8d" font-size="9" font-family="monospace"></text>
+<rect x="16" y="3008" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="3021" fill="#2c3e50" font-size="11" font-family="monospace">10 CDEMO-ACCT-ID</text>
+<text x="24" y="3033" fill="#7f8c8d" font-size="9" font-family="monospace">PIC 9(11)</text>
+<rect x="16" y="3042" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="3055" fill="#2c3e50" font-size="11" font-family="monospace">10 CDEMO-ACCT-STATUS</text>
+<text x="24" y="3067" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(01)</text>
+<rect x="16" y="3076" width="260" height="26" rx="4" fill="#f4ecff" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="3089" fill="#2c3e50" font-size="11" font-family="monospace">05 CDEMO-CARD-INFO</text>
+<text x="24" y="3101" fill="#7f8c8d" font-size="9" font-family="monospace"></text>
+<rect x="16" y="3110" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="3123" fill="#2c3e50" font-size="11" font-family="monospace">10 CDEMO-CARD-NUM</text>
+<text x="24" y="3135" fill="#7f8c8d" font-size="9" font-family="monospace">PIC 9(16)</text>
+<rect x="16" y="3144" width="260" height="26" rx="4" fill="#f4ecff" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="3157" fill="#2c3e50" font-size="11" font-family="monospace">05 CDEMO-MORE-INFO</text>
+<text x="24" y="3169" fill="#7f8c8d" font-size="9" font-family="monospace"></text>
+<rect x="16" y="3178" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="3191" fill="#2c3e50" font-size="11" font-family="monospace">10 CDEMO-LAST-MAP</text>
+<text x="24" y="3203" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(7)</text>
+<rect x="16" y="3212" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="3225" fill="#2c3e50" font-size="11" font-family="monospace">10 CDEMO-LAST-MAPSET</text>
+<text x="24" y="3237" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(7)</text>
+<rect x="16" y="3246" width="260" height="26" rx="4" fill="#f4ecff" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="3259" fill="#2c3e50" font-size="11" font-family="monospace">01 WS-THIS-PROGCOMMAREA</text>
+<text x="24" y="3271" fill="#7f8c8d" font-size="9" font-family="monospace"></text>
+<rect x="16" y="3280" width="260" height="26" rx="4" fill="#f4ecff" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="3293" fill="#2c3e50" font-size="11" font-family="monospace">05 CA-CALL-CONTEXT</text>
+<text x="24" y="3305" fill="#7f8c8d" font-size="9" font-family="monospace"></text>
+<rect x="16" y="3314" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="3327" fill="#2c3e50" font-size="11" font-family="monospace">10 CA-FROM-PROGRAM</text>
+<text x="24" y="3339" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(08)</text>
+<rect x="16" y="3348" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="3361" fill="#2c3e50" font-size="11" font-family="monospace">10 CA-FROM-TRANID</text>
+<text x="24" y="3373" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(04)</text>
+<rect x="16" y="3382" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="3395" fill="#2c3e50" font-size="11" font-family="monospace">01 WS-COMMAREA</text>
+<text x="24" y="3407" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(2000)</text>
+<rect x="16" y="3416" width="260" height="26" rx="4" fill="#f4ecff" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="3429" fill="#2c3e50" font-size="11" font-family="monospace">01 CCDA-SCREEN-TITLE</text>
+<text x="24" y="3441" fill="#7f8c8d" font-size="9" font-family="monospace"></text>
+<rect x="16" y="3450" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="3463" fill="#2c3e50" font-size="11" font-family="monospace">05 CCDA-TITLE01</text>
+<text x="24" y="3475" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(40)</text>
+<rect x="16" y="3484" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="3497" fill="#2c3e50" font-size="11" font-family="monospace">05 CCDA-TITLE02</text>
+<text x="24" y="3509" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(40)</text>
+<rect x="16" y="3518" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="3531" fill="#2c3e50" font-size="11" font-family="monospace">05 CCDA-THANK-YOU</text>
+<text x="24" y="3543" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(40)</text>
+<rect x="16" y="3552" width="260" height="26" rx="4" fill="#f4ecff" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="3565" fill="#2c3e50" font-size="11" font-family="monospace">01 WS-DATE-TIME</text>
+<text x="24" y="3577" fill="#7f8c8d" font-size="9" font-family="monospace"></text>
+<rect x="16" y="3586" width="260" height="26" rx="4" fill="#f4ecff" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="3599" fill="#2c3e50" font-size="11" font-family="monospace">05 WS-CURDATE-DATA</text>
+<text x="24" y="3611" fill="#7f8c8d" font-size="9" font-family="monospace"></text>
+<rect x="16" y="3620" width="260" height="26" rx="4" fill="#f4ecff" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="3633" fill="#2c3e50" font-size="11" font-family="monospace">10 WS-CURDATE</text>
+<text x="24" y="3645" fill="#7f8c8d" font-size="9" font-family="monospace"></text>
+<rect x="16" y="3654" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="3667" fill="#2c3e50" font-size="11" font-family="monospace">15 WS-CURDATE-YEAR</text>
+<text x="24" y="3679" fill="#7f8c8d" font-size="9" font-family="monospace">PIC 9(04)</text>
+<rect x="16" y="3688" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="3701" fill="#2c3e50" font-size="11" font-family="monospace">15 WS-CURDATE-MONTH</text>
+<text x="24" y="3713" fill="#7f8c8d" font-size="9" font-family="monospace">PIC 9(02)</text>
+<rect x="16" y="3722" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="3735" fill="#2c3e50" font-size="11" font-family="monospace">15 WS-CURDATE-DAY</text>
+<text x="24" y="3747" fill="#7f8c8d" font-size="9" font-family="monospace">PIC 9(02)</text>
+<rect x="16" y="3756" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="3769" fill="#2c3e50" font-size="11" font-family="monospace">10 WS-CURDATE-N</text>
+<text x="24" y="3781" fill="#7f8c8d" font-size="9" font-family="monospace">PIC 9(08)</text>
+<rect x="16" y="3790" width="260" height="26" rx="4" fill="#f4ecff" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="3803" fill="#2c3e50" font-size="11" font-family="monospace">10 WS-CURTIME</text>
+<text x="24" y="3815" fill="#7f8c8d" font-size="9" font-family="monospace"></text>
+<rect x="16" y="3824" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="3837" fill="#2c3e50" font-size="11" font-family="monospace">15 WS-CURTIME-HOURS</text>
+<text x="24" y="3849" fill="#7f8c8d" font-size="9" font-family="monospace">PIC 9(02)</text>
+<rect x="16" y="3858" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="3871" fill="#2c3e50" font-size="11" font-family="monospace">15 WS-CURTIME-MINUTE</text>
+<text x="24" y="3883" fill="#7f8c8d" font-size="9" font-family="monospace">PIC 9(02)</text>
+<rect x="16" y="3892" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="3905" fill="#2c3e50" font-size="11" font-family="monospace">15 WS-CURTIME-SECOND</text>
+<text x="24" y="3917" fill="#7f8c8d" font-size="9" font-family="monospace">PIC 9(02)</text>
+<rect x="16" y="3926" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="3939" fill="#2c3e50" font-size="11" font-family="monospace">15 WS-CURTIME-MILSEC</text>
+<text x="24" y="3951" fill="#7f8c8d" font-size="9" font-family="monospace">PIC 9(02)</text>
+<rect x="16" y="3960" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="3973" fill="#2c3e50" font-size="11" font-family="monospace">10 WS-CURTIME-N</text>
+<text x="24" y="3985" fill="#7f8c8d" font-size="9" font-family="monospace">PIC 9(08)</text>
+<rect x="16" y="3994" width="260" height="26" rx="4" fill="#f4ecff" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="4007" fill="#2c3e50" font-size="11" font-family="monospace">05 WS-CURDATE-MM-DD-YY</text>
+<text x="24" y="4019" fill="#7f8c8d" font-size="9" font-family="monospace"></text>
+<rect x="16" y="4028" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="4041" fill="#2c3e50" font-size="11" font-family="monospace">10 WS-CURDATE-MM</text>
+<text x="24" y="4053" fill="#7f8c8d" font-size="9" font-family="monospace">PIC 9(02)</text>
+<rect x="16" y="4130" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="4143" fill="#2c3e50" font-size="11" font-family="monospace">10 FILLER</text>
+<text x="24" y="4155" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(01)</text>
+<rect x="16" y="4096" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="4109" fill="#2c3e50" font-size="11" font-family="monospace">10 WS-CURDATE-DD</text>
+<text x="24" y="4121" fill="#7f8c8d" font-size="9" font-family="monospace">PIC 9(02)</text>
+<rect x="16" y="4130" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="4143" fill="#2c3e50" font-size="11" font-family="monospace">10 FILLER</text>
+<text x="24" y="4155" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(01)</text>
+<rect x="16" y="4164" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="4177" fill="#2c3e50" font-size="11" font-family="monospace">10 WS-CURDATE-YY</text>
+<text x="24" y="4189" fill="#7f8c8d" font-size="9" font-family="monospace">PIC 9(02)</text>
+<rect x="16" y="4198" width="260" height="26" rx="4" fill="#f4ecff" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="4211" fill="#2c3e50" font-size="11" font-family="monospace">05 WS-CURTIME-HH-MM-SS</text>
+<text x="24" y="4223" fill="#7f8c8d" font-size="9" font-family="monospace"></text>
+<rect x="16" y="4232" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="4245" fill="#2c3e50" font-size="11" font-family="monospace">10 WS-CURTIME-HH</text>
+<text x="24" y="4257" fill="#7f8c8d" font-size="9" font-family="monospace">PIC 9(02)</text>
+<rect x="16" y="4334" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="4347" fill="#2c3e50" font-size="11" font-family="monospace">10 FILLER</text>
+<text x="24" y="4359" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(01)</text>
+<rect x="16" y="4300" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="4313" fill="#2c3e50" font-size="11" font-family="monospace">10 WS-CURTIME-MM</text>
+<text x="24" y="4325" fill="#7f8c8d" font-size="9" font-family="monospace">PIC 9(02)</text>
+<rect x="16" y="4334" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="4347" fill="#2c3e50" font-size="11" font-family="monospace">10 FILLER</text>
+<text x="24" y="4359" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(01)</text>
+<rect x="16" y="4368" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="4381" fill="#2c3e50" font-size="11" font-family="monospace">10 WS-CURTIME-SS</text>
+<text x="24" y="4393" fill="#7f8c8d" font-size="9" font-family="monospace">PIC 9(02)</text>
+<rect x="16" y="4402" width="260" height="26" rx="4" fill="#f4ecff" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="4415" fill="#2c3e50" font-size="11" font-family="monospace">05 WS-TIMESTAMP</text>
+<text x="24" y="4427" fill="#7f8c8d" font-size="9" font-family="monospace"></text>
+<rect x="16" y="4436" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="4449" fill="#2c3e50" font-size="11" font-family="monospace">10 WS-TIMESTAMP-DT-YYYY</text>
+<text x="24" y="4461" fill="#7f8c8d" font-size="9" font-family="monospace">PIC 9(04)</text>
+<rect x="16" y="4810" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="4823" fill="#2c3e50" font-size="11" font-family="monospace">10 FILLER</text>
+<text x="24" y="4835" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(01)</text>
+<rect x="16" y="4504" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="4517" fill="#2c3e50" font-size="11" font-family="monospace">10 WS-TIMESTAMP-DT-MM</text>
+<text x="24" y="4529" fill="#7f8c8d" font-size="9" font-family="monospace">PIC 9(02)</text>
+<rect x="16" y="4810" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="4823" fill="#2c3e50" font-size="11" font-family="monospace">10 FILLER</text>
+<text x="24" y="4835" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(01)</text>
+<rect x="16" y="4572" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="4585" fill="#2c3e50" font-size="11" font-family="monospace">10 WS-TIMESTAMP-DT-DD</text>
+<text x="24" y="4597" fill="#7f8c8d" font-size="9" font-family="monospace">PIC 9(02)</text>
+<rect x="16" y="4810" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="4823" fill="#2c3e50" font-size="11" font-family="monospace">10 FILLER</text>
+<text x="24" y="4835" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(01)</text>
+<rect x="16" y="4640" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="4653" fill="#2c3e50" font-size="11" font-family="monospace">10 WS-TIMESTAMP-TM-HH</text>
+<text x="24" y="4665" fill="#7f8c8d" font-size="9" font-family="monospace">PIC 9(02)</text>
+<rect x="16" y="4810" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="4823" fill="#2c3e50" font-size="11" font-family="monospace">10 FILLER</text>
+<text x="24" y="4835" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(01)</text>
+<rect x="16" y="4708" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="4721" fill="#2c3e50" font-size="11" font-family="monospace">10 WS-TIMESTAMP-TM-MM</text>
+<text x="24" y="4733" fill="#7f8c8d" font-size="9" font-family="monospace">PIC 9(02)</text>
+<rect x="16" y="4810" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="4823" fill="#2c3e50" font-size="11" font-family="monospace">10 FILLER</text>
+<text x="24" y="4835" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(01)</text>
+<rect x="16" y="4776" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="4789" fill="#2c3e50" font-size="11" font-family="monospace">10 WS-TIMESTAMP-TM-SS</text>
+<text x="24" y="4801" fill="#7f8c8d" font-size="9" font-family="monospace">PIC 9(02)</text>
+<rect x="16" y="4810" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="4823" fill="#2c3e50" font-size="11" font-family="monospace">10 FILLER</text>
+<text x="24" y="4835" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(01)</text>
+<rect x="16" y="4844" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="4857" fill="#2c3e50" font-size="11" font-family="monospace">10 WS-TIMESTAMP-TM-MS6</text>
+<text x="24" y="4869" fill="#7f8c8d" font-size="9" font-family="monospace">PIC 9(06)</text>
+<rect x="16" y="4878" width="260" height="26" rx="4" fill="#f4ecff" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="4891" fill="#2c3e50" font-size="11" font-family="monospace">01 CCDA-COMMON-MESSAGES</text>
+<text x="24" y="4903" fill="#7f8c8d" font-size="9" font-family="monospace"></text>
+<rect x="16" y="4912" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="4925" fill="#2c3e50" font-size="11" font-family="monospace">05 CCDA-MSG-THANK-YOU</text>
+<text x="24" y="4937" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(50)</text>
+<rect x="16" y="4946" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="4959" fill="#2c3e50" font-size="11" font-family="monospace">05 CCDA-MSG-INVALID-KEY</text>
+<text x="24" y="4971" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(50)</text>
+<rect x="16" y="4980" width="260" height="26" rx="4" fill="#f4ecff" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="4993" fill="#2c3e50" font-size="11" font-family="monospace">01 ABEND-DATA</text>
+<text x="24" y="5005" fill="#7f8c8d" font-size="9" font-family="monospace"></text>
+<rect x="16" y="5014" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="5027" fill="#2c3e50" font-size="11" font-family="monospace">05 ABEND-CODE</text>
+<text x="24" y="5039" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(4)</text>
+<rect x="16" y="5048" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="5061" fill="#2c3e50" font-size="11" font-family="monospace">05 ABEND-CULPRIT</text>
+<text x="24" y="5073" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(8)</text>
+<rect x="16" y="5082" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="5095" fill="#2c3e50" font-size="11" font-family="monospace">05 ABEND-REASON</text>
+<text x="24" y="5107" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(50)</text>
+<rect x="16" y="5116" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="5129" fill="#2c3e50" font-size="11" font-family="monospace">05 ABEND-MSG</text>
+<text x="24" y="5141" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(72)</text>
+<rect x="16" y="5150" width="260" height="26" rx="4" fill="#f4ecff" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="5163" fill="#2c3e50" font-size="11" font-family="monospace">01 SEC-USER-DATA</text>
+<text x="24" y="5175" fill="#7f8c8d" font-size="9" font-family="monospace"></text>
+<rect x="16" y="5184" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="5197" fill="#2c3e50" font-size="11" font-family="monospace">05 SEC-USR-ID</text>
+<text x="24" y="5209" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(08)</text>
+<rect x="16" y="5218" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="5231" fill="#2c3e50" font-size="11" font-family="monospace">05 SEC-USR-FNAME</text>
+<text x="24" y="5243" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(20)</text>
+<rect x="16" y="5252" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="5265" fill="#2c3e50" font-size="11" font-family="monospace">05 SEC-USR-LNAME</text>
+<text x="24" y="5277" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(20)</text>
+<rect x="16" y="5286" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="5299" fill="#2c3e50" font-size="11" font-family="monospace">05 SEC-USR-PWD</text>
+<text x="24" y="5311" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(08)</text>
+<rect x="16" y="5320" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="5333" fill="#2c3e50" font-size="11" font-family="monospace">05 SEC-USR-TYPE</text>
+<text x="24" y="5345" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(01)</text>
+<rect x="16" y="5354" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="5367" fill="#2c3e50" font-size="11" font-family="monospace">05 SEC-USR-FILLER</text>
+<text x="24" y="5379" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(23)</text>
+<rect x="16" y="5388" width="260" height="26" rx="4" fill="#f4ecff" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="5401" fill="#2c3e50" font-size="11" font-family="monospace">01 CARD-RECORD</text>
+<text x="24" y="5413" fill="#7f8c8d" font-size="9" font-family="monospace"></text>
+<rect x="16" y="5422" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="5435" fill="#2c3e50" font-size="11" font-family="monospace">05 CARD-NUM</text>
+<text x="24" y="5447" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(16)</text>
+<rect x="16" y="5456" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="5469" fill="#2c3e50" font-size="11" font-family="monospace">05 CARD-ACCT-ID</text>
+<text x="24" y="5481" fill="#7f8c8d" font-size="9" font-family="monospace">PIC 9(11)</text>
+<rect x="16" y="5490" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="5503" fill="#2c3e50" font-size="11" font-family="monospace">05 CARD-CVV-CD</text>
+<text x="24" y="5515" fill="#7f8c8d" font-size="9" font-family="monospace">PIC 9(03)</text>
+<rect x="16" y="5524" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="5537" fill="#2c3e50" font-size="11" font-family="monospace">05 CARD-EMBOSSED-NAME</text>
+<text x="24" y="5549" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(50)</text>
+<rect x="16" y="5558" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="5571" fill="#2c3e50" font-size="11" font-family="monospace">05 CARD-EXPIRAION-DATE</text>
+<text x="24" y="5583" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(10)</text>
+<rect x="16" y="5592" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="5605" fill="#2c3e50" font-size="11" font-family="monospace">05 CARD-ACTIVE-STATUS</text>
+<text x="24" y="5617" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(01)</text>
+<rect x="16" y="5626" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="5639" fill="#2c3e50" font-size="11" font-family="monospace">05 FILLER</text>
+<text x="24" y="5651" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(59)</text>
+<rect x="16" y="5660" width="260" height="26" rx="4" fill="#f4ecff" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="5673" fill="#2c3e50" font-size="11" font-family="monospace">01 CUSTOMER-RECORD</text>
+<text x="24" y="5685" fill="#7f8c8d" font-size="9" font-family="monospace"></text>
+<rect x="16" y="5694" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="5707" fill="#2c3e50" font-size="11" font-family="monospace">05 CUST-ID</text>
+<text x="24" y="5719" fill="#7f8c8d" font-size="9" font-family="monospace">PIC 9(09)</text>
+<rect x="16" y="5728" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="5741" fill="#2c3e50" font-size="11" font-family="monospace">05 CUST-FIRST-NAME</text>
+<text x="24" y="5753" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(25)</text>
+<rect x="16" y="5762" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="5775" fill="#2c3e50" font-size="11" font-family="monospace">05 CUST-MIDDLE-NAME</text>
+<text x="24" y="5787" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(25)</text>
+<rect x="16" y="5796" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="5809" fill="#2c3e50" font-size="11" font-family="monospace">05 CUST-LAST-NAME</text>
+<text x="24" y="5821" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(25)</text>
+<rect x="16" y="5830" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="5843" fill="#2c3e50" font-size="11" font-family="monospace">05 CUST-ADDR-LINE-1</text>
+<text x="24" y="5855" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(50)</text>
+<rect x="16" y="5864" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="5877" fill="#2c3e50" font-size="11" font-family="monospace">05 CUST-ADDR-LINE-2</text>
+<text x="24" y="5889" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(50)</text>
+<rect x="16" y="5898" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="5911" fill="#2c3e50" font-size="11" font-family="monospace">05 CUST-ADDR-LINE-3</text>
+<text x="24" y="5923" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(50)</text>
+<rect x="16" y="5932" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="5945" fill="#2c3e50" font-size="11" font-family="monospace">05 CUST-ADDR-STATE-CD</text>
+<text x="24" y="5957" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(02)</text>
+<rect x="16" y="5966" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="5979" fill="#2c3e50" font-size="11" font-family="monospace">05 CUST-ADDR-COUNTRY-CD</text>
+<text x="24" y="5991" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(03)</text>
+<rect x="16" y="6000" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="6013" fill="#2c3e50" font-size="11" font-family="monospace">05 CUST-ADDR-ZIP</text>
+<text x="24" y="6025" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(10)</text>
+<rect x="16" y="6034" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="6047" fill="#2c3e50" font-size="11" font-family="monospace">05 CUST-PHONE-NUM-1</text>
+<text x="24" y="6059" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(15)</text>
+<rect x="16" y="6068" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="6081" fill="#2c3e50" font-size="11" font-family="monospace">05 CUST-PHONE-NUM-2</text>
+<text x="24" y="6093" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(15)</text>
+<rect x="16" y="6102" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="6115" fill="#2c3e50" font-size="11" font-family="monospace">05 CUST-SSN</text>
+<text x="24" y="6127" fill="#7f8c8d" font-size="9" font-family="monospace">PIC 9(09)</text>
+<rect x="16" y="6136" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="6149" fill="#2c3e50" font-size="11" font-family="monospace">05 CUST-GOVT-ISSUED-ID</text>
+<text x="24" y="6161" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(20)</text>
+<rect x="16" y="6170" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="6183" fill="#2c3e50" font-size="11" font-family="monospace">05 CUST-DOB-YYYY-MM-DD</text>
+<text x="24" y="6195" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(10)</text>
+<rect x="16" y="6204" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="6217" fill="#2c3e50" font-size="11" font-family="monospace">05 CUST-EFT-ACCOUNT-ID</text>
+<text x="24" y="6229" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(10)</text>
+<rect x="16" y="6238" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="6251" fill="#2c3e50" font-size="11" font-family="monospace">05 CUST-PRI-CARD-HOLDER-IND</text>
+<text x="24" y="6263" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(01)</text>
+<rect x="16" y="6272" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="6285" fill="#2c3e50" font-size="11" font-family="monospace">05 CUST-FICO-CREDIT-SCORE</text>
+<text x="24" y="6297" fill="#7f8c8d" font-size="9" font-family="monospace">PIC 9(03)</text>
+<rect x="16" y="6306" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="6319" fill="#2c3e50" font-size="11" font-family="monospace">05 FILLER</text>
+<text x="24" y="6331" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(168)</text>
+<rect x="16" y="6340" width="260" height="26" rx="4" fill="#f4ecff" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="6353" fill="#2c3e50" font-size="11" font-family="monospace">01 DFHCOMMAREA</text>
+<text x="24" y="6365" fill="#7f8c8d" font-size="9" font-family="monospace"></text>
+<rect x="16" y="6374" width="260" height="26" rx="4" fill="#eef2f7" stroke="#8e44ad" stroke-width="1"/>
+<text x="24" y="6387" fill="#2c3e50" font-size="11" font-family="monospace">05 FILLER</text>
+<text x="24" y="6399" fill="#7f8c8d" font-size="9" font-family="monospace">PIC X(1)</text>
+</svg>

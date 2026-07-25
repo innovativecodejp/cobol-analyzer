@@ -19,6 +19,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CobolAnalyzer.API.Tests", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CobolAnalyzer.Core.Tests", "..\..\tests\CobolAnalyzer.Core.Tests\CobolAnalyzer.Core.Tests.csproj", "{C7422752-82E5-429E-8053-B303E0088CD2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoPrecompute", "..\..\tools\DemoPrecompute\DemoPrecompute.csproj", "{2301127B-1548-4559-A674-9F0282045F1A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoPrecompute.Tests", "..\..\tests\DemoPrecompute.Tests\DemoPrecompute.Tests.csproj", "{4AA2B9FA-A801-4868-A3FC-F5927D144FC5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -125,6 +129,30 @@ Global
 		{C7422752-82E5-429E-8053-B303E0088CD2}.Release|x64.Build.0 = Release|Any CPU
 		{C7422752-82E5-429E-8053-B303E0088CD2}.Release|x86.ActiveCfg = Release|Any CPU
 		{C7422752-82E5-429E-8053-B303E0088CD2}.Release|x86.Build.0 = Release|Any CPU
+		{2301127B-1548-4559-A674-9F0282045F1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2301127B-1548-4559-A674-9F0282045F1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2301127B-1548-4559-A674-9F0282045F1A}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{2301127B-1548-4559-A674-9F0282045F1A}.Debug|x64.Build.0 = Debug|Any CPU
+		{2301127B-1548-4559-A674-9F0282045F1A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2301127B-1548-4559-A674-9F0282045F1A}.Debug|x86.Build.0 = Debug|Any CPU
+		{2301127B-1548-4559-A674-9F0282045F1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2301127B-1548-4559-A674-9F0282045F1A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2301127B-1548-4559-A674-9F0282045F1A}.Release|x64.ActiveCfg = Release|Any CPU
+		{2301127B-1548-4559-A674-9F0282045F1A}.Release|x64.Build.0 = Release|Any CPU
+		{2301127B-1548-4559-A674-9F0282045F1A}.Release|x86.ActiveCfg = Release|Any CPU
+		{2301127B-1548-4559-A674-9F0282045F1A}.Release|x86.Build.0 = Release|Any CPU
+		{4AA2B9FA-A801-4868-A3FC-F5927D144FC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AA2B9FA-A801-4868-A3FC-F5927D144FC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4AA2B9FA-A801-4868-A3FC-F5927D144FC5}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{4AA2B9FA-A801-4868-A3FC-F5927D144FC5}.Debug|x64.Build.0 = Debug|Any CPU
+		{4AA2B9FA-A801-4868-A3FC-F5927D144FC5}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{4AA2B9FA-A801-4868-A3FC-F5927D144FC5}.Debug|x86.Build.0 = Debug|Any CPU
+		{4AA2B9FA-A801-4868-A3FC-F5927D144FC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4AA2B9FA-A801-4868-A3FC-F5927D144FC5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4AA2B9FA-A801-4868-A3FC-F5927D144FC5}.Release|x64.ActiveCfg = Release|Any CPU
+		{4AA2B9FA-A801-4868-A3FC-F5927D144FC5}.Release|x64.Build.0 = Release|Any CPU
+		{4AA2B9FA-A801-4868-A3FC-F5927D144FC5}.Release|x86.ActiveCfg = Release|Any CPU
+		{4AA2B9FA-A801-4868-A3FC-F5927D144FC5}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

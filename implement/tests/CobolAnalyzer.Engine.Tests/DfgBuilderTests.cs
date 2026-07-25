@@ -41,6 +41,32 @@ public class DfgBuilderTests
     }
 
     [Fact]
+    public void Build_DuplicateFillerInGroup_DoesNotThrow()
+    {
+        // 実 COBOL では同一グループ配下に複数の FILLER を書ける。
+        // 修飾 Id が "GROUP.FILLER" で重複しても解析がクラッシュしないこと（回帰）。
+        var source = @"       IDENTIFICATION DIVISION.
+       PROGRAM-ID. MYPROG.
+       DATA DIVISION.
+       WORKING-STORAGE SECTION.
+       01 WS-GROUP.
+          05 FILLER PIC X(3) VALUE 'ABC'.
+          05 WS-FIELD PIC 9.
+          05 FILLER PIC X(2) VALUE 'DE'.
+       PROCEDURE DIVISION.
+       MAIN-PARA.
+           MOVE 1 TO WS-FIELD.
+           STOP RUN.";
+
+        var exception = Record.Exception(() => BuildFromSource(source));
+
+        Assert.Null(exception);
+        var (_, dfg, closure) = BuildFromSource(source);
+        Assert.Contains(dfg.Nodes, n => n.Name == "FILLER");
+        Assert.NotNull(closure);
+    }
+
+    [Fact]
     public void Build_Redefines_RedefinesEdge()
     {
         var (_, dfg, _) = BuildFromSource(ReadTestData("data-sample.cbl"));

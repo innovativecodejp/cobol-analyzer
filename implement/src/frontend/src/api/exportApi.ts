@@ -1,4 +1,5 @@
 import type { ExportDesignRequest, ExportReportRequest } from '../types/projectTypes';
+import { STATIC_MODE, loadAnnotationReport, loadMigrationDesign } from './staticData';
 
 const API_BASE = import.meta.env.VITE_API_BASE ?? 'http://localhost:5000';
 const MARKDOWN_MIME = 'text/markdown;charset=utf-8';
@@ -23,13 +24,33 @@ export function downloadAsFile(content: string, fileName: string, mimeType: stri
   URL.revokeObjectURL(url);
 }
 
+/**
+ * 注釈レポートをダウンロードする。
+ * 静的モードでは任意ソースの再生成は不可。事前計算済み Markdown（プログラム名でキー）を保存する（§6-3）。
+ */
 export async function downloadAnnotationReport(req: ExportReportRequest): Promise<void> {
+  if (STATIC_MODE) {
+    const { content, fileName } = await loadAnnotationReport(req.fileName);
+    downloadAsFile(content, fileName, MARKDOWN_MIME);
+    return;
+  }
+
   const markdown = await postMarkdown('/api/export/annotation-report', req);
   const baseName = req.fileName.replace(/\.[^.]+$/, '') || 'program';
   downloadAsFile(markdown, `${baseName}-annotation-report.md`, MARKDOWN_MIME);
 }
 
+/**
+ * 移行設計書をダウンロードする。
+ * 静的モードでは事前計算済みプロジェクト移行設計書を保存する（sources は無視・§6-3）。
+ */
 export async function downloadMigrationDesign(req: ExportDesignRequest): Promise<void> {
+  if (STATIC_MODE) {
+    const { content, fileName } = await loadMigrationDesign();
+    downloadAsFile(content, fileName, MARKDOWN_MIME);
+    return;
+  }
+
   const markdown = await postMarkdown('/api/export/migration-design', req);
   downloadAsFile(markdown, 'migration-design.md', MARKDOWN_MIME);
 }

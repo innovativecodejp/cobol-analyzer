@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>COBOL Analyzer — 静的デモ</title>
+<style>
+  :root{color-scheme:light dark}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.65;color:#1c2330;background:#f5f7fa}
+  header{background:#2c3e50;color:#fff;padding:2rem 1.5rem}
+  header h1{margin:0 0 .3rem}
+  header p{margin:0;color:#c7d2e0}
+  main{max-width:900px;margin:0 auto;padding:1.5rem}
+  .demos{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.5rem 0}
+  @media(max-width:640px){.demos{grid-template-columns:1fr}}
+  .demo{display:block;background:#fff;border:1px solid #dce2ea;border-radius:8px;padding:1.2rem;text-decoration:none;color:inherit}
+  .demo:hover{border-color:#3d6098;box-shadow:0 2px 10px rgba(44,62,80,.08)}
+  .demo h2{margin:.2rem 0;color:#2c3e50}
+  .demo .tag{display:inline-block;font-size:.75rem;background:#eef2f7;color:#3d6098;border-radius:10px;padding:.1rem .6rem;margin-bottom:.4rem}
+  h2.section{border-bottom:2px solid #e1e6ee;padding-bottom:.3rem;margin-top:2rem}
+  ul{padding-left:1.2rem}
+  code{background:#eef2f7;padding:.1rem .35rem;border-radius:3px;font-size:.9em}
+  .attribution{font-size:.85rem;color:#5a6474;background:#eef2f7;border-radius:6px;padding:.9rem 1rem;margin-top:2rem}
+  footer{max-width:900px;margin:0 auto;padding:1.5rem;color:#5a6474;font-size:.85rem}
+</style>
+</head>
+<body>
+<header>
+  <h1>COBOL Analyzer</h1>
+  <p>COBOL コード解析・AST/CFG/DFG 可視化・移行困難度指数（MDI）算出ツール — バックエンド不要の静的デモ</p>
+</header>
+<main>
+  <p>固定サンプルコーパス <strong>AWS CardDemo</strong>（全 31 プログラム）を事前計算し、
+  GitHub Pages 上でバックエンドなしに閲覧・操作できる 2 系統のデモを公開しています。</p>
+
+  <div class="demos">
+    <a class="demo" href="gallery/index.html">
+      <span class="tag">デモ B ・ ギャラリー</span>
+      <h2>解析ギャラリー →</h2>
+      <p>全 31 本の移行優先度ランキング、プログラム間依存グラフ、対象プログラムの注釈レポートと
+      AST/CFG/DFG 図、プロジェクト移行設計書を閲覧専用で。</p>
+    </a>
+    <a class="demo" href="app/index.html">
+      <span class="tag">デモ C ・ インタラクティブ</span>
+      <h2>インタラクティブ解析 →</h2>
+      <p>事前計算結果をブラウザで操作。AST 折りたたみ、CFG/DFG ナビ、ノード↔ソース双方向ハイライト、
+      GO TO / PERFORM ジャンプ、データ影響閉包、MDI パネル。</p>
+    </a>
+  </div>
+
+  <h2 class="section">このツールについて</h2>
+  <ul>
+    <li>解析エンジン（.NET）が COBOL を AST 化し、CFG/DFG・6 指標から MDI（移行困難度指数）を算出。</li>
+    <li>プログラム間の静的 CALL 依存グラフと、MDI に基づく移行優先度ランキング・戦略提案。</li>
+    <li>本デモは事前計算された静的成果物（JSON / Markdown / SVG）で構成され、サーバを必要としません。</li>
+  </ul>
+
+  <div class="attribution">
+    サンプルコーパス: <a href="https://github.com/aws-samples/aws-mainframe-modernization-carddemo">AWS CardDemo</a>
+    — <code>Apache-2.0</code>, pinned commit <code>59cc6c2fd7eb</code>。CardDemo は改変せず submodule として固定参照しています。
+  </div>
+</main>
+<footer>COBOL Analyzer — Phase 9 静的デモ（デモ B: ギャラリー ／ デモ C: 静的インタラクティブ）</footer>
+</body>
+</html>

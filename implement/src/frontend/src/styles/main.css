@@ -518,3 +518,26 @@ html, body, #app {
     grid-row: auto;
   }
 }
+
+/* 静的データモード（デモ C）: プログラムピッカー・帰属表示 */
+#program-picker-bar {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  padding: 0.5rem;
+  border-bottom: 1px solid #dce2ea;
+  background: #f5f7fa;
+  flex-wrap: wrap;
+}
+#program-picker-bar select {
+  flex: 1;
+  min-width: 12rem;
+  padding: 0.3rem;
+}
+#static-attribution {
+  margin-left: auto;
+  font-size: 0.8rem;
+  color: #5a6474;
+  padding: 0 0.75rem;
+}
+#static-attribution a { color: #3d6098; }

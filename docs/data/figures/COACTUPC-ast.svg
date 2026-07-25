@@ -1,0 +1,327 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 324 3272" width="324" height="3272" role="img" aria-label="AST: COACTUPC">
+<title>AST: COACTUPC</title>
+<rect x="0" y="0" width="324" height="3272" fill="#ffffff"/>
+<rect x="16" y="16" width="210" height="26" rx="4" fill="#2c3e50" opacity="0.92"/>
+<text x="24" y="33" fill="#fff" font-size="12" font-family="monospace">Program: COACTUPC</text>
+<path d="M22 29 V59 H42" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="42" y="46" width="210" height="26" rx="4" fill="#34495e" opacity="0.92"/>
+<text x="50" y="63" fill="#fff" font-size="12" font-family="monospace">Division: IDENTIFICATION DIVI…</text>
+<path d="M22 59 V89 H42" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="42" y="76" width="210" height="26" rx="4" fill="#34495e" opacity="0.92"/>
+<text x="50" y="93" fill="#fff" font-size="12" font-family="monospace">Division: ENVIRONMENT DIVISION</text>
+<path d="M22 89 V119 H42" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="42" y="106" width="210" height="26" rx="4" fill="#34495e" opacity="0.92"/>
+<text x="50" y="123" fill="#fff" font-size="12" font-family="monospace">Division: DATA DIVISION</text>
+<path d="M48 119 V149 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="136" width="210" height="26" rx="4" fill="#3d6098" opacity="0.92"/>
+<text x="76" y="153" fill="#fff" font-size="12" font-family="monospace">Section: WORKING-STORAGE SECT…</text>
+<path d="M48 149 V179 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="166" width="210" height="26" rx="4" fill="#3d6098" opacity="0.92"/>
+<text x="76" y="183" fill="#fff" font-size="12" font-family="monospace">Section: LINKAGE SECTION</text>
+<path d="M22 179 V209 H42" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="42" y="196" width="210" height="26" rx="4" fill="#34495e" opacity="0.92"/>
+<text x="50" y="213" fill="#fff" font-size="12" font-family="monospace">Division: PROCEDURE DIVISION</text>
+<path d="M48 209 V239 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="226" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="243" fill="#fff" font-size="12" font-family="monospace">¶ 0000-MAIN</text>
+<path d="M48 239 V269 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="256" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="273" fill="#fff" font-size="12" font-family="monospace">¶ COMMON-RETURN</text>
+<path d="M48 269 V299 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="286" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="303" fill="#fff" font-size="12" font-family="monospace">¶ 0000-MAIN-EXIT</text>
+<path d="M48 299 V329 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="316" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="333" fill="#fff" font-size="12" font-family="monospace">¶ 1000-PROCESS-INPUTS</text>
+<path d="M48 329 V359 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="346" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="363" fill="#fff" font-size="12" font-family="monospace">¶ 1000-PROCESS-INPUTS-EXIT</text>
+<path d="M48 359 V389 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="376" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="393" fill="#fff" font-size="12" font-family="monospace">¶ 1100-RECEIVE-MAP</text>
+<path d="M48 389 V419 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="406" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="423" fill="#fff" font-size="12" font-family="monospace">¶ 1100-RECEIVE-MAP-EXIT</text>
+<path d="M48 419 V449 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="436" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="453" fill="#fff" font-size="12" font-family="monospace">¶ 1200-EDIT-MAP-INPUTS</text>
+<path d="M48 449 V479 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="466" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="483" fill="#fff" font-size="12" font-family="monospace">¶ 1200-EDIT-MAP-INPUTS-EXIT</text>
+<path d="M48 479 V509 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="496" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="513" fill="#fff" font-size="12" font-family="monospace">¶ 1205-COMPARE-OLD-NEW</text>
+<path d="M48 509 V539 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="526" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="543" fill="#fff" font-size="12" font-family="monospace">¶ 1205-COMPARE-OLD-NEW-EXIT</text>
+<path d="M48 539 V569 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="556" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="573" fill="#fff" font-size="12" font-family="monospace">¶ 1210-EDIT-ACCOUNT</text>
+<path d="M48 569 V599 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="586" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="603" fill="#fff" font-size="12" font-family="monospace">¶ 1210-EDIT-ACCOUNT-EXIT</text>
+<path d="M48 599 V629 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="616" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="633" fill="#fff" font-size="12" font-family="monospace">¶ 1215-EDIT-MANDATORY</text>
+<path d="M48 629 V659 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="646" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="663" fill="#fff" font-size="12" font-family="monospace">¶ 1215-EDIT-MANDATORY-EXIT</text>
+<path d="M48 659 V689 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="676" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="693" fill="#fff" font-size="12" font-family="monospace">¶ 1220-EDIT-YESNO</text>
+<path d="M48 689 V719 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="706" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="723" fill="#fff" font-size="12" font-family="monospace">¶ 1220-EDIT-YESNO-EXIT</text>
+<path d="M48 719 V749 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="736" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="753" fill="#fff" font-size="12" font-family="monospace">¶ 1225-EDIT-ALPHA-REQD</text>
+<path d="M48 749 V779 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="766" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="783" fill="#fff" font-size="12" font-family="monospace">¶ 1225-EDIT-ALPHA-REQD-EXIT</text>
+<path d="M48 779 V809 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="796" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="813" fill="#fff" font-size="12" font-family="monospace">¶ 1230-EDIT-ALPHANUM-REQD</text>
+<path d="M48 809 V839 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="826" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="843" fill="#fff" font-size="12" font-family="monospace">¶ 1230-EDIT-ALPHANUM-REQD-EXIT</text>
+<path d="M48 839 V869 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="856" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="873" fill="#fff" font-size="12" font-family="monospace">¶ 1235-EDIT-ALPHA-OPT</text>
+<path d="M48 869 V899 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="886" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="903" fill="#fff" font-size="12" font-family="monospace">¶ 1235-EDIT-ALPHA-OPT-EXIT</text>
+<path d="M48 899 V929 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="916" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="933" fill="#fff" font-size="12" font-family="monospace">¶ 1240-EDIT-ALPHANUM-OPT</text>
+<path d="M48 929 V959 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="946" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="963" fill="#fff" font-size="12" font-family="monospace">¶ 1240-EDIT-ALPHANUM-OPT-EXIT</text>
+<path d="M48 959 V989 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="976" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="993" fill="#fff" font-size="12" font-family="monospace">¶ 1245-EDIT-NUM-REQD</text>
+<path d="M48 989 V1019 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="1006" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="1023" fill="#fff" font-size="12" font-family="monospace">¶ 1245-EDIT-NUM-REQD-EXIT</text>
+<path d="M48 1019 V1049 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="1036" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="1053" fill="#fff" font-size="12" font-family="monospace">¶ 1250-EDIT-SIGNED-9V2</text>
+<path d="M48 1049 V1079 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="1066" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="1083" fill="#fff" font-size="12" font-family="monospace">¶ 1250-EDIT-SIGNED-9V2-EXIT</text>
+<path d="M48 1079 V1109 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="1096" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="1113" fill="#fff" font-size="12" font-family="monospace">¶ 1260-EDIT-US-PHONE-NUM</text>
+<path d="M48 1109 V1139 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="1126" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="1143" fill="#fff" font-size="12" font-family="monospace">¶ EDIT-AREA-CODE</text>
+<path d="M48 1139 V1169 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="1156" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="1173" fill="#fff" font-size="12" font-family="monospace">¶ EDIT-US-PHONE-PREFIX</text>
+<path d="M48 1169 V1199 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="1186" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="1203" fill="#fff" font-size="12" font-family="monospace">¶ EDIT-US-PHONE-LINENUM</text>
+<path d="M48 1199 V1229 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="1216" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="1233" fill="#fff" font-size="12" font-family="monospace">¶ EDIT-US-PHONE-EXIT</text>
+<path d="M48 1229 V1259 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="1246" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="1263" fill="#fff" font-size="12" font-family="monospace">¶ 1260-EDIT-US-PHONE-NUM-EXIT</text>
+<path d="M48 1259 V1289 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="1276" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="1293" fill="#fff" font-size="12" font-family="monospace">¶ 1265-EDIT-US-SSN</text>
+<path d="M48 1289 V1319 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="1306" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="1323" fill="#fff" font-size="12" font-family="monospace">¶ 1265-EDIT-US-SSN-EXIT</text>
+<path d="M48 1319 V1349 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="1336" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="1353" fill="#fff" font-size="12" font-family="monospace">¶ 1270-EDIT-US-STATE-CD</text>
+<path d="M48 1349 V1379 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="1366" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="1383" fill="#fff" font-size="12" font-family="monospace">¶ 1270-EDIT-US-STATE-CD-EXIT</text>
+<path d="M48 1379 V1409 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="1396" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="1413" fill="#fff" font-size="12" font-family="monospace">¶ 1275-EDIT-FICO-SCORE</text>
+<path d="M48 1409 V1439 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="1426" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="1443" fill="#fff" font-size="12" font-family="monospace">¶ 1275-EDIT-FICO-SCORE-EXIT</text>
+<path d="M48 1439 V1469 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="1456" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="1473" fill="#fff" font-size="12" font-family="monospace">¶ 1280-EDIT-US-STATE-ZIP-CD</text>
+<path d="M48 1469 V1499 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="1486" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="1503" fill="#fff" font-size="12" font-family="monospace">¶ 1280-EDIT-US-STATE-ZIP-CD-E…</text>
+<path d="M48 1499 V1529 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="1516" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="1533" fill="#fff" font-size="12" font-family="monospace">¶ 2000-DECIDE-ACTION</text>
+<path d="M48 1529 V1559 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="1546" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="1563" fill="#fff" font-size="12" font-family="monospace">¶ 2000-DECIDE-ACTION-EXIT</text>
+<path d="M48 1559 V1589 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="1576" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="1593" fill="#fff" font-size="12" font-family="monospace">¶ 3000-SEND-MAP</text>
+<path d="M48 1589 V1619 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="1606" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="1623" fill="#fff" font-size="12" font-family="monospace">¶ 3000-SEND-MAP-EXIT</text>
+<path d="M48 1619 V1649 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="1636" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="1653" fill="#fff" font-size="12" font-family="monospace">¶ 3100-SCREEN-INIT</text>
+<path d="M48 1649 V1679 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="1666" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="1683" fill="#fff" font-size="12" font-family="monospace">¶ 3100-SCREEN-INIT-EXIT</text>
+<path d="M48 1679 V1709 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="1696" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="1713" fill="#fff" font-size="12" font-family="monospace">¶ 3200-SETUP-SCREEN-VARS</text>
+<path d="M48 1709 V1739 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="1726" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="1743" fill="#fff" font-size="12" font-family="monospace">¶ 3200-SETUP-SCREEN-VARS-EXIT</text>
+<path d="M48 1739 V1769 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="1756" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="1773" fill="#fff" font-size="12" font-family="monospace">¶ 3201-SHOW-INITIAL-VALUES</text>
+<path d="M48 1769 V1799 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="1786" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="1803" fill="#fff" font-size="12" font-family="monospace">¶ 3201-SHOW-INITIAL-VALUES-EX…</text>
+<path d="M48 1799 V1829 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="1816" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="1833" fill="#fff" font-size="12" font-family="monospace">¶ 3202-SHOW-ORIGINAL-VALUES</text>
+<path d="M48 1829 V1859 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="1846" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="1863" fill="#fff" font-size="12" font-family="monospace">¶ 3202-SHOW-ORIGINAL-VALUES-E…</text>
+<path d="M48 1859 V1889 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="1876" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="1893" fill="#fff" font-size="12" font-family="monospace">¶ 3203-SHOW-UPDATED-VALUES</text>
+<path d="M48 1889 V1919 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="1906" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="1923" fill="#fff" font-size="12" font-family="monospace">¶ 3203-SHOW-UPDATED-VALUES-EX…</text>
+<path d="M48 1919 V1949 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="1936" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="1953" fill="#fff" font-size="12" font-family="monospace">¶ 3250-SETUP-INFOMSG</text>
+<path d="M48 1949 V1979 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="1966" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="1983" fill="#fff" font-size="12" font-family="monospace">¶ 3250-SETUP-INFOMSG-EXIT</text>
+<path d="M48 1979 V2009 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="1996" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="2013" fill="#fff" font-size="12" font-family="monospace">¶ 3300-SETUP-SCREEN-ATTRS</text>
+<path d="M48 2009 V2039 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="2026" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="2043" fill="#fff" font-size="12" font-family="monospace">¶ 3300-SETUP-SCREEN-ATTRS-EXIT</text>
+<path d="M48 2039 V2069 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="2056" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="2073" fill="#fff" font-size="12" font-family="monospace">¶ 3310-PROTECT-ALL-ATTRS</text>
+<path d="M48 2069 V2099 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="2086" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="2103" fill="#fff" font-size="12" font-family="monospace">¶ 3310-PROTECT-ALL-ATTRS-EXIT</text>
+<path d="M48 2099 V2129 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="2116" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="2133" fill="#fff" font-size="12" font-family="monospace">¶ 3320-UNPROTECT-FEW-ATTRS</text>
+<path d="M48 2129 V2159 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="2146" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="2163" fill="#fff" font-size="12" font-family="monospace">¶ 3320-UNPROTECT-FEW-ATTRS-EX…</text>
+<path d="M48 2159 V2189 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="2176" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="2193" fill="#fff" font-size="12" font-family="monospace">¶ 3390-SETUP-INFOMSG-ATTRS</text>
+<path d="M48 2189 V2219 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="2206" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="2223" fill="#fff" font-size="12" font-family="monospace">¶ 3390-SETUP-INFOMSG-ATTRS-EX…</text>
+<path d="M48 2219 V2249 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="2236" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="2253" fill="#fff" font-size="12" font-family="monospace">¶ 3400-SEND-SCREEN</text>
+<path d="M48 2249 V2279 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="2266" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="2283" fill="#fff" font-size="12" font-family="monospace">¶ 3400-SEND-SCREEN-EXIT</text>
+<path d="M48 2279 V2309 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="2296" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="2313" fill="#fff" font-size="12" font-family="monospace">¶ 9000-READ-ACCT</text>
+<path d="M48 2309 V2339 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="2326" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="2343" fill="#fff" font-size="12" font-family="monospace">¶ 9000-READ-ACCT-EXIT</text>
+<path d="M48 2339 V2369 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="2356" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="2373" fill="#fff" font-size="12" font-family="monospace">¶ 9200-GETCARDXREF-BYACCT</text>
+<path d="M48 2369 V2399 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="2386" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="2403" fill="#fff" font-size="12" font-family="monospace">¶ 9200-GETCARDXREF-BYACCT-EXIT</text>
+<path d="M48 2399 V2429 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="2416" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="2433" fill="#fff" font-size="12" font-family="monospace">¶ 9300-GETACCTDATA-BYACCT</text>
+<path d="M48 2429 V2459 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="2446" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="2463" fill="#fff" font-size="12" font-family="monospace">¶ 9300-GETACCTDATA-BYACCT-EXIT</text>
+<path d="M48 2459 V2489 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="2476" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="2493" fill="#fff" font-size="12" font-family="monospace">¶ 9400-GETCUSTDATA-BYCUST</text>
+<path d="M48 2489 V2519 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="2506" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="2523" fill="#fff" font-size="12" font-family="monospace">¶ 9400-GETCUSTDATA-BYCUST-EXIT</text>
+<path d="M48 2519 V2549 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="2536" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="2553" fill="#fff" font-size="12" font-family="monospace">¶ 9500-STORE-FETCHED-DATA</text>
+<path d="M48 2549 V2579 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="2566" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="2583" fill="#fff" font-size="12" font-family="monospace">¶ 9500-STORE-FETCHED-DATA-EXIT</text>
+<path d="M48 2579 V2609 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="2596" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="2613" fill="#fff" font-size="12" font-family="monospace">¶ 9600-WRITE-PROCESSING</text>
+<path d="M48 2609 V2639 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="2626" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="2643" fill="#fff" font-size="12" font-family="monospace">¶ 9600-WRITE-PROCESSING-EXIT</text>
+<path d="M48 2639 V2669 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="2656" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="2673" fill="#fff" font-size="12" font-family="monospace">¶ 9700-CHECK-CHANGE-IN-REC</text>
+<path d="M48 2669 V2699 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="2686" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="2703" fill="#fff" font-size="12" font-family="monospace">¶ 9700-CHECK-CHANGE-IN-REC-EX…</text>
+<path d="M48 2699 V2729 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="2716" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="2733" fill="#fff" font-size="12" font-family="monospace">¶ YYYY-STORE-PFKEY</text>
+<path d="M48 2729 V2759 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="2746" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="2763" fill="#fff" font-size="12" font-family="monospace">¶ YYYY-STORE-PFKEY-EXIT</text>
+<path d="M48 2759 V2789 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="2776" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="2793" fill="#fff" font-size="12" font-family="monospace">¶ ABEND-ROUTINE</text>
+<path d="M48 2789 V2819 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="2806" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="2823" fill="#fff" font-size="12" font-family="monospace">¶ ABEND-ROUTINE-EXIT</text>
+<path d="M48 2819 V2849 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="2836" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="2853" fill="#fff" font-size="12" font-family="monospace">¶ EDIT-DATE-CCYYMMDD</text>
+<path d="M48 2849 V2879 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="2866" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="2883" fill="#fff" font-size="12" font-family="monospace">¶ EDIT-YEAR-CCYY</text>
+<path d="M48 2879 V2909 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="2896" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="2913" fill="#fff" font-size="12" font-family="monospace">¶ EDIT-YEAR-CCYY-EXIT</text>
+<path d="M48 2909 V2939 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="2926" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="2943" fill="#fff" font-size="12" font-family="monospace">¶ EDIT-MONTH</text>
+<path d="M48 2939 V2969 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="2956" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="2973" fill="#fff" font-size="12" font-family="monospace">¶ EDIT-MONTH-EXIT</text>
+<path d="M48 2969 V2999 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="2986" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="3003" fill="#fff" font-size="12" font-family="monospace">¶ EDIT-DAY</text>
+<path d="M48 2999 V3029 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="3016" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="3033" fill="#fff" font-size="12" font-family="monospace">¶ EDIT-DAY-EXIT</text>
+<path d="M48 3029 V3059 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="3046" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="3063" fill="#fff" font-size="12" font-family="monospace">¶ EDIT-DAY-MONTH-YEAR</text>
+<path d="M48 3059 V3089 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="3076" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="3093" fill="#fff" font-size="12" font-family="monospace">¶ EDIT-DAY-MONTH-YEAR-EXIT</text>
+<path d="M48 3089 V3119 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="3106" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="3123" fill="#fff" font-size="12" font-family="monospace">¶ EDIT-DATE-LE</text>
+<path d="M48 3119 V3149 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="3136" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="3153" fill="#fff" font-size="12" font-family="monospace">¶ EDIT-DATE-LE-EXIT</text>
+<path d="M48 3149 V3179 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="3166" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="3183" fill="#fff" font-size="12" font-family="monospace">¶ EDIT-DATE-CCYYMMDD-EXIT</text>
+<path d="M48 3179 V3209 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="3196" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="3213" fill="#fff" font-size="12" font-family="monospace">¶ EDIT-DATE-OF-BIRTH</text>
+<path d="M48 3209 V3239 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="3226" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="3243" fill="#fff" font-size="12" font-family="monospace">¶ EDIT-DATE-OF-BIRTH-EXIT</text>
+</svg>

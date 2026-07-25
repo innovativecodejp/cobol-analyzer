@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 324 722" width="324" height="722" role="img" aria-label="AST: COUSR00C">
+<title>AST: COUSR00C</title>
+<rect x="0" y="0" width="324" height="722" fill="#ffffff"/>
+<rect x="16" y="16" width="210" height="26" rx="4" fill="#2c3e50" opacity="0.92"/>
+<text x="24" y="33" fill="#fff" font-size="12" font-family="monospace">Program: COUSR00C</text>
+<path d="M22 29 V59 H42" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="42" y="46" width="210" height="26" rx="4" fill="#34495e" opacity="0.92"/>
+<text x="50" y="63" fill="#fff" font-size="12" font-family="monospace">Division: IDENTIFICATION DIVI…</text>
+<path d="M22 59 V89 H42" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="42" y="76" width="210" height="26" rx="4" fill="#34495e" opacity="0.92"/>
+<text x="50" y="93" fill="#fff" font-size="12" font-family="monospace">Division: ENVIRONMENT DIVISION</text>
+<path d="M22 89 V119 H42" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="42" y="106" width="210" height="26" rx="4" fill="#34495e" opacity="0.92"/>
+<text x="50" y="123" fill="#fff" font-size="12" font-family="monospace">Division: DATA DIVISION</text>
+<path d="M48 119 V149 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="136" width="210" height="26" rx="4" fill="#3d6098" opacity="0.92"/>
+<text x="76" y="153" fill="#fff" font-size="12" font-family="monospace">Section: WORKING-STORAGE SECT…</text>
+<path d="M48 149 V179 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="166" width="210" height="26" rx="4" fill="#3d6098" opacity="0.92"/>
+<text x="76" y="183" fill="#fff" font-size="12" font-family="monospace">Section: LINKAGE SECTION</text>
+<path d="M22 179 V209 H42" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="42" y="196" width="210" height="26" rx="4" fill="#34495e" opacity="0.92"/>
+<text x="50" y="213" fill="#fff" font-size="12" font-family="monospace">Division: PROCEDURE DIVISION</text>
+<path d="M48 209 V239 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="226" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="243" fill="#fff" font-size="12" font-family="monospace">¶ MAIN-PARA</text>
+<path d="M48 239 V269 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="256" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="273" fill="#fff" font-size="12" font-family="monospace">¶ PROCESS-ENTER-KEY</text>
+<path d="M48 269 V299 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="286" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="303" fill="#fff" font-size="12" font-family="monospace">¶ PROCESS-PF7-KEY</text>
+<path d="M48 299 V329 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="316" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="333" fill="#fff" font-size="12" font-family="monospace">¶ PROCESS-PF8-KEY</text>
+<path d="M48 329 V359 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="346" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="363" fill="#fff" font-size="12" font-family="monospace">¶ PROCESS-PAGE-FORWARD</text>
+<path d="M48 359 V389 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="376" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="393" fill="#fff" font-size="12" font-family="monospace">¶ PROCESS-PAGE-BACKWARD</text>
+<path d="M48 389 V419 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="406" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="423" fill="#fff" font-size="12" font-family="monospace">¶ POPULATE-USER-DATA</text>
+<path d="M48 419 V449 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="436" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="453" fill="#fff" font-size="12" font-family="monospace">¶ INITIALIZE-USER-DATA</text>
+<path d="M48 449 V479 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="466" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="483" fill="#fff" font-size="12" font-family="monospace">¶ RETURN-TO-PREV-SCREEN</text>
+<path d="M48 479 V509 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="496" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="513" fill="#fff" font-size="12" font-family="monospace">¶ SEND-USRLST-SCREEN</text>
+<path d="M48 509 V539 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="526" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="543" fill="#fff" font-size="12" font-family="monospace">¶ RECEIVE-USRLST-SCREEN</text>
+<path d="M48 539 V569 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="556" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="573" fill="#fff" font-size="12" font-family="monospace">¶ POPULATE-HEADER-INFO</text>
+<path d="M48 569 V599 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="586" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="603" fill="#fff" font-size="12" font-family="monospace">¶ STARTBR-USER-SEC-FILE</text>
+<path d="M48 599 V629 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="616" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="633" fill="#fff" font-size="12" font-family="monospace">¶ READNEXT-USER-SEC-FILE</text>
+<path d="M48 629 V659 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="646" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="663" fill="#fff" font-size="12" font-family="monospace">¶ READPREV-USER-SEC-FILE</text>
+<path d="M48 659 V689 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="676" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="693" fill="#fff" font-size="12" font-family="monospace">¶ ENDBR-USER-SEC-FILE</text>
+</svg>

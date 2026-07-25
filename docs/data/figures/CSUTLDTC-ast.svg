@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 324 272" width="324" height="272" role="img" aria-label="AST: CSUTLDTC">
+<title>AST: CSUTLDTC</title>
+<rect x="0" y="0" width="324" height="272" fill="#ffffff"/>
+<rect x="16" y="16" width="210" height="26" rx="4" fill="#2c3e50" opacity="0.92"/>
+<text x="24" y="33" fill="#fff" font-size="12" font-family="monospace">Program: CSUTLDTC</text>
+<path d="M22 29 V59 H42" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="42" y="46" width="210" height="26" rx="4" fill="#34495e" opacity="0.92"/>
+<text x="50" y="63" fill="#fff" font-size="12" font-family="monospace">Division: IDENTIFICATION DIVI…</text>
+<path d="M22 59 V89 H42" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="42" y="76" width="210" height="26" rx="4" fill="#34495e" opacity="0.92"/>
+<text x="50" y="93" fill="#fff" font-size="12" font-family="monospace">Division: DATA DIVISION</text>
+<path d="M48 89 V119 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="106" width="210" height="26" rx="4" fill="#3d6098" opacity="0.92"/>
+<text x="76" y="123" fill="#fff" font-size="12" font-family="monospace">Section: WORKING-STORAGE SECT…</text>
+<path d="M48 119 V149 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="136" width="210" height="26" rx="4" fill="#3d6098" opacity="0.92"/>
+<text x="76" y="153" fill="#fff" font-size="12" font-family="monospace">Section: LINKAGE SECTION</text>
+<path d="M22 149 V179 H42" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="42" y="166" width="210" height="26" rx="4" fill="#34495e" opacity="0.92"/>
+<text x="50" y="183" fill="#fff" font-size="12" font-family="monospace">Division: PROCEDURE DIVISION</text>
+<path d="M48 179 V209 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="196" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="213" fill="#fff" font-size="12" font-family="monospace">¶ A000-MAIN</text>
+<path d="M48 209 V239 H68" fill="none" stroke="#c2c8d0" stroke-width="1"/>
+<rect x="68" y="226" width="210" height="26" rx="4" fill="#27ae60" opacity="0.92"/>
+<text x="76" y="243" fill="#fff" font-size="12" font-family="monospace">¶ A000-MAIN-EXIT</text>
+</svg>
