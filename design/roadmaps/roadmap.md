@@ -1,7 +1,7 @@
 # cobol-analyzer ロードマップ
 
 作成日: 2026-05-05  
-更新日: 2026-05-23（Phase 3 AST 折りたたみフィードバックと Phase 4 参照整合の更新を反映）
+更新日: 2026-07-26（Phase 7 前処理・Phase 8 サンプルコーパス・Phase 9 デモの起票／確定を反映）
 
 ---
 
@@ -15,6 +15,9 @@
 | Phase 4 | 双方向ナビゲーション | ✅ 仕様確定 | `specs/phase4-navigation.md` |
 | Phase 5 | コメント挿入・削除 | ✅ 仕様確定 | `specs/phase5-comment.md` |
 | Phase 6 | 分析機能・エクスポート | ✅ 仕様確定 | `specs/phase6-export.md` |
+| Phase 7 | 実コード対応・前処理層 | ✅ 仕様確定 | `specs/phase7-preprocessing.md` |
+| Phase 8 | サンプルコーパス統合 | ✅ 仕様確定 | `specs/phase8-sample-corpus.md` |
+| Phase 9 | デモ B（ギャラリー）／ C（静的インタラクティブ） | ✅ 仕様確定 | `specs/phase9-demo-gallery-interactive.md` |
 
 ---
 
@@ -132,6 +135,64 @@
 
 ---
 
+## Phase 7：実コード対応・前処理層
+
+**目的**: 実運用の COBOL（AWS CardDemo）をパースできるよう、文法生成前に前処理層を挟む
+
+### 主な成果物
+- COBOL 前処理層（COPY 展開・EXEC 縮約・区切りカンマ正規化・リテラル行継続）
+- `CobolPreprocessorOptions`（`CopybookPaths` / `CopybookExtensions` / `MaxCopyDepth`）
+- `ParseResult.Warnings`（`IsSuccess` は不変で警告を記録）
+- §3.5 区切りカンマ正規化（リテラル／PIC 句を除外）＋リテラル行継続
+
+### 完了基準（抜粋）
+- CardDemo `app/cbl` が前処理経由で **31/31 パース成功**
+- コピーブック検索パス（`CopybookPaths`）が注入可能
+
+### 依存
+- Phase 1 完了（パーサー基盤）
+
+---
+
+## Phase 8：サンプルコーパス統合
+
+**目的**: 実コードを再現可能なサンプルコーパスとして固定・名前解決可能にする
+
+### 主な成果物
+- CardDemo を submodule でコミット固定（HTTPS・pin `59cc6c2`、Apache-2.0 帰属保持）
+- `implement/samples/registry.json`（サンプル定義）
+- ローダ `SampleRegistry`（name → 解決済み絶対パス、`copybookDirs` を前処理へ受け渡し）
+- `CardDemoSpike` をレジストリ既定へ再ターゲット
+
+### 完了基準（抜粋）
+- 固定版で **31/31（CB\* 12 / CO\* 18 / CS\* 1）** を再現（「CB\* 14本」は誤りと確定）
+- 既存テスト green（100 pass）、Apache-2.0 帰属がツリーに存在
+
+### 依存
+- Phase 7 完了（前処理で実コードが通る）
+
+---
+
+## Phase 9：デモ B（ギャラリー）／ C（静的インタラクティブ）
+
+**目的**: 固定コーパスの解析結果を事前計算し、バックエンド不要で GitHub Pages に静的ホストする公開デモを作る
+
+### 主な成果物
+- 事前計算パイプライン（レジストリ `carddemo` を解析 → JSON / Markdown / 図）
+- デモ B（ギャラリー）: Phase 6 エクスポート＋AST/CFG/DFG 図の静的書き出し、全31本ランキング表
+- デモ C（静的インタラクティブ）: フロント `src/api/*.ts` 境界を静的 JSON 読み込みへ差し替え（`VITE_STATIC_DATA`）
+- GitHub Pages 出力（`docs/`）・`base` パス・Apache-2.0/pin 帰属表示
+
+### 設計上の注意
+- デモ対象は **MDI 上位 N（既定8）＋バケット代表**を決定論的に選定。全31本はランキング表で網羅
+- 静的モードは `API_BASE` へ非通信。ライブ再解析（任意ソース）は非スコープ
+
+### 依存
+- Phase 8 完了（コーパス固定・名前解決）
+- Phase 6 完了（エクスポート）／ Phase 3・4 完了（可視化・ナビ）
+
+---
+
 ## 設計フェーズ進捗
 
 | 仕様書 | バージョン | 更新日 | 状態 |
@@ -142,3 +203,6 @@
 | `specs/phase4-navigation.md` | 1.3 | 2026-05-23 | ✅ 確定 |
 | `specs/phase5-comment.md` | 1.2 | 2026-05-08 | ✅ 確定 |
 | `specs/phase6-export.md` | 1.2 | 2026-05-12 | ✅ 確定 |
+| `specs/phase7-preprocessing.md` | — | 2026-07-25 | ✅ 確定 |
+| `specs/phase8-sample-corpus.md` | — | 2026-07-25 | ✅ 確定 |
+| `specs/phase9-demo-gallery-interactive.md` | — | 2026-07-26 | ✅ 確定 |
