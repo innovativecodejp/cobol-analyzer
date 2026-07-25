@@ -1,0 +1,15 @@
+{
+  "samples": [
+    {
+      "name": "carddemo",
+      "description": "AWS CardDemo — realistic COBOL mainframe credit card app",
+      "license": "Apache-2.0",
+      "sourceUrl": "https://github.com/aws-samples/aws-mainframe-modernization-carddemo",
+      "pinnedCommit": "59cc6c2fd7ebd7ef7925cad552a01a4b8b6e4d5e",
+      "root": "carddemo",
+      "cobolDir": "app/cbl",
+      "cobolGlobs": ["*.cbl", "*.CBL"],
+      "copybookDirs": ["app/cpy"]
+    }
+  ]
+}

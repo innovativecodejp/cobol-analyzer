@@ -1,44 +1,78 @@
 using System.Text;
 using System.Text.RegularExpressions;
 using CobolAnalyzer.Core.Models;
+using CobolAnalyzer.Core.Samples;
 using CobolAnalyzer.Parser;
 
-// CardDemo パース耐性 再スパイク（仕様 Phase 7 §7-3,4）。
+// CardDemo パース耐性 再スパイク（仕様 Phase 7 §7-3,4 / Phase 8 §6）。
 //
 // 使い方:
-//   dotnet run --project tools/CardDemoSpike -- <cblDir> <cpyDir> [outputMarkdown]
+//   dotnet run --project tools/CardDemoSpike                       … 引数省略＝レジストリ carddemo（既定）
+//   dotnet run --project tools/CardDemoSpike -- <cblDir> <cpyDir> [out.md]  … 明示ディレクトリ（後方互換）
+//   dotnet run --project tools/CardDemoSpike -- --sample <name> [out.md]     … レジストリのサンプル名指定
 //
-// <cblDir> 配下の *.cbl / *.CBL を、コピーブック検索パス <cpyDir> を渡した
-// CobolParserFacade.Parse に通し、pass/fail 一覧・バッチ/CICS 別集計・
-// エラーバケットを出力する（再現可能な測定ハーネス）。
-//
-// CardDemo 本体はリポジトリに含めない（測定時に取得。submodule 正式化は次フェーズ）。
+// 指定ディレクトリ配下（または解決した cobolGlobs）の COBOL を、コピーブック検索パスを渡した
+// CobolParserFacade.Parse に通し、pass/fail 一覧・バッチ/CICS 別集計・エラーバケットを出力する。
 
-if (args.Length < 2)
+string cobolDir;
+string[] copybookPaths;
+string? outPath;
+List<string> files;
+
+if (args.Length >= 2 && args[0] != "--sample")
 {
-    Console.Error.WriteLine("usage: CardDemoSpike <cblDir> <cpyDir> [outputMarkdown]");
-    return 1;
+    // 明示ディレクトリ（後方互換）
+    cobolDir = args[0];
+    copybookPaths = Directory.Exists(args[1]) ? new[] { args[1] } : Array.Empty<string>();
+    outPath = args.Length >= 3 ? args[2] : null;
+
+    if (!Directory.Exists(cobolDir))
+    {
+        Console.Error.WriteLine($"cblDir not found: {cobolDir}");
+        return 1;
+    }
+    files = Directory.EnumerateFiles(cobolDir)
+        .Where(f => f.EndsWith(".cbl", StringComparison.OrdinalIgnoreCase))
+        .OrderBy(f => Path.GetFileName(f), StringComparer.OrdinalIgnoreCase)
+        .ToList();
+}
+else
+{
+    // レジストリ既定（引数省略）または --sample <name>
+    var sampleName = args.Length >= 2 && args[0] == "--sample" ? args[1] : "carddemo";
+    outPath = args.Length >= 3 ? args[^1] :
+              args.Length == 1 && args[0] != "--sample" ? args[0] : null;
+
+    SampleRegistry registry;
+    try
+    {
+        registry = SampleRegistry.LoadDefault(AppContext.BaseDirectory);
+    }
+    catch (Exception ex)
+    {
+        Console.Error.WriteLine($"samples registry を読み込めませんでした: {ex.Message}");
+        return 1;
+    }
+
+    if (!registry.TryResolve(sampleName, out var sample))
+    {
+        Console.Error.WriteLine($"sample not registered: {sampleName}");
+        return 1;
+    }
+    if (!sample.Exists)
+    {
+        Console.Error.WriteLine(
+            $"cobolDir が存在しません（submodule 未取得の可能性）: {sample.CobolDirPath}\n" +
+            "  git submodule update --init --recursive を実行してください。");
+        return 1;
+    }
+
+    cobolDir = sample.CobolDirPath;
+    copybookPaths = sample.CopybookPaths.Where(Directory.Exists).ToArray();
+    files = sample.EnumerateCobolFiles().ToList();
 }
 
-var cblDir = args[0];
-var cpyDir = args[1];
-var outPath = args.Length >= 3 ? args[2] : null;
-
-if (!Directory.Exists(cblDir))
-{
-    Console.Error.WriteLine($"cblDir not found: {cblDir}");
-    return 1;
-}
-
-var facade = new CobolParserFacade(new CobolPreprocessorOptions
-{
-    CopybookPaths = Directory.Exists(cpyDir) ? new[] { cpyDir } : Array.Empty<string>(),
-});
-
-var files = Directory.EnumerateFiles(cblDir)
-    .Where(f => f.EndsWith(".cbl", StringComparison.OrdinalIgnoreCase))
-    .OrderBy(f => Path.GetFileName(f), StringComparer.OrdinalIgnoreCase)
-    .ToList();
+var facade = new CobolParserFacade(new CobolPreprocessorOptions { CopybookPaths = copybookPaths });
 
 var rows = new List<Row>();
 foreach (var file in files)
@@ -90,8 +124,8 @@ void W(string s = "") => sb.AppendLine(s);
 
 W("# CardDemo 再スパイク結果（前処理配線後）");
 W();
-W($"- 実行対象: `{cblDir}`");
-W($"- コピーブック: `{cpyDir}`");
+W($"- 実行対象: `{cobolDir}`");
+W($"- コピーブック: `{string.Join(", ", copybookPaths)}`");
 W($"- 対象ファイル数: {rows.Count}");
 W();
 W("## サマリ");

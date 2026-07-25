@@ -1,0 +1,23 @@
+{
+  "samples": [
+    {
+      "name": "demo",
+      "description": "test sample",
+      "license": "MIT",
+      "sourceUrl": "https://example.com/demo",
+      "pinnedCommit": "abc123def456",
+      "root": "demo-root",
+      "cobolDir": "src",
+      "cobolGlobs": ["*.cbl", "*.CBL"],
+      "copybookDirs": ["copy", "copy2"]
+    },
+    {
+      "name": "missing",
+      "description": "sample whose path does not exist",
+      "root": "missing-root",
+      "cobolDir": "src",
+      "cobolGlobs": ["*.cbl"],
+      "copybookDirs": ["cpy"]
+    }
+  ]
+}

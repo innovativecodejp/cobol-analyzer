@@ -1,0 +1,3 @@
+[submodule "implement/samples/carddemo"]
+	path = implement/samples/carddemo
+	url = https://github.com/aws-samples/aws-mainframe-modernization-carddemo.git
