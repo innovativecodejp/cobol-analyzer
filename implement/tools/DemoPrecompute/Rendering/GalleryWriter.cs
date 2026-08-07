@@ -135,7 +135,7 @@ internal static class GalleryWriter
     <main>
     {body}
     </main>
-    <footer>COBOL Analyzer — Phase 9 デモ B（ギャラリー）</footer>
+    <footer>COBOL Analyzer — 解析ギャラリー（閲覧専用）</footer>
     </body></html>
     """;
 
